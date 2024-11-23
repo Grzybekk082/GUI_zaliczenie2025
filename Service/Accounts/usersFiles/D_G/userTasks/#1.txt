@@ -1,0 +1,32 @@
+Tytuł: Problem z otwieraniem kasy fiskalnej
+
+
+Lokalizacja: Sklep "Zielony Ogród", Toruń, ul. Św. Jakuba 14, 87-100
+
+Treść zgłoszenia: Kasa fiskalna przy stanowisku nr 1 nie otwiera się po zakończeniu transakcji. Obsługa ręczna nie działa poprawnie. Klienci muszą czekać.
+
+Wskazówki dla technika:
+
+-Sprawdź, czy mechanizm otwierania kasy nie jest zablokowany (np. przez przedmiot wewnątrz).
+
+-Zweryfikuj ustawienia kasy fiskalnej w systemie i upewnij się, że jest zgodna z aktualnym    oprogramowaniem.
+
+ -Przetestuj otwieranie ręczne poprzez awaryjne przyciski lub kluczyk, jeśli dostępny.
+
+ -Upewnij się, że przewody zasilające są prawidłowo podłączone.
+
+
+Status: Wysoki
+Czas na realizację: 8 godzin
+Technik: Mateusz Kamiński
+
+Historia zlecenia:
+
+10:00: Zgłoszenie przyjęte przez technika pierwszego kontaktu.
+
+10:15: Próba zdalnej diagnozy – sprawdzono konfigurację urządzenia w systemie, brak problemów 
+       software’owych.
+
+10:30: Klient poproszony o odłączenie i ponowne podłączenie zasilania – bez zmian.
+
+11:00: Eskalacja do serwisu terenowego.

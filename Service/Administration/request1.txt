@@ -1,0 +1,5 @@
+Ola
+Kot
+false
+Pass
+Logg

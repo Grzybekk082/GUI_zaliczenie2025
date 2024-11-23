@@ -1,0 +1,16 @@
+Tytuł: Zacinający się ekran dotykowy
+Lokalizacja: Sklep "Moda na Wymiar", Gdynia, ul. Świętojańska 12, 81-368
+Treść zgłoszenia: Ekran dotykowy na stanowisku nr 4 działa z opóźnieniem, a czasami całkowicie przestaje reagować na dotyk.
+Wskazówki dla technika:
+Sprawdź, czy ekran nie jest zabrudzony lub uszkodzony fizycznie.
+Przetestuj urządzenie w trybie serwisowym, jeśli jest dostępny.
+Zaktualizuj sterowniki lub oprogramowanie urządzenia.
+Zweryfikuj połączenia kablowe oraz stan przewodów podłączonych do ekranu.
+Status: Średni
+Czas na realizację: 24 godziny
+Technik: Piotr Wójcik
+Historia zlecenia:
+12:00: Zgłoszenie przyjęte przez technika pierwszego kontaktu.
+12:20: Klient poproszony o oczyszczenie ekranu i sprawdzenie widocznych uszkodzeń – brak efektów.
+12:45: Przeprowadzono próbę aktualizacji sterowników zdalnie – nieudane ze względu na brak odpowiednich narzędzi lokalnych.
+13:00: Przekazanie do technika terenowego.

@@ -1,0 +1,16 @@
+Tytuł: Niedziałający skaner kodów kreskowych
+Lokalizacja: Sklep "SuperMarkt", Kraków, ul. Grodzka 14, 31-006
+Treść zgłoszenia: Skaner na stanowisku nr 3 nie odczytuje żadnych kodów kreskowych. Próbowaliśmy ponownego podłączenia, ale to nie pomogło.
+Wskazówki dla technika:
+Zweryfikuj połączenie skanera z komputerem – sprawdź porty USB lub inne złącza.
+Sprawdź, czy skaner działa w trybie diagnostycznym, np. przy użyciu testowych kodów.
+Zaktualizuj sterowniki skanera w systemie POS.
+Upewnij się, że oświetlenie lub odbicia w miejscu pracy skanera nie zakłócają jego działania.
+Status: Średni
+Czas na realizację: 24 godziny
+Technik: Katarzyna Wiśniewska
+Historia zlecenia:
+09:00: Zgłoszenie przyjęte przez technika pierwszego kontaktu.
+09:15: Klient poproszony o sprawdzenie połączenia USB – brak poprawy.
+09:30: Przeprowadzono próbę zdalnej aktualizacji oprogramowania skanera – brak dostępu.
+09:45: Zlecenie przekazano do technika terenowego.

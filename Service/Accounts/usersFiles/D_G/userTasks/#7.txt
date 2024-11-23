@@ -1,0 +1,16 @@
+Tytuł: Brak połączenia z drukarką etykiet
+Lokalizacja: Hurtownia "TechLab", Łódź, ul. Piotrkowska 250, 90-001
+Treść zgłoszenia: Drukarka etykiet przestała działać, urządzenie nie reaguje na żadne polecenia z systemu. Kluczowe dla wydawania towaru.
+Wskazówki dla technika:
+Sprawdź fizyczne połączenie drukarki z komputerem i zasilanie urządzenia.
+Zweryfikuj, czy drukarka pojawia się w systemie operacyjnym i jest widoczna w sieci.
+Upewnij się, że sterowniki drukarki są poprawne i zaktualizowane.
+W przypadku problemów sprzętowych przygotuj zapasowy model drukarki.
+Status: Wysoki
+Czas na realizację: 6 godzin
+Technik: Michał Zalewski
+Historia zlecenia:
+08:30: Zgłoszenie przyjęte przez technika pierwszego kontaktu.
+08:45: Próba zdalnej diagnozy – drukarka niewidoczna w sieci, podejrzenie problemu z połączeniem.
+09:00: Klient poproszony o sprawdzenie zasilania i kabli – brak poprawy.
+09:15: Zlecenie eskalowane do technika terenowego.

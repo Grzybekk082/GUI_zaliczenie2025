@@ -1,0 +1,16 @@
+Tytuł: Serwer nie odpowiada
+Lokalizacja: Centrum Danych "DataMax", Rzeszów, ul. Rejtana 25, 35-310
+Treść zgłoszenia: Główna maszyna serwerowa przestała odpowiadać, a system monitorowania pokazuje błąd RAID. Nie mamy dostępu do danych.
+Wskazówki dla technika:
+Zweryfikuj stan macierzy RAID i zdiagnozuj, które dyski są uszkodzone.
+Sprawdź fizyczne podłączenie zasilania i chłodzenia serwera.
+Spróbuj uruchomić serwer w trybie awaryjnym i odzyskać dostęp do systemu.
+Jeśli problem dotyczy sprzętu, przygotuj wymienne dyski lub części na miejscu.
+Status: Krytyczny
+Czas na realizację: 3 godziny
+Technik: Michał Zalewski
+Historia zlecenia:
+08:00: Zgłoszenie przyjęte przez technika pierwszego kontaktu.
+08:15: Próba zdalnego restartu serwera – brak odpowiedzi, sugerowany błąd sprzętowy.
+08:30: Użytkownik poinformowany o możliwych przyczynach awarii – problem z RAID-em.
+08:45: Zlecenie eskalowane do serwisu terenowego, technik przygotowuje dyski zastępcze.

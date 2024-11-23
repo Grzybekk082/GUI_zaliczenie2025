@@ -1,0 +1,16 @@
+Tytuł: Niepoprawne wydruki na paragonach
+Lokalizacja: Sklep "Market 24", Lublin, ul. Krakowskie Przedmieście 45, 20-076
+Treść zgłoszenia: Na wydrukach paragonów brakuje części tekstu – linie są ucięte lub rozmazane. Wymieniliśmy rolkę papieru, ale to nie pomogło.
+Wskazówki dla technika:
+Sprawdź stan głowicy drukarki i przetestuj wydruk testowy.
+Upewnij się, że papier jest poprawnie założony i odpowiedniego rodzaju.
+Zweryfikuj konfigurację drukarki w systemie – możliwe, że ustawienia są niezgodne z oprogramowaniem.
+Przeczyść wnętrze drukarki z kurzu i zabrudzeń.
+Status: Średni
+Czas na realizację: 24 godziny
+Technik: Katarzyna Wiśniewska
+Historia zlecenia:
+14:00: Zgłoszenie przyjęte przez technika pierwszego kontaktu.
+14:15: Próba kalibracji głowicy drukarki przez klienta pod nadzorem technika – bez poprawy.
+14:30: Zidentyfikowano problem możliwego zużycia głowicy – wymagana wizyta technika terenowego.
+14:45: Zlecenie przekazane do serwisu terenowego.

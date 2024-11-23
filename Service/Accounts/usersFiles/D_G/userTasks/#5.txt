@@ -1,0 +1,16 @@
+Tytuł: Terminal płatniczy odrzuca transakcje
+Lokalizacja: Sklep "Delikatesy Premium", Białystok, ul. Lipowa 17, 15-424
+Treść zgłoszenia: Terminal na kasie nr 2 odrzuca wszystkie transakcje kartami, mimo że internet działa. Problem występuje od kilku godzin.
+Wskazówki dla technika:
+Sprawdź połączenie terminala z systemem sprzedaży.
+Zresetuj terminal i przetestuj transakcje przy użyciu karty testowej.
+Upewnij się, że terminal ma zainstalowaną najnowszą wersję oprogramowania.
+Sprawdź ustawienia sieciowe i serwerowe terminala.
+Status: Wysoki
+Czas na realizację: 8 godzin
+Technik: Tomasz Malinowski
+Historia zlecenia:
+11:00: Zgłoszenie przyjęte przez technika pierwszego kontaktu.
+11:20: Sprawdzono konfigurację zdalną – terminal widoczny w systemie, brak błędów komunikacji.
+11:40: Klient poproszony o reset urządzenia – problem nieustępujący.
+12:00: Przekazano zgłoszenie do technika terenowego w celu dalszej diagnozy.
