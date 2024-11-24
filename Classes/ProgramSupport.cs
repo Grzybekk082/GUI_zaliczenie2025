@@ -24,8 +24,10 @@ namespace GUI_zaliczenie2025.Classes
             string directoryPath = Path.GetDirectoryName(fullPath);
             string parentDirectoryPath = Directory.GetParent(directoryPath).FullName;
             string rootDirectoryPath = Directory.GetParent(parentDirectoryPath).FullName;
+            string rootParentDirectoryPath = Directory.GetParent(rootDirectoryPath).FullName;
 
-            return rootDirectoryPath;
+
+            return rootParentDirectoryPath;
         }
 
 

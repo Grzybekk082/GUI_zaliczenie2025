@@ -24,14 +24,13 @@ namespace GUI_zaliczenie2025
         public MainWindow()
         {
             InitializeComponent();
+            // w MainWindow rozpoczyna się działanie programu, tu umiszczac bedziemy wszystkie podstrony itp, tak jak implemenujrmy metody do Program Main
+
+            //Poniżej podmieniamy widok głównego okna MainContent widokiem strony logowania LogInPAgeWPF używająć ich wartości x:name w plikach xaml
+            Window window=Window.GetWindow(this);
+            window.Content = new LoginPageWPF();
         }
 
-        private void Button_LogIn_Click(object sender, RoutedEventArgs e)
-        {
-            string login=textBoxLogin.Text;
-            string password=textBoxPassword.Text;
-            LoginPageWPF loginPageWPF = new LoginPageWPF();
-            loginPageWPF;
-        }
+
     }
 }
