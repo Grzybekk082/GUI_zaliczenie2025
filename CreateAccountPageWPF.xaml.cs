@@ -9,6 +9,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Markup;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
@@ -25,6 +26,7 @@ namespace GUI_zaliczenie2025
         public CreateAccountPageWPF()
         {
             InitializeComponent();
+            
 
         }
 
@@ -33,22 +35,67 @@ namespace GUI_zaliczenie2025
             
             newName=textBoxName.Text;
             newSurename=textBoxSurename.Text;
-            newLogin=textBoxLogin.Text;
-            newPassword=textBoxPassword.Text;
+            newPassword=textBoxPassword.Password;
+            newName = char.ToUpper(newName[0]) + newName.Substring(1);
+            newSurename = char.ToUpper(newSurename[0]) + newSurename.Substring(1);
+            newLogin = $"{newName}.{newSurename}";
 
-            if (!AccountAcces.IsLoginFree(newName))
+            if (String.IsNullOrEmpty(newName) || String.IsNullOrEmpty(newSurename) || String.IsNullOrEmpty(newLogin) || String.IsNullOrEmpty(newSurename))
             {
-                warningLabel.Content = "Podany login jest zajęty!";
-
-                textBoxLogin.Clear();
+                warningLabel.Foreground = Brushes.IndianRed;
+                warningLabel.Content = "Wszystkie pola muszą być wypełnione";
             }
             else
             {
-                NewUsersRequests nu = new NewUsersRequests(newName, newSurename, newPassword, newLogin);
-                warningLabel.Content = "Prośba o utworzenie konta została wysłana do administratora.";
+                
 
-                //AccountAcces ac = new AccountAcces(newName, newSurename, newPassword, newLogin);
+                
+
+               
+                char.ToUpper(newSurename[0]);
+                
+                newLogin = $"{newName}.{newSurename}";
+                if (!AccountAcces.IsLoginFree(newName))
+                {
+                    warningLabel.Content = "Podany login jest zajęty!";
+
+                    textBoxPassword.Clear();
+                }
+                else
+                {
+                    (bool isUpper,bool isLenght)=AccountAcces.isPasswordReady(newPassword);
+                    if (!isUpper)
+                    {
+                        warningLabel.Foreground = Brushes.IndianRed;
+                        warningLabel.Content = "Hasło musi zawierać przynajmniej jedną dużą literą";
+                    }
+                    else
+                    {
+                        if (!isLenght)
+                        {
+                            warningLabel.Foreground = Brushes.IndianRed;
+                            warningLabel.Content = "Hasło musi składać się przynajmniej z 8 znaków";
+                        }
+                        else 
+                        {
+                            warningLabel.Foreground = Brushes.Black;
+                            NewUsersRequests nu = new NewUsersRequests(newName, newSurename, newPassword, newLogin);
+                            warningLabel.Content = "Prośba o utworzenie konta została wysłana do administratora.";
+                        }
+                    }
+
+
+
+                    //AccountAcces ac = new AccountAcces(newName, newSurename, newPassword, newLogin);
+                }
             }
+
+        }
+
+        private void Button_Go_back_Click(object sender, RoutedEventArgs e)
+        {
+            Window window = Window.GetWindow(this);
+            window.Content = new LoginPageWPF();
         }
     }
 }

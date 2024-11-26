@@ -139,5 +139,25 @@ namespace GUI_zaliczenie2025.Classes
         {
             return Directory.GetFiles(path).Length;
         }
+        //Metoda sprawdza, czy wprowadzone hasło spełnia wymagania aplikacji, czyli 1 duża litera i długość > 8
+        static internal (bool isUpper,bool isLenght) isPasswordReady(string input)
+        {
+            char[] inputTab = input.ToCharArray();
+            bool isUpper = false;
+            bool isLenght = false;
+            foreach (char c in inputTab)
+            {
+                if (char.IsUpper(c))
+                {
+                    isUpper = true;
+                    break;
+                }
+            }
+            if (input.Length > 8)
+            {
+                isLenght=true;
+            }
+            return (isUpper, isLenght);
+        }
     }
 }

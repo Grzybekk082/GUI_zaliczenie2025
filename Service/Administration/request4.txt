@@ -1,4 +1,4 @@
-Dawi
-Grzybkowski
-g
-d
+System.Char[]
+System.Char[]
+DAdasdasfadas
+System.Char[].System.Char[]

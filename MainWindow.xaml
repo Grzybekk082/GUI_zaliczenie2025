@@ -6,7 +6,9 @@
         xmlns:local="clr-namespace:GUI_zaliczenie2025"
         mc:Ignorable="d"
         Title="ServiceDesk_V1" Height="450" Width="800" Background="#FFE0E0E0"
-        ResizeMode="NoResize">
+        ResizeMode="CanResize"
+        MinHeight="500" MinWidth="500"
+        >
         
     <Grid>
         <ContentControl x:Name="MainContent"/>
