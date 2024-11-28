@@ -15,6 +15,7 @@ namespace GUI_zaliczenie2025.Classes
     {
         static string name, surename, password, login;
         static string path = Path.Combine($"{ProgramSupport.ActualyPathReturn()}\\Service\\Administration");
+        static string directoryPath = Path.Combine($"{ProgramSupport.ActualyPathReturn()}\\Service\\Accounts\\usersData");
 
         internal NewUsersRequests() { }
         internal NewUsersRequests(string newName, string newSurename, string newPassword, string newLogin)
@@ -43,6 +44,32 @@ namespace GUI_zaliczenie2025.Classes
         {
             return ReturnRequestList().Length;
         }
-        
+        static internal bool IsRequestLoginFree(string loginInput)
+        {
+            bool isLoginOccupied = true;
+            string inputLogin = loginInput,
+                   corectLogin;
+
+            for (int i = 1; i <= ReturnUsersNumber(path); i++)
+            {
+                string pathUsers = $"{path}\\request{i}.txt";
+                string[] allUserData = File.ReadAllLines(pathUsers);
+
+                corectLogin = allUserData[3];
+
+
+                if (corectLogin.Equals(inputLogin))
+                {
+                    isLoginOccupied = false;
+                    break;
+                }
+                else
+                {
+                    continue;
+                }
+            }
+            return isLoginOccupied;
+        }
+
     }
 }

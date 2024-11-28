@@ -1,4 +1,4 @@
-System.Char[]
-System.Char[]
-DAdasdasfadas
-System.Char[].System.Char[]
+Pan
+Kot
+ASDAsdjabdasd
+Pan.KOT

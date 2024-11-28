@@ -36,10 +36,9 @@ namespace GUI_zaliczenie2025
             newName=textBoxName.Text;
             newSurename=textBoxSurename.Text;
             newPassword=textBoxPassword.Password;
-            newName = char.ToUpper(newName[0]) + newName.Substring(1);
-            newSurename = char.ToUpper(newSurename[0]) + newSurename.Substring(1);
-            newLogin = $"{newName}.{newSurename}";
 
+            newLogin = $"{newName}.{newSurename}";
+            ;
             if (String.IsNullOrEmpty(newName) || String.IsNullOrEmpty(newSurename) || String.IsNullOrEmpty(newLogin) || String.IsNullOrEmpty(newSurename))
             {
                 warningLabel.Foreground = Brushes.IndianRed;
@@ -47,42 +46,48 @@ namespace GUI_zaliczenie2025
             }
             else
             {
-                
+                newName = char.ToUpper(newName[0]) + newName.Substring(1).ToLower();
+                newSurename = char.ToUpper(newSurename[0]) + newSurename.Substring(1).ToLower();
 
-                
-
-               
-                char.ToUpper(newSurename[0]);
-                
-                newLogin = $"{newName}.{newSurename}";
                 if (!AccountAcces.IsLoginFree(newName))
                 {
-                    warningLabel.Content = "Podany login jest zajęty!";
+                    warningLabel.Content = "Podany login jest zajęty przez istniejącego użytkownika!";
 
                     textBoxPassword.Clear();
                 }
                 else
                 {
-                    (bool isUpper,bool isLenght)=AccountAcces.isPasswordReady(newPassword);
-                    if (!isUpper)
+                    if(!NewUsersRequests.IsRequestLoginFree(newLogin))
                     {
-                        warningLabel.Foreground = Brushes.IndianRed;
-                        warningLabel.Content = "Hasło musi zawierać przynajmniej jedną dużą literą";
+                        warningLabel.Content = "Prośba z podanym loginem już istnieje.";
                     }
-                    else
+                    else 
                     {
-                        if (!isLenght)
+                        (bool isUpper, bool isLenght) = AccountAcces.isPasswordReady(newPassword);
+                        if (!isUpper)
                         {
                             warningLabel.Foreground = Brushes.IndianRed;
-                            warningLabel.Content = "Hasło musi składać się przynajmniej z 8 znaków";
+                            warningLabel.Content = "Hasło musi zawierać przynajmniej jedną dużą literą";
                         }
-                        else 
+                        else
                         {
-                            warningLabel.Foreground = Brushes.Black;
-                            NewUsersRequests nu = new NewUsersRequests(newName, newSurename, newPassword, newLogin);
-                            warningLabel.Content = "Prośba o utworzenie konta została wysłana do administratora.";
+                            if (!isLenght)
+                            {
+                                warningLabel.Foreground = Brushes.IndianRed;
+                                warningLabel.Content = "Hasło musi składać się przynajmniej z 8 znaków";
+                            }
+                            else
+                            {
+                                warningLabel.Foreground = Brushes.Black;
+                                NewUsersRequests nu = new NewUsersRequests(newName, newSurename, newPassword, newLogin);
+                                warningLabel.Content = "Prośba o utworzenie konta została wysłana do administratora.";
+                                Thread.Sleep(3000);
+
+                            }
                         }
                     }
+
+
 
 
 

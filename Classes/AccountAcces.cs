@@ -15,6 +15,7 @@ namespace GUI_zaliczenie2025.Classes
         string userName, userSurename, userPassword, userLogin, userPermissions;
 
         static string directoryPath = Path.Combine($"{ProgramSupport.ActualyPathReturn()}\\Service\\Accounts\\usersData");
+
         //ścieżka do folderu z plikami "user#", przechowuje podstawowe dane logowania do konta(imie, nazwisko, login, hasło
 
          static string inputLogin,
@@ -40,20 +41,19 @@ namespace GUI_zaliczenie2025.Classes
         
         //Metoda sprawdza, czy Login podany przez nowego użytkownika nie istnieje już w bazie, porównuje ze sobą inputLogin
         //podany przez użytkownika oraz corectLogin wyczytany z pierwszej linii w każdym pliku w folderze userData
-        static internal bool IsLoginFree( string name)
+        static internal bool IsLoginFree( string loginInput)
         {
          bool isLoginOccupied = true;
-        string inputLogin = name,
-                   corectLogin;
+        string inputLogin = loginInput,
+               corectLogin;
 
             for (int i = 1; i <= ReturnUsersNumber(directoryPath); i++)
             {
                 string pathUsers = $"{directoryPath}\\user{i}.txt";
-                StreamReader sr = new StreamReader(pathUsers);
 
-                corectLogin = sr.ReadLine();
-                sr.Dispose();
+                string[] allUserData = File.ReadAllLines(pathUsers);
 
+                corectLogin = allUserData[3];
 
                 if (corectLogin.Equals(inputLogin))
                 {
@@ -114,22 +114,25 @@ namespace GUI_zaliczenie2025.Classes
         {
                 string userId = $"user{ReturnUsersNumber(directoryPath) + 1}.txt";
                 string userPath = $"{directoryPath}\\{userId}";
+                userLogin = $"{userName}.{userSurename}";
                 string content = $"{userName}\n{userSurename}\n{userPermissions}\n{userPassword}\n{userLogin}\n";
 
                 File.AppendAllText(userPath,content);
         }
         
+
         //Metoda korzystająca z tutle, zwracająca z folderu userData z plików "user#" prawidłowy login i hasło, dzięki tutle
         //można zwracać więcej wartości na raz.
         internal static (string , string, string )  ReturnInfo( int i)
         {
 
                 string pathUsers = $"{directoryPath}\\user{i}.txt";
-                StreamReader sr = new StreamReader(pathUsers);
-                corectLogin = sr.ReadLine();
-                corectPassword = sr.ReadLine();
-                isAdmin = sr.ReadLine();
-                sr.Dispose();
+                string [] allUserData=File.ReadAllLines(pathUsers);
+
+                corectPassword = allUserData[2];
+                corectLogin = allUserData[3];
+                isAdmin = allUserData[4];
+
 
             return (corectLogin,  corectPassword, isAdmin);
         }
@@ -159,5 +162,7 @@ namespace GUI_zaliczenie2025.Classes
             }
             return (isUpper, isLenght);
         }
+
+
     }
 }
