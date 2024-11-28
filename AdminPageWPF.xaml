@@ -9,15 +9,29 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="10px"/>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="130"/>
+            <ColumnDefinition />
             <ColumnDefinition Width="19px"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="10px"/>
-            <RowDefinition/>
+            <RowDefinition Height="40"/>
+
             <RowDefinition/>
             <RowDefinition Height="10px"/>
         </Grid.RowDefinitions>
-            <Label Content="Panel Adminstratora" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="20" />
+            <Label Content="Zgłoszenia" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="20" />
+        <Grid Grid.Row="2" Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+        </Grid>
     </Grid>
 </UserControl>
