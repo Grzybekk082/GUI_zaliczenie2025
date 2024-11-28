@@ -26,7 +26,8 @@ namespace GUI_zaliczenie2025
         public CreateAccountPageWPF()
         {
             InitializeComponent();
-            
+            string logoPath = $"{ProgramSupport.ActualyPathReturn()}\\Logo_ServiceDesk.png";
+            MyLogo.Source = new BitmapImage(new Uri(logoPath));
 
         }
 

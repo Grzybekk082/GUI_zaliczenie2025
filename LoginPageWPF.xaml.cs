@@ -41,6 +41,10 @@ namespace GUI_zaliczenie2025
                     {
                         Window window = Window.GetWindow(this);
                         window.Content = new AdminPageWPF();
+                        window.ResizeMode=ResizeMode.CanResize;
+                        window.WindowState= WindowState.Maximized;
+                        
+
                     }
                     else
                     {
@@ -52,7 +56,7 @@ namespace GUI_zaliczenie2025
                 }
                 if (login == "" || password == "" || !isCorect)
                 {
-
+                resultLabel.Foreground= Brushes.Red;
                 resultLabel.Content = $"Błędne dane logowania!\nSpróbuj ponownie.";
                 
 
@@ -65,7 +69,8 @@ namespace GUI_zaliczenie2025
         {
             Window window = Window.GetWindow(this);
             window.Content = new CreateAccountPageWPF();
-        }
 
+        }
+        
     }
 }
