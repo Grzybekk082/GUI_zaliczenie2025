@@ -24,5 +24,10 @@ namespace GUI_zaliczenie2025
         {
             InitializeComponent();
         }
+
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
