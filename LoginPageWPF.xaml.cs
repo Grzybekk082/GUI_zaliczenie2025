@@ -40,7 +40,7 @@ namespace GUI_zaliczenie2025
                     if (isAdmin)
                     {
                         Window window = Window.GetWindow(this);
-                        window.Content = new AdminPageWPF();
+                        window.Content = new AdminMainPageWPF();
                         window.ResizeMode=ResizeMode.CanResize;
                         window.WindowState= WindowState.Maximized;
                         

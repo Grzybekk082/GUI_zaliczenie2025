@@ -16,18 +16,13 @@ using System.Windows.Shapes;
 namespace GUI_zaliczenie2025
 {
     /// <summary>
-    /// Logika interakcji dla klasy AdminPageWPF.xaml
+    /// Logika interakcji dla klasy UserRequestPageWPF.xaml
     /// </summary>
-    public partial class AdminPageWPF : UserControl
+    public partial class UserRequestPageWPF : UserControl
     {
-        public AdminPageWPF()
+        public UserRequestPageWPF()
         {
             InitializeComponent();
-        }
-
-        private void UserControl_Loaded(object sender, RoutedEventArgs e)
-        {
-
         }
     }
 }

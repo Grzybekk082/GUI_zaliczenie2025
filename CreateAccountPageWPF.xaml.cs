@@ -29,6 +29,7 @@ namespace GUI_zaliczenie2025
             string logoPath = $"{ProgramSupport.ActualyPathReturn()}\\Logo_ServiceDesk.png";
             MyLogo.Source = new BitmapImage(new Uri(logoPath));
 
+
         }
 
         private void Button_Send_Request_Click(object sender, RoutedEventArgs e)

@@ -1,11 +1,11 @@
-﻿<UserControl x:Class="GUI_zaliczenie2025.AdminPageWPF"
+﻿<UserControl x:Class="GUI_zaliczenie2025.AdminMainPageWPF"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:GUI_zaliczenie2025"
              mc:Ignorable="d" 
-             d:DesignHeight="1080" d:DesignWidth="1920" Loaded="UserControl_Loaded">
+             d:DesignHeight="1080" d:DesignWidth="1920" >
     <Grid>
 
  
@@ -30,8 +30,17 @@
                 <ColumnDefinition Width="5.9*"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Rectangle Grid.Column="0" Panel.ZIndex="-1" Grid.Row="2" Fill="#FFCCCCCC"/>
-            <Rectangle Grid.Column="1" Panel.ZIndex="-1" Grid.Row="2" Fill="#FF4E4C4C"/>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.06*"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Rectangle Grid.Column="0" Panel.ZIndex="-1" Grid.Row="0" Grid.RowSpan="2" Fill="#FFCCCCCC"/>
+            <Border BorderThickness="2" BorderBrush="#FF5A5959">
+                <Label Content="Zarządzanie zleceniami" Grid.Row="0" Grid.Column="0" FontSize="30"   HorizontalAlignment="Center" VerticalAlignment="top" Foreground="#FFD4D4D4" />
+            </Border>
+
+            <Rectangle Grid.Column="1" Panel.ZIndex="-1" Grid.Row="0" Grid.RowSpan="2" Fill="#FF4E4C4C"/>
+            <Rectangle Grid.Column="0" Panel.ZIndex="-1" Grid.Row="0" Fill="#FF4E4C4C"/>
         </Grid>
         
         <Grid x:Name="topBar"  Grid.Row="1"  Grid.Column="1" Grid.ColumnSpan="2">
@@ -50,16 +59,19 @@
                     <ColumnDefinition Width="10*"/>
                     <ColumnDefinition Width="10"/>
                 </Grid.ColumnDefinitions>
-                <Button Content="zarządzaj zleceniami" Grid.Column="1" Background="#FFB5B5B5" Margin="1,40,0,1" Padding="10,0,10,0"/>
-            <Button Content="Zarządzaj protokołąmi"  Grid.Column="2" Background="#FFB5B5B5" Margin="1,40,0,1" Padding="10,0,10,0"/>
-            <Button Content="Zarządzaj użytkownikami" Grid.Column="3" Background="#FFB5B5B5" Margin="1,40,0,1" Padding="10,0,10,0"/>
-            <Button Content="Urządzenia "  Grid.Column="4" Background="#FFB5B5B5" Margin="1,40,0,1" Padding="10,0,10,0"/>
-            <Button Content="Logistyka" Grid.Column="5" Background="#FFB5B5B5" Margin="1,40,0,1" Padding="10,0,10,0"/>
-            <Button Content="" Grid.Column="6" Background="#FFB5B5B5" Margin="1,40,0,1" Padding="10,0,10,0"/>
+                <Button Content="zarządzaj zleceniami" Grid.Column="2" Background="#FFB5B5B5" Margin="1,40,0,1" Padding="10,0,10,0"/>
+            <Button Content="Zarządzaj protokołąmi"  Grid.Column="3" Background="#FFB5B5B5" Margin="1,40,0,1" Padding="10,0,10,0"/>
+            <Button Content="Zarządzaj użytkownikami" Grid.Column="4" Background="#FFB5B5B5" Margin="1,40,0,1" Padding="10,0,10,0"/>
+            <Button Content="Zarządzaj prośbami"  Grid.Column="5" Background="#FFB5B5B5" Margin="1,40,0,1" Padding="10,0,10,0" Click="UserRequestsButtonOnclick"/>
+            <Button Content="Logistyka" Grid.Column="6" Background="#FFB5B5B5" Margin="1,40,0,1" Padding="10,0,10,0"/>
+            <Button Content="Urządzenia" Grid.Column="7" Background="#FFB5B5B5" Margin="1,40,0,1" Padding="10,0,10,0"/>
+            <Button Content="Strona główna" Grid.Column="1" Background="#FFB5B5B5" Margin="1,40,0,1"  Padding="10,0,10,0"/>
                 <!--<Button Grid.Column="7" Background="#FFB5B5B5" Margin="1,40,0,1"/>
                 <Button Grid.Column="8" Background="#FFB5B5B5" Margin="1,40,0,1"/>
                 <Button Grid.Column="9" Background="#FFB5B5B5" Margin="1,40,0,1"/>-->
-                <!--<Button Grid.Column="10" Background="#FFB5B5B5" Margin="1,40,0,1"/>-->
+                <!--<Button Grid.Column="10" Background="#FFB5B5B5" Margin="1,40,0,1"/>
+            Strona do przekopiowania do nowego oknra kontroli użytkownika, aktualna  strona ma zawierać zawartość głównej strony Admin po zalogowaniue!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            -->
             <Rectangle Grid.Column="0" Grid.Row="1" Fill="#FF4E4C4C" Panel.ZIndex="-1" Grid.ColumnSpan="12" />
 
         </Grid>
