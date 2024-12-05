@@ -1,4 +1,6 @@
-﻿using System;
+﻿using GUI_zaliczenie2025.Classes;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,14 +20,21 @@ namespace GUI_zaliczenie2025
     /// <summary>
     /// Logika interakcji dla klasy AdminPageWPF.xaml
     /// </summary>
+    /// 
     public partial class AdminMainPageWPF : UserControl
     {
+        
         public AdminMainPageWPF()
         {
+           
             InitializeComponent();
+            ListBoxuserRequests.ItemsSource = NewUsersRequests.ReturnRequestsListObject();
         }
 
 
+        
+
+        
 
         private void UserRequestsButtonOnclick(object sender, RoutedEventArgs e)
         {
@@ -33,6 +42,9 @@ namespace GUI_zaliczenie2025
             window.Content = new UserRequestPageWPF();
             window.ResizeMode = ResizeMode.CanResize;
             window.WindowState = WindowState.Maximized;
+            
         }
+
+
     }
 }

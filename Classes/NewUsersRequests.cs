@@ -40,6 +40,27 @@ namespace GUI_zaliczenie2025.Classes
         {
             return Directory.GetFiles(path);
         }
+        /// <summary>
+        /// /////////////////////////////
+        /// </summary>
+        /// <returns></returns>
+        /// Metoda 
+        internal static List<Person> ReturnRequestsListObject()
+        {
+            List<Person> Requestors = new List<Person>();
+            for (int i = 1; i<=ReturnRequestNumber();i++)
+            {
+                string pathUsers = $"{path}\\request{i}.txt";
+
+                string[] allUserData = File.ReadAllLines(pathUsers);
+
+
+                Requestors.Add(new Person {Name=$"{allUserData[0]}", Surename= $"{allUserData[1]}", Login= $"{allUserData[3]}" });
+            }
+                
+            return Requestors;
+        }
+
         internal static int ReturnRequestNumber()
         {
             return ReturnRequestList().Length;
@@ -70,6 +91,8 @@ namespace GUI_zaliczenie2025.Classes
             }
             return isLoginOccupied;
         }
+
+        
 
     }
 }
