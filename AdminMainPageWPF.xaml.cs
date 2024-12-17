@@ -28,7 +28,15 @@ namespace GUI_zaliczenie2025
         {
            
             InitializeComponent();
-            ListBoxuserRequests.ItemsSource = NewUsersRequests.ReturnRequestsListObject();
+
+           // do poprawki ma generować tabele
+            ListVievUserRequests.ItemsSource = NewUsersRequests.ReturnRequestsListObject();
+            
+            
+
+
+
+
         }
 
 
@@ -42,9 +50,9 @@ namespace GUI_zaliczenie2025
             window.Content = new UserRequestPageWPF();
             window.ResizeMode = ResizeMode.CanResize;
             window.WindowState = WindowState.Maximized;
-            
-        }
+            window.MinWidth = MinWidth = 1000;
 
+        }
 
     }
 }

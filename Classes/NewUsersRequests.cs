@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,6 +8,9 @@ using System.IO;
 using GUI_zaliczenie2025.Classes;
 using GUI_zaliczenie2025.User;
 using GUI_zaliczenie2025.Admin;
+using MySql.Data.MySqlClient;
+
+
 
 
 namespace GUI_zaliczenie2025.Classes
@@ -35,36 +39,59 @@ namespace GUI_zaliczenie2025.Classes
             File.AppendAllText(userPath, content);
         }
 
-        
+        //Metoda zwracająca tablicę aktualnych próśb użytkowników
         internal static string[]  ReturnRequestList()
         {
             return Directory.GetFiles(path);
         }
-        /// <summary>
-        /// /////////////////////////////
-        /// </summary>
-        /// <returns></returns>
-        /// Metoda 
+        //Metoda zwraca aktualną LISTE obiektów klasy PERSON (imie, nazwisko, login), potrzebna jest do wyświetlania
+        //w GUI listy próśb użytkowników
         internal static List<Person> ReturnRequestsListObject()
         {
             List<Person> Requestors = new List<Person>();
-            for (int i = 1; i<=ReturnRequestNumber();i++)
+            //for (int i = 1; i<=ReturnRequestNumber();i++)
+            //{
+            //    string pathUsers = $"{path}\\request{i}.txt";
+
+            //    string[] allUserData = File.ReadAllLines(pathUsers);
+
+
+            //    Requestors.Add(new Person {Name=$"{allUserData[0]}", Surename= $"{allUserData[1]}", Login= $"{allUserData[3]}" });
+            //}
+            MySqlConnectionStringBuilder conn_string = new MySqlConnectionStringBuilder();
+            conn_string.Server = "localhost";
+            conn_string.Port = 3308;
+            conn_string.UserID = "root";
+            conn_string.Password = "2137";
+            conn_string.Database = "servicedeskv2";
+
+            
+            using ( MySqlConnection con = new MySqlConnection(conn_string.ToString()))
             {
-                string pathUsers = $"{path}\\request{i}.txt";
+                con.Open();
+                using (MySqlCommand command = new MySqlCommand("SELECT Imie, Nazwisko, Login FROM user_requests;", con))
+                {
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
 
-                string[] allUserData = File.ReadAllLines(pathUsers);
-
-
-                Requestors.Add(new Person {Name=$"{allUserData[0]}", Surename= $"{allUserData[1]}", Login= $"{allUserData[3]}" });
+                            Requestors.Add(new Person { Name = $"{reader["Imie"].ToString()}", Surename = $"{reader["Nazwisko"].ToString()}", Login = $"{reader["Login"].ToString()}" });
+                            
+                        }
+                    }
+                }
             }
-                
+
             return Requestors;
         }
-
+        //Metoda zwracająca aktualną liczbę próśb o dołączenie 
         internal static int ReturnRequestNumber()
         {
             return ReturnRequestList().Length;
         }
+        //Metoda sprawdzająca na etapie tworzenia przez użytkownika prośby czy utworzony przez niego login nie 
+        //jest już zajęty.
         static internal bool IsRequestLoginFree(string loginInput)
         {
             bool isLoginOccupied = true;
@@ -73,10 +100,10 @@ namespace GUI_zaliczenie2025.Classes
 
             for (int i = 1; i <= ReturnUsersNumber(path); i++)
             {
-                string pathUsers = $"{path}\\request{i}.txt";
-                string[] allUserData = File.ReadAllLines(pathUsers);
+                string pathRequest = $"{path}\\request{i}.txt";
+                string[] allRequestData = File.ReadAllLines(pathRequest);
 
-                corectLogin = allUserData[3];
+                corectLogin = allRequestData[3];
 
 
                 if (corectLogin.Equals(inputLogin))

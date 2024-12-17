@@ -43,9 +43,9 @@ namespace GUI_zaliczenie2025
                         window.Content = new AdminMainPageWPF();
                         window.ResizeMode=ResizeMode.CanResize;
                         window.WindowState= WindowState.Maximized;
-                        
+                        window.MinWidth = MinWidth = 1000;
 
-                    }
+                }
                     else
                     {
                         Window window = Window.GetWindow(this);

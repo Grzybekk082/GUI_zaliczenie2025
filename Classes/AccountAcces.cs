@@ -72,7 +72,7 @@ namespace GUI_zaliczenie2025.Classes
         }
         //metoda porównuje uzyskane z metody zwrócone wartości prawidłowego loginu i hasła z danymi wprowadzonymi przez
         //użytkownika próbującego się zalogować i jeżeli takie dane istnieją w pojedynczym pliku "user#" użytkownik zostanie prawidłowo
-        //zalogowany
+        //zalogowany TOTLE
         static internal (bool, bool)LogIn(string login, string password)
         {
 

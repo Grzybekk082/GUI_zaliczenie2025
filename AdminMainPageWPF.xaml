@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:GUI_zaliczenie2025"
              mc:Ignorable="d" 
-             d:DesignHeight="1080" d:DesignWidth="1920" >
+             d:DesignHeight="1080" d:DesignWidth="1920" MinWidth="1000">
     <Grid>
 
  
@@ -27,33 +27,41 @@
 
         <Grid x:Name="mainContent" Grid.Row="2" Grid.Column="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="3.3*"/>
-                <ColumnDefinition Width="3.3*"/>
-                <ColumnDefinition Width="3.3*"/>
-                <ColumnDefinition Width="3.3*"/>
-                <ColumnDefinition Width="1.5*"/>
+                <ColumnDefinition Width="6.1*"/>
+                <ColumnDefinition Width="1*"/>
+                <!--<ColumnDefinition Width="3.3*"/>
+                <ColumnDefinition Width="3.3*"/>-->
+                <ColumnDefinition Width="1.2*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="0.06*" MinHeight="20"/>
+                <RowDefinition Height="0.06*" MinHeight="50"/>
+                <RowDefinition Height="0.06*" MinHeight="50"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <Rectangle Grid.Column="0" Grid.ColumnSpan="4"  Panel.ZIndex="-1" Grid.Row="0" Grid.RowSpan="2" Fill="#FFCCCCCC"/>
-            <Border BorderThickness="2" BorderBrush="#FF5A5959" Grid.ColumnSpan="4">
+            
+            <!--<Label Content="Imię" Grid.Row="1" Grid.Column="0" Panel.ZIndex="1" HorizontalAlignment="Center" FontSize="16" VerticalAlignment="Center"/>
+            <Label Content="Nazwisko" Grid.Row="1" Grid.Column="1" Panel.ZIndex="1" HorizontalAlignment="Center" FontSize="16" VerticalAlignment="Center"/>
+            <Label Content="login" Grid.Row="1" Grid.Column="2" Panel.ZIndex="1" HorizontalAlignment="Center" FontSize="16" VerticalAlignment="Center"/>-->
+            <Rectangle Grid.Column="0" Grid.ColumnSpan="2"  Panel.ZIndex="-1" Grid.Row="1" Grid.RowSpan="2" Fill="#FFCCCCCC"/>
+            
+            <Border BorderThickness="2" BorderBrush="#FF5A5959" Grid.ColumnSpan="3">
                 <Label Content="Zarządzanie zleceniami" Grid.Row="0" Grid.Column="0"  FontSize="30"   HorizontalAlignment="Center" VerticalAlignment="top" Foreground="#FFD4D4D4" />
             </Border>
-            <ListBox x:Name="ListBoxuserRequests" Grid.Row="1" Grid.ColumnSpan="3" Height="auto">
-                <ListBox.ItemTemplate > 
-                    <DataTemplate >
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Grid.Column="1" Text="{Binding Name, StringFormat='Imię: {0}'}" Margin="100 0 100 0" />
-                            <TextBlock  Grid.Column="2" Text="{Binding Surename, StringFormat='Nazwisko: {0}'}" Margin="100 0 100 0"/>
-                            <TextBlock Grid.Column="3" Text="{Binding Login ,StringFormat='Login: {0}'}"  Margin="100 0 100 0"/>
-                        </StackPanel>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
 
-            <Rectangle Grid.Column="4" Panel.ZIndex="-1" Grid.Row="0" Grid.RowSpan="2" Fill="#FF4E4C4C"/>
+            <ListView x:Name="ListVievUserRequests"  Grid.Row="2" >
+                <ListView.View>
+                    <GridView  x:Name="requestGrid" >
+                        <GridView.Columns>
+                            <GridViewColumn Header="Imię" DisplayMemberBinding="{Binding Name}" Width="463" />
+                            <GridViewColumn Header="Nazwisko" DisplayMemberBinding="{Binding Surename}" Width="463"/>
+                            <GridViewColumn Header="Login" DisplayMemberBinding="{Binding Login}" Width="463"/>
+                        </GridView.Columns>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+
+
+            <Rectangle Grid.Column="4" Panel.ZIndex="-1" Grid.Row="0" Grid.RowSpan="3" Fill="#FF4E4C4C"/>
             <Rectangle Grid.Column="0" Grid.ColumnSpan="4" Panel.ZIndex="-1" Grid.Row="0" Fill="#FF4E4C4C"/>
         </Grid>
         
