@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GUI_zaliczenie2025.Classes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,23 @@ namespace GUI_zaliczenie2025
         public UserRequestPageWPF()
         {
             InitializeComponent();
+            ListVievUserRequests.ItemsSource = NewUsersRequests.ReturnRequestsListObject();
+        }
+
+        private void UserRequestsButtonOnclick(object sender, RoutedEventArgs e)
+        {
+            Window window = Window.GetWindow(this);
+            window.Content = new UserRequestPageWPF();
+
+
+        }
+
+        private void AdminMainPageButtonOnclick(object sender, RoutedEventArgs e)
+        {
+
+            Window window = Window.GetWindow(this);
+            window.Content = new AdminMainPageWPF();
+
         }
     }
 }

@@ -20,7 +20,7 @@ namespace GUI_zaliczenie2025.Admin
                 Console.Clear();
                 Console.WriteLine("wybierz prośbę");
                 Console.WriteLine();
-                for (int i = 0; i < NewUsersRequests.ReturnRequestNumber(); i++)
+                for (int i = 0; i < NewUsersRequests.ReturnRequestsListObject().Count; i++)
                 {
 
                     string file = Path.GetFileName($"{NewUsersRequests.ReturnRequestList().GetValue(i)}");
@@ -36,7 +36,7 @@ namespace GUI_zaliczenie2025.Admin
                     Console.Clear();
                     break;
                 }
-                else if (choose > NewUsersRequests.ReturnRequestNumber())
+                else if (choose > NewUsersRequests.ReturnRequestsListObject().Count)
                 {
                     Console.WriteLine("Wykroczono poza listę próśb spróbuj ponownie");
                     Thread.Sleep(2000);

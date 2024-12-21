@@ -9,6 +9,7 @@ using GUI_zaliczenie2025.Classes;
 using GUI_zaliczenie2025.User;
 using GUI_zaliczenie2025.Admin;
 using MySql.Data.MySqlClient;
+using System.Security.Cryptography.X509Certificates;
 
 
 
@@ -33,10 +34,22 @@ namespace GUI_zaliczenie2025.Classes
 
         static void CreateRequest()
         {
-            string userId = $"request{ReturnUsersNumber(path) + 1}.txt";
-            string userPath = $"{path}\\{userId}";
-            string content = $"{name}\n{surename}\n{password}\n{login}";
-            File.AppendAllText(userPath, content);
+            MySqlConnectionStringBuilder conn_string = new MySqlConnectionStringBuilder();
+            conn_string.Server = "localhost";
+            conn_string.Port = 3308;
+            conn_string.UserID = "root";
+            conn_string.Password = "2137";
+            conn_string.Database = "servicedeskv2";
+
+            using (MySqlConnection con = new MySqlConnection(conn_string.ToString()))
+            {
+                con.Open();
+                using (MySqlCommand command = new MySqlCommand($"INSERT INTO user_requests (Imie, Nazwisko, Haslo) VALUES ('{name}', '{surename}', '{password}') ;", con))
+                {
+                    command.ExecuteNonQuery();
+                }
+            }
+ 
         }
 
         //Metoda zwracająca tablicę aktualnych próśb użytkowników
@@ -49,15 +62,6 @@ namespace GUI_zaliczenie2025.Classes
         internal static List<Person> ReturnRequestsListObject()
         {
             List<Person> Requestors = new List<Person>();
-            //for (int i = 1; i<=ReturnRequestNumber();i++)
-            //{
-            //    string pathUsers = $"{path}\\request{i}.txt";
-
-            //    string[] allUserData = File.ReadAllLines(pathUsers);
-
-
-            //    Requestors.Add(new Person {Name=$"{allUserData[0]}", Surename= $"{allUserData[1]}", Login= $"{allUserData[3]}" });
-            //}
             MySqlConnectionStringBuilder conn_string = new MySqlConnectionStringBuilder();
             conn_string.Server = "localhost";
             conn_string.Port = 3308;
@@ -65,7 +69,6 @@ namespace GUI_zaliczenie2025.Classes
             conn_string.Password = "2137";
             conn_string.Database = "servicedeskv2";
 
-            
             using ( MySqlConnection con = new MySqlConnection(conn_string.ToString()))
             {
                 con.Open();
@@ -86,10 +89,10 @@ namespace GUI_zaliczenie2025.Classes
             return Requestors;
         }
         //Metoda zwracająca aktualną liczbę próśb o dołączenie 
-        internal static int ReturnRequestNumber()
-        {
-            return ReturnRequestList().Length;
-        }
+        //internal static int ReturnRequestNumber()
+        //{
+        //    return ReturnRequestList().Length;
+        //}
         //Metoda sprawdzająca na etapie tworzenia przez użytkownika prośby czy utworzony przez niego login nie 
         //jest już zajęty.
         static internal bool IsRequestLoginFree(string loginInput)
@@ -98,12 +101,10 @@ namespace GUI_zaliczenie2025.Classes
             string inputLogin = loginInput,
                    corectLogin;
 
-            for (int i = 1; i <= ReturnUsersNumber(path); i++)
-            {
-                string pathRequest = $"{path}\\request{i}.txt";
-                string[] allRequestData = File.ReadAllLines(pathRequest);
+            List<Person> Requestors = ReturnRequestsListObject();
 
-                corectLogin = allRequestData[3];
+            foreach (Person person in Requestors) {
+                corectLogin = person.Login;
 
 
                 if (corectLogin.Equals(inputLogin))
@@ -118,6 +119,8 @@ namespace GUI_zaliczenie2025.Classes
             }
             return isLoginOccupied;
         }
+
+
 
         
 

@@ -30,29 +30,32 @@ namespace GUI_zaliczenie2025
             InitializeComponent();
 
            // do poprawki ma generować tabele
-            ListVievUserRequests.ItemsSource = NewUsersRequests.ReturnRequestsListObject();
-            
-            
-
-
-
+            //ListVievUserRequests.ItemsSource = NewUsersRequests.ReturnRequestsListObject();
 
         }
 
-
-        
-
-        
 
         private void UserRequestsButtonOnclick(object sender, RoutedEventArgs e)
         {
+            
             Window window = Window.GetWindow(this);
             window.Content = new UserRequestPageWPF();
-            window.ResizeMode = ResizeMode.CanResize;
-            window.WindowState = WindowState.Maximized;
-            window.MinWidth = MinWidth = 1000;
 
         }
+        private void AdminMainPageButtonOnclick(object sender, RoutedEventArgs e)
+        {
+
+            Window window = Window.GetWindow(this);
+            window.Content = new AdminMainPageWPF();
+
+        }
+
+        private void ChangeToSla_ButtonOnClick(object sender, RoutedEventArgs e)
+        {
+            Main_Content_Change_Grid.Children.Clear();
+            Main_Content_Change_Grid.Children.Add(new ShortSlaPageWPF_UserControl());
+        }
+
 
     }
 }
