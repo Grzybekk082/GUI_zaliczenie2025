@@ -22,20 +22,23 @@ namespace GUI_zaliczenie2025.Classes
             using (MySqlConnection con = new MySqlConnection(conn_string.ToString()))
             {
                 con.Open();
-                using (MySqlCommand command = new MySqlCommand("SELECT title, description, location, _user, status, date_of_sla, company_name, telephone_number FROM reports;", con))
+                using (MySqlCommand command = new MySqlCommand("SELECT id,title, description, location, _user, status, date_of_sla, company_name, telephone_number FROM reports;", con))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
                         while (reader.Read())
                         {
 
-                            Requestors.Add(new Task { Title = $"{reader["title"].ToString()}", Description = $"{reader["description"].ToString()}",
+                            Requestors.Add(new Task {
+                                Id = $"{reader["id"].ToString()}",
+                                Title = $"{reader["title"].ToString()}", Description = $"{reader["description"].ToString()}",
                                 Location = $"{reader["location"].ToString()}", User = $"{reader["_user"].ToString()}", Status = $"{reader["status"].ToString()}",
                                 SLA = $"{reader["date_of_sla"].ToString()}", Company = $"{reader["company_name"].ToString()}",
                                 TelNumber = $"{reader["telephone_number"].ToString()}"
                             });
 
                         }
+                        con.Close();
                     }
                 }
             }

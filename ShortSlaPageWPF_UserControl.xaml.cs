@@ -1,7 +1,10 @@
-﻿using GUI_zaliczenie2025.Classes;
+﻿using Google.Protobuf.WellKnownTypes;
+using GUI_zaliczenie2025.Classes;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -13,6 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Task = GUI_zaliczenie2025.Classes.Task;
 
 namespace GUI_zaliczenie2025
 {
@@ -21,10 +25,29 @@ namespace GUI_zaliczenie2025
     /// </summary>
     public partial class ShortSlaPageWPF_UserControl : UserControl
     {
+        public static string Taskid;
         public ShortSlaPageWPF_UserControl()
         {
             InitializeComponent();
             DataGridShortSla.ItemsSource = ActualTasksOperations.ReturnRequestsListObject();
         }
+        private void RowDoubleClicktask(object sender, RoutedEventArgs e)
+        {
+            Taskid = null;
+            var selectedItem = DataGridShortSla.SelectedItem as Task; // Zamień MyObject na typ Twojego obiektu danych
+
+            if (selectedItem != null)
+            {
+                // Pobranie wartości konkretnej właściwości (np. "Name")
+                string selectedValue = selectedItem.Id;
+                // Przypisanie wartości do zmiennej
+                Taskid += selectedValue;
+
+            }
+            GridShortSla.Children.Clear();
+            GridShortSla.Children.Add(new TicketsShowUserControlWPF());
+        }
+
+
     }
 }
