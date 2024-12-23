@@ -6,11 +6,18 @@
              xmlns:local="clr-namespace:GUI_zaliczenie2025"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+
+        
+
     <Grid x:Name="GridShortSla">
 
         <DataGrid x:Name="DataGridShortSla"   Grid.Row="1" Grid.Column="1" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False"  ColumnWidth="*"  CanUserResizeRows="False" CanUserReorderColumns="False" MouseDoubleClick="RowDoubleClicktask">
             <DataGrid.Columns />
 
         </DataGrid>
+
+        
+
     </Grid>
+
 </UserControl>

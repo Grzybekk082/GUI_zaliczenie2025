@@ -22,6 +22,7 @@ namespace GUI_zaliczenie2025
     /// </summary>
     public partial class TicketsShowUserControlWPF : UserControl
     {
+         
         internal List<Classes.Task> ReturnSelectedTask()
         {
             string taskId = ShortSlaPageWPF_UserControl.Taskid;
@@ -67,8 +68,9 @@ namespace GUI_zaliczenie2025
         public TicketsShowUserControlWPF()
         {
             InitializeComponent();
-           
-            DataGridShortSla.ItemsSource = ReturnSelectedTask();
+
+
+            //DataGridShortSla.ItemsSource = ReturnSelectedTask();
         }
     }
 }
