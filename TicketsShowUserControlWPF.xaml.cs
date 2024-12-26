@@ -30,7 +30,7 @@ namespace GUI_zaliczenie2025
             List<Classes.Task> SelectedTask = new List<Classes.Task>();
             MySqlConnectionStringBuilder conn_string = new MySqlConnectionStringBuilder();
             conn_string.Server = "localhost";
-            conn_string.Port = 3306;
+            conn_string.Port = 3308;
             conn_string.UserID = "root";
             conn_string.Password = "2137";
             conn_string.Database = "servicedeskv2";
@@ -81,23 +81,8 @@ namespace GUI_zaliczenie2025
         {
             InitializeComponent();
 
-            List<Classes.Task> SelectedTask = ReturnSelectedTask();
-            foreach (Classes.Task task in SelectedTask)
-            {
-                TextBlockId.Text += task.Id;
-                TextBlockTitle.Text += task.Title;
-
-                TextBoxLocation.Text = task.Location;
-                TextBoxCompany.Text = task.Company;
-                TextBoxPhoneNumber.Text = task.TelNumber;
-
-                TextBlockDescription.Text += task.Description;
-
-                TextBlockStatus.Text = task.Status;
-                TextBlockTechnican.Text = task.Technican;
-                TextBlockCreateDate.Text = task.CreateDate;
-                TextBlockSLA.Text = task.SLA;
-            }
+                this.DataContext = ReturnSelectedTask();    
+            
         }
     }
 }
