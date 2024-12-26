@@ -14,7 +14,7 @@ namespace GUI_zaliczenie2025.Classes
             List<Task> Requestors = new List<Task>();
             MySqlConnectionStringBuilder conn_string = new MySqlConnectionStringBuilder();
             conn_string.Server = "localhost";
-            conn_string.Port = 3308;
+            conn_string.Port = 3306;
             conn_string.UserID = "root";
             conn_string.Password = "2137";
             conn_string.Database = "servicedeskv2";

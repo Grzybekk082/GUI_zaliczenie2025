@@ -22,15 +22,15 @@ namespace GUI_zaliczenie2025
     /// </summary>
     public partial class TicketsShowUserControlWPF : UserControl
     {
-         
-        internal List<Classes.Task> ReturnSelectedTask()
+
+        internal static List<Classes.Task> ReturnSelectedTask()
         {
             string taskId = ShortSlaPageWPF_UserControl.Taskid;
 
             List<Classes.Task> SelectedTask = new List<Classes.Task>();
             MySqlConnectionStringBuilder conn_string = new MySqlConnectionStringBuilder();
             conn_string.Server = "localhost";
-            conn_string.Port = 3308;
+            conn_string.Port = 3306;
             conn_string.UserID = "root";
             conn_string.Password = "2137";
             conn_string.Database = "servicedeskv2";
@@ -38,7 +38,17 @@ namespace GUI_zaliczenie2025
             using (MySqlConnection con = new MySqlConnection(conn_string.ToString()))
             {
                 con.Open();
-                using (MySqlCommand command = new MySqlCommand($"SELECT id,title, description, location, _user, status, date_of_sla, company_name, telephone_number FROM reports WHERE id='{taskId}';", con))
+                using (MySqlCommand command = new MySqlCommand($"SELECT id,title," +
+                    $" description," +
+                    $" location," +
+                    $" _user," +
+                    $" status," +
+                    $" date_of_sla," +
+                    $" company_name," +
+                    $" telephone_number," +
+                    $" technican," +
+                    $" create_date" +
+                    $" FROM reports WHERE id='{taskId}';", con))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
@@ -55,9 +65,11 @@ namespace GUI_zaliczenie2025
                                 Status = $"{reader["status"].ToString()}",
                                 SLA = $"{reader["date_of_sla"].ToString()}",
                                 Company = $"{reader["company_name"].ToString()}",
-                                TelNumber = $"{reader["telephone_number"].ToString()}"
+                                TelNumber = $"{reader["telephone_number"].ToString()}",
+                                Technican = $"{reader["technican"].ToString()}",
+                                CreateDate = $"{reader["create_date"].ToString()}"
                             });
-
+                            
                         }
                         con.Close();
                     }
@@ -69,8 +81,23 @@ namespace GUI_zaliczenie2025
         {
             InitializeComponent();
 
+            List<Classes.Task> SelectedTask = ReturnSelectedTask();
+            foreach (Classes.Task task in SelectedTask)
+            {
+                TextBlockId.Text += task.Id;
+                TextBlockTitle.Text += task.Title;
 
-            //DataGridShortSla.ItemsSource = ReturnSelectedTask();
+                TextBoxLocation.Text = task.Location;
+                TextBoxCompany.Text = task.Company;
+                TextBoxPhoneNumber.Text = task.TelNumber;
+
+                TextBlockDescription.Text += task.Description;
+
+                TextBlockStatus.Text = task.Status;
+                TextBlockTechnican.Text = task.Technican;
+                TextBlockCreateDate.Text = task.CreateDate;
+                TextBlockSLA.Text = task.SLA;
+            }
         }
     }
 }
