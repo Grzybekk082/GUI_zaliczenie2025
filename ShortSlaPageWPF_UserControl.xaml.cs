@@ -34,13 +34,11 @@ namespace GUI_zaliczenie2025
         private void RowDoubleClicktask(object sender, RoutedEventArgs e)
         {
             Taskid = null;
-            var selectedItem = DataGridShortSla.SelectedItem as Task; // Zamień MyObject na typ Twojego obiektu danych
+            var selectedItem = DataGridShortSla.SelectedItem as Task; 
 
             if (selectedItem != null)
             {
-                // Pobranie wartości konkretnej właściwości (np. "Name")
                 string selectedValue = selectedItem.Id;
-                // Przypisanie wartości do zmiennej
                 Taskid += selectedValue;
 
             }

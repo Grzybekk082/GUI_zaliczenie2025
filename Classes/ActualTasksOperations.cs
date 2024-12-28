@@ -1,4 +1,5 @@
-﻿using MySql.Data.MySqlClient;
+﻿using Google.Protobuf.WellKnownTypes;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,8 +10,35 @@ namespace GUI_zaliczenie2025.Classes
 {
     internal class ActualTasksOperations
     {
+
+        static List<SearchQuery> searchQueries;
+        static string mySqlQuery = $"SELECT id,title, description, location, _user, status, date_of_sla, company_name, telephone_number, priorytet, technican, create_date FROM reports;";
+
+        List<Task> SearchList=new List<Task>();
+        public ActualTasksOperations() { }
+        public ActualTasksOperations(string id = null, 
+                                    string location=null, 
+                                    string status = null, 
+                                    string technican=null, 
+                                    string company=null, 
+                                    string priority=null)
+        { 
+        searchQueries= new List<SearchQuery>();
+            searchQueries.Add(new SearchQuery
+            {
+               idQ = id,
+               locationQ = location,
+               statusQ = status,
+               technicanQ = technican,
+               companyQ = company,
+               priorityQ = priority
+            });
+            
+
+        }
         internal static List<Task> ReturnRequestsListObject()
         {
+            bool isQueryNull=true;
             List<Task> Requestors = new List<Task>();
             MySqlConnectionStringBuilder conn_string = new MySqlConnectionStringBuilder();
             conn_string.Server = "localhost";
@@ -18,10 +46,20 @@ namespace GUI_zaliczenie2025.Classes
             conn_string.UserID = "root";
             conn_string.Password = "2137";
             conn_string.Database = "servicedeskv2";
+            
 
             using (MySqlConnection con = new MySqlConnection(conn_string.ToString()))
             {
                 con.Open();
+                foreach(var query in searchQueries)
+                {
+                    if(query != null)
+                    {
+                        mySqlQuery = $"SELECT id,title, description, location, _user, status, date_of_sla, company_name, telephone_number, priorytet, technican, create_date FROM reports WHERE {query.GetType()};";
+                        //Do dokończenia!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                    }
+                }
+
                 using (MySqlCommand command = new MySqlCommand("SELECT id,title, description, location, _user, status, date_of_sla, company_name, telephone_number, priorytet, technican, create_date FROM reports;", con))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())

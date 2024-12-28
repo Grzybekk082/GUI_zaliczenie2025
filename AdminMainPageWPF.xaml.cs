@@ -15,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+
 namespace GUI_zaliczenie2025
 {
     /// <summary>
@@ -54,6 +55,15 @@ namespace GUI_zaliczenie2025
         {
             Main_Content_Change_Grid.Children.Clear();
             Main_Content_Change_Grid.Children.Add(new ShortSlaPageWPF_UserControl());
+        }
+
+        private void TaskSearchButton_click(object sender, RoutedEventArgs e)
+        {
+            
+
+            string choose = SearchForComboBox.Text;
+            string SearchText = SearchTextBox.Text;
+            MessageBox.Show(choose + SearchText);
         }
 
 
