@@ -1,4 +1,5 @@
 ﻿using GUI_zaliczenie2025.Classes;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -53,6 +54,7 @@ namespace GUI_zaliczenie2025
 
         private void ChangeToSla_ButtonOnClick(object sender, RoutedEventArgs e)
         {
+            ActualTasksOperations.MessageBoxShowObject();
             Main_Content_Change_Grid.Children.Clear();
             Main_Content_Change_Grid.Children.Add(new ShortSlaPageWPF_UserControl());
         }
@@ -63,7 +65,22 @@ namespace GUI_zaliczenie2025
 
             string choose = SearchForComboBox.Text;
             string SearchText = SearchTextBox.Text;
-            MessageBox.Show(choose + SearchText);
+            if(choose.IsNullOrEmpty() || SearchText.IsNullOrEmpty())
+            {
+                warningSearchLabel.Visibility= Visibility.Visible;
+
+                warningSearchLabel.Content = "Pole wyszukiwania i lista rozwijana muszą być uzupełnione !";
+            }
+            else
+            {
+                ActualTasksOperations.MessageBoxShowObject(choose, SearchText);
+                Main_Content_Change_Grid.Children.Clear();
+                Main_Content_Change_Grid.Children.Add(new ShortSlaPageWPF_UserControl());
+                SearchTextBox.Clear();
+                warningSearchLabel.Visibility = Visibility.Hidden;
+
+            }
+
         }
 
 
