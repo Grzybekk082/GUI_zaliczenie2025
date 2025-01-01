@@ -18,20 +18,24 @@ namespace GUI_zaliczenie2025.Classes
         List<Task> SearchList=new List<Task>();
         public ActualTasksOperations() { }
 
+
         internal static (string, bool) MessageBoxShowObject( string choose=null, string SearchText = null)
         {
+            isTextInt = true;
             if(choose != null&& SearchText!=null)
             {
                 if(choose=="Id")
                 {
-                    if (int.TryParse(SearchText, out int intSearchText))
+                    if (!int.TryParse(SearchText, out int intSearchText))
                     {
+                        isTextInt=false;
                         return ("Podaj dodatnią liczbę całkowitą", isTextInt);
                     }
-                    //utwórz oddzielną metodę, która będzie finalnie wykonywać się w pliku AdminMainPageWpf, wewnątrz w pierwszej
-                    //kolejności ma sprawdzać ma zawierać kod z linii 29 i w następstwie albo wyświetlać błą lub finalnie 
-                    //ustawiać właściwą kwerendę i przechodzić do metody ReturnRequestsListObject
-                    mySqlQuery = $"select id,title, description, location, _user, status, date_of_sla, company_name, telephone_number, priorytet, technican, create_date from reports where {choose} ={SearchText};";
+                    else
+                    {
+                        mySqlQuery = $"select id,title, description, location, _user, status, date_of_sla, company_name, telephone_number, priorytet, technican, create_date from reports where {choose} ={SearchText};";
+                    }
+
 
                 }
                 else
