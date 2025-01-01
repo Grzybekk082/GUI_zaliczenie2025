@@ -25,7 +25,8 @@ namespace GUI_zaliczenie2025
     /// 
     public partial class AdminMainPageWPF : UserControl
     {
-        
+        private bool isTextInt = true;
+
         public AdminMainPageWPF()
         {
            
@@ -62,27 +63,38 @@ namespace GUI_zaliczenie2025
         private void TaskSearchButton_click(object sender, RoutedEventArgs e)
         {
             
-
+            
             string choose = SearchForComboBox.Text;
             string SearchText = SearchTextBox.Text;
             if(choose.IsNullOrEmpty() || SearchText.IsNullOrEmpty())
             {
+
                 warningSearchLabel.Visibility= Visibility.Visible;
 
                 warningSearchLabel.Content = "Pole wyszukiwania i lista rozwijana muszą być uzupełnione !";
             }
             else
             {
-                ActualTasksOperations.MessageBoxShowObject(choose, SearchText);
-                Main_Content_Change_Grid.Children.Clear();
-                Main_Content_Change_Grid.Children.Add(new ShortSlaPageWPF_UserControl());
-                SearchTextBox.Clear();
-                warningSearchLabel.Visibility = Visibility.Hidden;
+                isTextInt =ActualTasksOperations.MessageBoxShowObject(choose, SearchText).Item2;
+                if (isTextInt)
+                {
+                    ActualTasksOperations.MessageBoxShowObject(choose, SearchText);
+                    Main_Content_Change_Grid.Children.Clear();
+                    Main_Content_Change_Grid.Children.Add(new ShortSlaPageWPF_UserControl());
+                    SearchTextBox.Clear();
+                    warningSearchLabel.Visibility = Visibility.Hidden;
+                }
+                else
+                {
+                    SearchTextBox.Clear();
+                    warningSearchLabel.Visibility = Visibility.Visible;
+                    warningSearchLabel.Content = ActualTasksOperations.MessageBoxShowObject(choose, SearchText).Item1;
+                }
+
 
             }
 
         }
-
 
     }
 }
