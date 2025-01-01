@@ -95,6 +95,6 @@ namespace GUI_zaliczenie2025
             }
 
         }
-
+        //Do poprawienia - klikniecie przycisku wczesne SLA ma pomijać metodę showMessage i od razu pokazywać wynik.
     }
 }

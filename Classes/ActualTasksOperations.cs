@@ -14,14 +14,16 @@ namespace GUI_zaliczenie2025.Classes
 
         //static List<SearchQuery> searchQueries;
         static string mySqlQuery = $"SELECT id,title, description, location, _user, status, date_of_sla, company_name, telephone_number, priorytet, technican, create_date FROM reports;";
-        static bool isTextInt = true;
-        List<Task> SearchList=new List<Task>();
+
+        static bool isTextInt = true, isQueryModify;
+         
         public ActualTasksOperations() { }
 
 
         internal static (string, bool) MessageBoxShowObject( string choose=null, string SearchText = null)
         {
             isTextInt = true;
+            //isQueryModify= true;
             if(choose != null&& SearchText!=null)
             {
                 if(choose=="Id")
@@ -56,6 +58,8 @@ namespace GUI_zaliczenie2025.Classes
         }
         internal static List<Task> ReturnRequestsListObject()
         {
+            
+
             bool isQueryNull=true;
             List<Task> Requestors = new List<Task>();
             MySqlConnectionStringBuilder conn_string = new MySqlConnectionStringBuilder();
@@ -98,7 +102,7 @@ namespace GUI_zaliczenie2025.Classes
                     }
                 }
             }
-
+                //isQueryModify=false;
             return Requestors;
         }
     }
