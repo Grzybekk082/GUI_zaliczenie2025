@@ -26,10 +26,19 @@ namespace GUI_zaliczenie2025
     public partial class ShortSlaPageWPF_UserControl : UserControl
     {
         public static string Taskid;
+        
         public ShortSlaPageWPF_UserControl()
         {
             InitializeComponent();
             DataGridShortSla.ItemsSource = ActualTasksOperations.ReturnRequestsListObject();
+
+            
+        }
+        public ShortSlaPageWPF_UserControl(string choose = null,string search= null)
+        {
+            InitializeComponent();
+            DataGridShortSla.ItemsSource = ActualTasksOperations.MessageBoxShowObject(choose,search);
+
         }
         private void RowDoubleClicktask(object sender, RoutedEventArgs e)
         {

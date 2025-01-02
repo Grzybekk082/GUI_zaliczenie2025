@@ -55,7 +55,7 @@ namespace GUI_zaliczenie2025
 
         private void ChangeToSla_ButtonOnClick(object sender, RoutedEventArgs e)
         {
-            ActualTasksOperations.MessageBoxShowObject();
+            ActualTasksOperations.ReturnRequestsListObject();
             Main_Content_Change_Grid.Children.Clear();
             Main_Content_Change_Grid.Children.Add(new ShortSlaPageWPF_UserControl());
         }
@@ -75,21 +75,31 @@ namespace GUI_zaliczenie2025
             }
             else
             {
-                isTextInt =ActualTasksOperations.MessageBoxShowObject(choose, SearchText).Item2;
-                if (isTextInt)
+                if (choose == "id")
                 {
-                    ActualTasksOperations.MessageBoxShowObject(choose, SearchText);
-                    Main_Content_Change_Grid.Children.Clear();
-                    Main_Content_Change_Grid.Children.Add(new ShortSlaPageWPF_UserControl());
-                    SearchTextBox.Clear();
-                    warningSearchLabel.Visibility = Visibility.Hidden;
+                    isTextInt = ActualTasksOperations.IsInputInt(choose, SearchText).Item2;
+                    if (isTextInt)
+                    {
+                        Main_Content_Change_Grid.Children.Clear();
+                        Main_Content_Change_Grid.Children.Add(new ShortSlaPageWPF_UserControl(choose, SearchText));
+                        SearchTextBox.Clear();
+                        warningSearchLabel.Visibility = Visibility.Hidden;
+                    }
+                    else
+                    {
+                        SearchTextBox.Clear();
+                        warningSearchLabel.Visibility = Visibility.Visible;
+                        warningSearchLabel.Content = ActualTasksOperations.IsInputInt(choose, SearchText).Item1;
+                    }
                 }
                 else
                 {
+                    Main_Content_Change_Grid.Children.Clear();
+                    Main_Content_Change_Grid.Children.Add(new ShortSlaPageWPF_UserControl(choose, SearchText));
                     SearchTextBox.Clear();
-                    warningSearchLabel.Visibility = Visibility.Visible;
-                    warningSearchLabel.Content = ActualTasksOperations.MessageBoxShowObject(choose, SearchText).Item1;
+                    warningSearchLabel.Visibility = Visibility.Hidden;
                 }
+
 
 
             }
