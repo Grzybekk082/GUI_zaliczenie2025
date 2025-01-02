@@ -27,6 +27,8 @@ namespace GUI_zaliczenie2025
     {
         private bool isTextInt = true;
 
+
+
         public AdminMainPageWPF()
         {
            
@@ -40,10 +42,11 @@ namespace GUI_zaliczenie2025
 
         private void UserRequestsButtonOnclick(object sender, RoutedEventArgs e)
         {
-            
-            Window window = Window.GetWindow(this);
-            window.Content = new UserRequestPageWPF();
-
+            ActualTasksOperations.ReturnRequestsListObject();
+            Main_Content_Change_Grid.Children.Clear();
+            Main_Content_Change_Grid.Children.Add(new UserRequestPageWPF());
+            Main_Admin_24h_Button.Visibility=Visibility.Hidden;
+            Main_Admin_SLA_Button.Visibility=Visibility.Hidden;
         }
         private void AdminMainPageButtonOnclick(object sender, RoutedEventArgs e)
         {

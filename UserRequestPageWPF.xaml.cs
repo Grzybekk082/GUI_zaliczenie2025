@@ -13,6 +13,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using GUI_zaliczenie2025.Admin;
+using Task = GUI_zaliczenie2025.Classes.Task;
 
 namespace GUI_zaliczenie2025
 {
@@ -21,26 +23,30 @@ namespace GUI_zaliczenie2025
     /// </summary>
     public partial class UserRequestPageWPF : UserControl
     {
-        public UserRequestPageWPF()
-        {
-            InitializeComponent();
-            ListVievUserRequests.ItemsSource = NewUsersRequests.ReturnRequestsListObject();
-        }
+    public static string Taskid;
 
-        private void UserRequestsButtonOnclick(object sender, RoutedEventArgs e)
-        {
-            Window window = Window.GetWindow(this);
-            window.Content = new UserRequestPageWPF();
+    public UserRequestPageWPF()
+    {
+        InitializeComponent();
+        
+        
+        DataGridUserRequests.ItemsSource = NewUsersRequests.ReturnRequestsListObject();
+    }
 
+    //private void RowDoubleClicktask(object sender, RoutedEventArgs e)
+    //{
+    //    Taskid = null;
+    //    var selectedItem = DataGridUserRequests.SelectedItem as Task;
 
-        }
+    //    if (selectedItem != null)
+    //    {
+    //        string selectedValue = selectedItem.Id;
+    //        Taskid += selectedValue;
 
-        private void AdminMainPageButtonOnclick(object sender, RoutedEventArgs e)
-        {
+    //    }
 
-            Window window = Window.GetWindow(this);
-            window.Content = new AdminMainPageWPF();
-
-        }
+    //    GridShortSla.Children.Clear();
+    //    GridShortSla.Children.Add(new TicketsShowUserControlWPF());
+    //}
     }
 }

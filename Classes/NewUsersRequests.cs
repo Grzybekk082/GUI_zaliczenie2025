@@ -88,10 +88,7 @@ namespace GUI_zaliczenie2025.Classes
 
             return Requestors;
         }
-        //Metoda zwracająca aktualną liczbę próśb o dołączenie 
-        //internal static int ReturnRequestNumber()
-        //{
-        //    return ReturnRequestList().Length;
+
         //}
         //Metoda sprawdzająca na etapie tworzenia przez użytkownika prośby czy utworzony przez niego login nie 
         //jest już zajęty.

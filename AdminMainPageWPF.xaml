@@ -105,8 +105,8 @@
                         <ColumnDefinition/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                <Button Content="Wczesne SLA"  Grid.Column="0"  Background="#FFB5B5B5"   Margin="1,20,0,1" Padding="10,0,10,0"  BorderThickness="0" Click="ChangeToSla_ButtonOnClick"/>
-                <Button Content="Ostatnie 24H" Grid.Column="1"  Background="#FFB5B5B5"   Margin="1,20,0,1" Padding="10,0,10,0" BorderThickness="0"/>
+                <Button x:Name="Main_Admin_SLA_Button" Content="Wczesne SLA"  Grid.Column="0"  Background="#FFB5B5B5"   Margin="1,20,0,1" Padding="10,0,10,0"  BorderThickness="0" Click="ChangeToSla_ButtonOnClick" HorizontalAlignment="Left" Width="348"/>
+                <Button x:Name="Main_Admin_24h_Button" Content="Ostatnie 24H" Grid.Column="1"  Background="#FFB5B5B5"   Margin="1,20,0,1" Padding="10,0,10,0" BorderThickness="0"/>
 
             </Grid>
 

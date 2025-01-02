@@ -5,80 +5,15 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:GUI_zaliczenie2025"
              mc:Ignorable="d" 
-             d:DesignHeight="1080" d:DesignWidth="1920">
-    <Grid>
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid x:Name="GridShortSla">
 
-        <Grid.RowDefinitions>
-            <RowDefinition Height="10"/>
-            <RowDefinition Height="80"/>
-            <RowDefinition />
-            <RowDefinition Height="10" />
-        </Grid.RowDefinitions>
-
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="10"/>
-
-            <ColumnDefinition />
-            <ColumnDefinition Width="10"/>
-        </Grid.ColumnDefinitions>
+        <DataGrid x:Name="DataGridUserRequests"   Grid.Row="1" Grid.Column="1" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False"  ColumnWidth="*"  CanUserResizeRows="False" CanUserReorderColumns="False" >
+            <DataGrid.Columns />
+            <!--MouseDoubleClick="RowDoubleClicktask"-->
+        </DataGrid>
 
 
-        <Grid x:Name="mainContent" Grid.Row="2" Grid.Column="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="6.1*"/>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="1.2*"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="0.06*" MinHeight="50"/>
-                <RowDefinition Height="0.06*" MinHeight="50"/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-
-            <Rectangle Grid.Column="0" Grid.ColumnSpan="2"  Panel.ZIndex="-1" Grid.Row="1" Grid.RowSpan="2" Fill="#FFCCCCCC"/>
-
-            <Border BorderThickness="2" BorderBrush="#FF5A5959" Grid.ColumnSpan="2">
-                <Label Content="Zarządzanie zleceniami" Grid.Row="0" Grid.Column="0"  FontSize="30"   HorizontalAlignment="Center" VerticalAlignment="top" Foreground="#FFD4D4D4" />
-            </Border>
-
-            <DataGrid x:Name="ListVievUserRequests"  Grid.Row="2" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False"  ColumnWidth="*"  CanUserResizeRows="False" CanUserReorderColumns="False"/>
-
-
-
-
-
-            <Rectangle Grid.Column="4" Panel.ZIndex="-1" Grid.Row="0" Grid.RowSpan="3" Fill="#FF4E4C4C"/>
-            <Rectangle Grid.Column="0" Grid.ColumnSpan="4" Panel.ZIndex="-1" Grid.Row="0" Fill="#FF4E4C4C"/>
-        </Grid>
-
-        <Grid x:Name="topBar"  Grid.Row="1"  Grid.Column="1" Grid.ColumnSpan="2">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="10"/>
-                <ColumnDefinition Width="auto"/>
-                <ColumnDefinition Width="auto"/>
-                <ColumnDefinition Width="auto"/>
-                <ColumnDefinition Width="auto"/>
-                <ColumnDefinition Width="auto"/>
-                <ColumnDefinition Width="auto"/>
-                <ColumnDefinition Width="auto"/>
-                <ColumnDefinition Width="auto"/>
-                <ColumnDefinition Width="auto"/>
-                <ColumnDefinition Width="auto"/>
-                <ColumnDefinition Width="10*"/>
-                <ColumnDefinition Width="10"/>
-            </Grid.ColumnDefinitions>
-            
-            <Button Content="zarządzaj zleceniami" Grid.Column="2" Background="#FFB5B5B5" Margin="1,40,0,1" Padding="10,0,10,0"/>
-            <Button Content="Zarządzaj protokołąmi"  Grid.Column="3" Background="#FFB5B5B5" Margin="1,40,0,1" Padding="10,0,10,0"/>
-            <Button Content="Zarządzaj użytkownikami" Grid.Column="4" Background="#FFB5B5B5" Margin="1,40,0,1" Padding="10,0,10,0"/>
-            <Button Content="Zarządzaj prośbami"  Grid.Column="5" Background="#FFB5B5B5" Margin="1,40,0,1" Padding="10,0,10,0" Click="UserRequestsButtonOnclick"/>
-            <Button Content="Logistyka" Grid.Column="6" Background="#FFB5B5B5" Margin="1,40,0,1" Padding="10,0,10,0"/>
-            <Button Content="Urządzenia" Grid.Column="7" Background="#FFB5B5B5" Margin="1,40,0,1" Padding="10,0,10,0"/>
-            <Button Content="Strona główna" Grid.Column="1" Background="#FFB5B5B5" Margin="1,40,0,1"  Padding="10,0,10,0" Click="AdminMainPageButtonOnclick"/>
-
-            <Rectangle Grid.Column="0" Grid.Row="1" Fill="#FF4E4C4C" Panel.ZIndex="-1" Grid.ColumnSpan="12" />
-
-        </Grid>
 
     </Grid>
 </UserControl>

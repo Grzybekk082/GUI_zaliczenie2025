@@ -34,7 +34,7 @@ namespace GUI_zaliczenie2025
 
             
         }
-        public ShortSlaPageWPF_UserControl(string choose = null,string search= null)
+        public ShortSlaPageWPF_UserControl(string choose ,string search)
         {
             InitializeComponent();
             DataGridShortSla.ItemsSource = ActualTasksOperations.MessageBoxShowObject(choose,search);
