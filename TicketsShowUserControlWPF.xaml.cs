@@ -80,8 +80,7 @@ namespace GUI_zaliczenie2025
         public TicketsShowUserControlWPF()
         {
             InitializeComponent();
-
-                this.DataContext = ReturnSelectedTask();    
+            this.DataContext = ReturnSelectedTask();    
             
         }
     }

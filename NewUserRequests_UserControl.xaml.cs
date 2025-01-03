@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,55 @@ namespace GUI_zaliczenie2025
     /// </summary>
     public partial class NewUserRequests_UserControl : UserControl
     {
+        internal static List<Classes.Person> ReturnSelectedTask()
+        {
+            string taskId = UserRequestPageWPF.Taskid;
+
+            List<Classes.Person> SelectedTask = new List<Classes.Person>();
+            MySqlConnectionStringBuilder conn_string = new MySqlConnectionStringBuilder();
+            conn_string.Server = "localhost";
+            conn_string.Port = 3308;
+            conn_string.UserID = "root";
+            conn_string.Password = "2137";
+            conn_string.Database = "servicedeskv2";
+
+            using (MySqlConnection con = new MySqlConnection(conn_string.ToString()))
+            {
+                con.Open();
+                using (MySqlCommand command = new MySqlCommand($"SELECT "+
+                          $"id,"+
+                            $"Imie," +
+                            $" Nazwisko," +
+                            $" Login," +
+                            $" kolumna_dat" +
+                            $" FROM user_requests WHERE id='{taskId}';", con))
+                {
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+
+                            SelectedTask.Add(new Classes.Person()
+                            {
+                                Id = $"{reader["Id"].ToString()}",
+                                Name = $"{reader["Imie"].ToString()}",
+                                Surename = $"{reader["Nazwisko"].ToString()}",
+                                Login = $"{reader["Login"].ToString()}",
+                                Date_of_Request = $"{reader["Kolumna_dat"].ToString()}",
+
+                            });
+
+                        }
+                        con.Close();
+                    }
+                }
+            }
+            return SelectedTask;
+        }
         public NewUserRequests_UserControl()
         {
             InitializeComponent();
+            this.DataContext = ReturnSelectedTask();
         }
     }
 }

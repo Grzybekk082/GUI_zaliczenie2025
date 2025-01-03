@@ -57,7 +57,7 @@ namespace GUI_zaliczenie2025.Classes
         {
             return Directory.GetFiles(path);
         }
-        //Metoda zwraca aktualną LISTE obiektów klasy PERSON (imie, nazwisko, login), potrzebna jest do wyświetlania
+        //Metoda zwraca aktualną LISTE obiektów klasy PERSON (id ,imie, nazwisko, login, data wysłania prośby), potrzebna jest do wyświetlania
         //w GUI listy próśb użytkowników
         internal static List<Person> ReturnRequestsListObject()
         {
@@ -72,15 +72,26 @@ namespace GUI_zaliczenie2025.Classes
             using ( MySqlConnection con = new MySqlConnection(conn_string.ToString()))
             {
                 con.Open();
-                using (MySqlCommand command = new MySqlCommand("SELECT Imie, Nazwisko, Login FROM user_requests;", con))
+                using (MySqlCommand command = new MySqlCommand($"SELECT" +
+                                                               $" id, " +
+                                                               $" Imie, " +
+                                                               $"Nazwisko, " +
+                                                               $"Login," +
+                                                               $"kolumna_dat " +
+                                                               $"FROM user_requests;", con))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
                         while (reader.Read())
                         {
 
-                            Requestors.Add(new Person { Name = $"{reader["Imie"].ToString()}", Surename = $"{reader["Nazwisko"].ToString()}", Login = $"{reader["Login"].ToString()}" });
-                            
+                            Requestors.Add(new Person {
+                                Id = $"{reader["Id"].ToString()}",
+                                Name = $"{reader["Imie"].ToString()}",
+                                Surename = $"{reader["Nazwisko"].ToString()}",
+                                Login = $"{reader["Login"].ToString()}",
+                                Date_of_Request = $"{reader["Kolumna_dat"].ToString()}",
+                            });
                         }
                     }
                 }

@@ -8,9 +8,9 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid x:Name="GridShortSla">
 
-        <DataGrid x:Name="DataGridUserRequests"   Grid.Row="1" Grid.Column="1" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False"  ColumnWidth="*"  CanUserResizeRows="False" CanUserReorderColumns="False" >
+        <DataGrid x:Name="DataGridUserRequests"   Grid.Row="1" Grid.Column="1" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False"  ColumnWidth="*"  CanUserResizeRows="False" CanUserReorderColumns="False" MouseDoubleClick="RowDoubleClickRequest" >
             <DataGrid.Columns />
-            <!--MouseDoubleClick="RowDoubleClicktask"-->
+            <!---->
         </DataGrid>
 
 

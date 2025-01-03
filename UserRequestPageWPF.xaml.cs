@@ -33,20 +33,20 @@ namespace GUI_zaliczenie2025
         DataGridUserRequests.ItemsSource = NewUsersRequests.ReturnRequestsListObject();
     }
 
-    //private void RowDoubleClicktask(object sender, RoutedEventArgs e)
-    //{
-    //    Taskid = null;
-    //    var selectedItem = DataGridUserRequests.SelectedItem as Task;
+        private void RowDoubleClickRequest(object sender, RoutedEventArgs e)
+        {
+            Taskid = null;
+            var selectedItem = DataGridUserRequests.SelectedItem as Person;
 
-    //    if (selectedItem != null)
-    //    {
-    //        string selectedValue = selectedItem.Id;
-    //        Taskid += selectedValue;
+            if (selectedItem != null)
+            {
+                string selectedValue = selectedItem.Id;
+                Taskid += selectedValue;
 
-    //    }
+            }
 
-    //    GridShortSla.Children.Clear();
-    //    GridShortSla.Children.Add(new TicketsShowUserControlWPF());
-    //}
+            GridShortSla.Children.Clear();
+            GridShortSla.Children.Add(new NewUserRequests_UserControl());
+        }
     }
 }
