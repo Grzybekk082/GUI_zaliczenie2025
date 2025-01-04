@@ -5,88 +5,83 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GUI_zaliczenie2025"
         mc:Ignorable="d"
-        Title="Zarządzanie prośbami" Height="400" Width="600">
+        Title="Zarządzanie prośbami" Height="350" Width="500" ResizeMode="NoResize">
+
+    <Window.Resources>
+        <Style x:Key="CustomTextLabelStyle" TargetType="Label">
+            <Setter Property="FontSize" Value="10" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+
+        <Style x:Key="CustomTextBlockStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="10" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+    </Window.Resources>
+
+
     <Grid>
+
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="5"/>
-            <ColumnDefinition  Width="1*"/>
+            <ColumnDefinition Width="10"/>
             <ColumnDefinition Width="4*"/>
-            <ColumnDefinition Width="5"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="10"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="5"/>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="2*"/>
-            <RowDefinition Height="4*"/>
-            <RowDefinition Height="3*"/>
-            <RowDefinition Height="5"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition/>
+            <RowDefinition Height="10"/>
         </Grid.RowDefinitions>
-        <!--Do dokończenia binding z bazy-->
-        <TextBlock x:Name="TextBlockId" Text="{Binding Id}" Grid.Row="1" Grid.Column="1"  Margin="12 10 0 0" Width="auto" Height="auto"/>
-        <TextBlock x:Name="TextBlockTitle" Text="{Binding Name }" Grid.Row="1" Grid.Column="2"  Margin="12 10 0 0" Width="auto" Height="auto"/>
-        <TextBlock  Text="Szczegóły zlecenia"  Grid.Row="3" Grid.Column="1"  Margin="12 10 0 0" Width="auto" Height="auto"/>
 
-        <Border BorderBrush="black" BorderThickness="0.7,0.7,0.7,0" CornerRadius="3,0,0,0" Grid.Row="1" Grid.Column="1"/>
-        <Border BorderBrush="black" BorderThickness="0.7,0.7,0.7,0" CornerRadius="0,3,0,0" Grid.Row="1" Grid.Column="2"/>
-
-
-        <TextBlock x:Name="TextBlockDescription" Text="{Binding Surename}"  Grid.Row="3" Grid.Column="2"  Margin="12 10 0 0" Width="auto" Height="auto"/>
-        <Border BorderBrush="black" BorderThickness="0.7,0,0,0" Grid.Row="3" Grid.Column="1" Grid.RowSpan="3"/>
-        <Border BorderBrush="black" BorderThickness="0.7,0,0.7,0" Grid.Row="3" Grid.Column="2" />
-
-
-        <Border BorderBrush="Black" BorderThickness="0.7" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="2"/>
-        <Grid x:Name="ClientInformationGrid" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="2" >
-            <Grid.ColumnDefinitions >
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="4*"/>
-            </Grid.ColumnDefinitions>
+        <Grid Grid.Column="3" Grid.Row="1">     
             <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
+                <RowDefinition Height="0.5*"/>
+                <RowDefinition Height="0.5*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="0.5*"/>
+                <RowDefinition Height="2*"/>
             </Grid.RowDefinitions>
-            <Border BorderBrush="black" BorderThickness="0.7,0,0.7,0"  Grid.Row="0" Grid.RowSpan="3"/>
+            <Label Style="{StaticResource CustomTextLabelStyle}" Grid.Row="1" Content="Zarządzaj prośbą"/>
+            <Label Style="{StaticResource CustomTextLabelStyle}" Grid.Row="3" Content="Zatwierdz lub usuń"/>
+        </Grid>
 
+        <Grid Grid.Column="1" Grid.Row="1">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="3*"/>
+        </Grid.RowDefinitions>
 
-            <TextBlock Text="Lokalizacja"  VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="14" Grid.Row="0" Margin="12 0 0 0"/>
-            <TextBlock Text="Firma" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="14"  Grid.Row="1" Margin="12 0 0 0"/>
-            <TextBlock Text="Numer telefonu" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="14"  Grid.Row="2" Margin="12 0 0 0"/>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
 
-            <TextBlock x:Name="TextBoxLocation" Text="{Binding Name}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="14" Grid.Row="0" Grid.Column="1" Margin="12 0 0 0"/>
+            <TextBlock Style="{StaticResource CustomTextBlockStyle}" x:Name="TextBoxId" Text="{Binding Id}"  Grid.Row="0" Grid.Column="1"  Margin="12 0 0 0"/>
+            <TextBlock Style="{StaticResource CustomTextBlockStyle}" x:Name="TextBoxName" Text="{Binding Name}"  Grid.Row="1" Grid.Column="1"  Margin="12 0 0 0"/>
+            <TextBlock Style="{StaticResource CustomTextBlockStyle}" x:Name="TextBoxSurename" Text="{Binding Surename}"  Grid.Row="2" Grid.Column="1" Margin="12 0 0 0"/>
+            <TextBlock Style="{StaticResource CustomTextBlockStyle}" x:Name="TextBoxLogin" Text="{Binding Login}"  Grid.Row="3" Grid.Column="1" Margin="12 0 0 0"/>
+            <TextBlock Style="{StaticResource CustomTextBlockStyle}" x:Name="TextBoxSendDate" Text="{Binding Date_of_Request}"  Grid.Row="4" Grid.Column="1" Margin="12 0 0 0"/>
+
+            <Label Style="{StaticResource CustomTextLabelStyle}" x:Name="TextLabelId"  Content ="Nr. Zgłsozenia"  Grid.Row="0" Grid.Column="0"  Margin="12 0 0 0"/>
+            <Label Style="{StaticResource CustomTextLabelStyle}" x:Name="TextLabelName" Content ="Imię"  Grid.Row="1" Grid.Column="0" Margin="12 0 0 0"/>
+            <Label Style="{StaticResource CustomTextLabelStyle}" x:Name="TextLabelSurename" Content ="Nazwisko"  Grid.Row="2" Grid.Column="0" Margin="12 0 0 0"/>
+            <Label Style="{StaticResource CustomTextLabelStyle}" x:Name="TextLabelLogin" Content ="Login"  Grid.Row="3" Grid.Column="0" Margin="12 0 0 0"/>
+            <Label Style="{StaticResource CustomTextLabelStyle}" x:Name="TextLabelSendDate" Content ="Data wysłania"  Grid.Row="4" Grid.Column="0" Margin="12 0 0 0"/>
+
+        </Grid>
+            <!--<TextBlock x:Name="TextBoxLocation" Text="{Binding Name}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="14" Grid.Row="0" Grid.Column="1" Margin="12 0 0 0"/>
             <TextBlock x:Name="TextBoxCompany" Text="{Binding Surename}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="14" Grid.Row="1" Grid.Column="1" Margin="12 0 0 0"/>
             <TextBlock x:Name="TextBoxPhoneNumber" Text="{Binding Login}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="14" Grid.Row="2" Grid.Column="1" Margin="12 0 0 0"/>
+            <TextBlock x:Name="TextBoxSendDate" Text="{Binding Date_of_Request}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="14" Grid.Row="2" Grid.Column="1" Margin="12 0 0 0"/>-->
 
-        </Grid>
 
-        <Grid x:Name="TicketAdministrationInformationGrid" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="4">
-
-            <Grid.ColumnDefinitions >
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="4*"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-            <Border BorderBrush="Black" BorderThickness="0.7,0,0.7,0.7" Grid.Column="1" Grid.Row="0" Grid.RowSpan="5"/>
-            <Border BorderBrush="Black" BorderThickness="0.7" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" Grid.RowSpan="5"/>
-
-            <TextBlock Text="Status" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="14" Grid.Row="0" Margin="12 0 0 0"/>
-            <TextBlock Text="Przypisany technik" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="14"  Grid.Row="1" Margin="12 0 0 0"/>
-            <TextBlock Text="Data utworzenia" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="14"  Grid.Row="2" Margin="12 0 0 0"/>
-            <TextBlock Text="SLA" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="14"  Grid.Row="3" Margin="12 0 0 0"/>
-            <TextBlock Text="Priorytet" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="14"  Grid.Row="4" Margin="12 0 0 0"/>
-
-            <TextBlock x:Name="TextBlockStatus" Text="{Binding Name}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="14"  Grid.Row="0" Grid.Column="1" Margin="12 0 0 0"/>
-            <TextBlock x:Name="TextBlockTechnican" Text="{Binding Login}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="14"  Grid.Row="1" Grid.Column="1" Margin="12 0 0 0"/>
-            <TextBlock x:Name="TextBlockCreateDate" Text="{Binding CreateDate}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="14"  Grid.Row="2" Grid.Column="1" Margin="12 0 0 0"/>
-            <TextBlock x:Name="TextBlockSLA" Text="{Binding SLA}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="14"  Grid.Row="3" Grid.Column="1" Margin="12 0 0 0"/>
-            <TextBlock x:Name="TextBlockPriorytet" Text="{Binding Priorytet}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="14"  Grid.Row="4" Grid.Column="1" Margin="12 0 0 0"/>
-
-        </Grid>
     </Grid>
 </Window>

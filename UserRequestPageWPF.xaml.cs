@@ -48,7 +48,7 @@ namespace GUI_zaliczenie2025
             //GridShortSla.Children.Clear();
             //GridShortSla.Children.Add(new NewUserRequests_UserControl());
             var newUserRequestConfirm_Window = new NewUserRequestConfirm_Window();
-            newUserRequestConfirm_Window.Show();
+            newUserRequestConfirm_Window.ShowDialog();
             newUserRequestConfirm_Window.ResizeMode=ResizeMode.NoResize;
         }
     }

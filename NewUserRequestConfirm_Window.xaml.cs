@@ -1,6 +1,7 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,15 +13,18 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Globalization;
 
 
 namespace GUI_zaliczenie2025
 {
+
     /// <summary>
     /// Logika interakcji dla klasy NewUserRequestConfirm_Window.xaml
     /// </summary>
     public partial class NewUserRequestConfirm_Window : Window
     {
+
         internal static List<Classes.Person> ReturnSelectedTask()
         {
             string taskId = UserRequestPageWPF.Taskid;
