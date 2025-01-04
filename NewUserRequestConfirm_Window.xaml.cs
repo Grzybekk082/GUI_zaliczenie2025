@@ -11,15 +11,15 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
+
 
 namespace GUI_zaliczenie2025
 {
     /// <summary>
-    /// Logika interakcji dla klasy NewUserRequests_UserControl.xaml
+    /// Logika interakcji dla klasy NewUserRequestConfirm_Window.xaml
     /// </summary>
-    public partial class NewUserRequests_UserControl : UserControl
+    public partial class NewUserRequestConfirm_Window : Window
     {
         internal static List<Classes.Person> ReturnSelectedTask()
         {
@@ -36,13 +36,13 @@ namespace GUI_zaliczenie2025
             using (MySqlConnection con = new MySqlConnection(conn_string.ToString()))
             {
                 con.Open();
-                using (MySqlCommand command = new MySqlCommand($"SELECT "+
-                          $"id,"+
-                            $"Imie," +
-                            $" Nazwisko," +
-                            $" Login," +
-                            $" kolumna_dat" +
-                            $" FROM user_requests WHERE id='{taskId}';", con))
+                using (MySqlCommand command = new MySqlCommand($"SELECT " +
+                                                               $"id," +
+                                                               $"Imie," +
+                                                               $" Nazwisko," +
+                                                               $" Login," +
+                                                               $" kolumna_dat" +
+                                                               $" FROM user_requests WHERE id='{taskId}';", con))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
@@ -66,7 +66,7 @@ namespace GUI_zaliczenie2025
             }
             return SelectedTask;
         }
-        public NewUserRequests_UserControl()
+        public NewUserRequestConfirm_Window()
         {
             InitializeComponent();
             this.DataContext = ReturnSelectedTask();

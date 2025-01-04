@@ -69,7 +69,8 @@ namespace GUI_zaliczenie2025
             
             string choose = SearchForComboBox.Text;
             string SearchText = SearchTextBox.Text;
-            if(choose.IsNullOrEmpty() || SearchText.IsNullOrEmpty())
+            (string warningText, bool isInt) IsInputIntReturns = ActualTasksOperations.IsInputInt(choose, SearchText);
+            if (choose.IsNullOrEmpty() || SearchText.IsNullOrEmpty())
             {
 
                 warningSearchLabel.Visibility= Visibility.Visible;
@@ -78,10 +79,9 @@ namespace GUI_zaliczenie2025
             }
             else
             {
-                if (choose == "id")
+                if (choose == "Id")
                 {
-                    isTextInt = ActualTasksOperations.IsInputInt(choose, SearchText).Item2;
-                    if (isTextInt)
+                    if (IsInputIntReturns.isInt)
                     {
                         Main_Content_Change_Grid.Children.Clear();
                         Main_Content_Change_Grid.Children.Add(new ShortSlaPageWPF_UserControl(choose, SearchText));
@@ -92,7 +92,7 @@ namespace GUI_zaliczenie2025
                     {
                         SearchTextBox.Clear();
                         warningSearchLabel.Visibility = Visibility.Visible;
-                        warningSearchLabel.Content = ActualTasksOperations.IsInputInt(choose, SearchText).Item1;
+                        warningSearchLabel.Content = IsInputIntReturns.warningText;
                     }
                 }
                 else
