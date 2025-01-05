@@ -25,18 +25,24 @@ namespace GUI_zaliczenie2025
     {
     public static string Taskid;
 
-    public UserRequestPageWPF()
+    private AdminMainPageWPF _adminMainPage;////
+        public UserRequestPageWPF(AdminMainPageWPF adminMainPage)////
     {
         InitializeComponent();
-        
-        
-        DataGridUserRequests.ItemsSource = NewUsersRequests.ReturnRequestsListObject();
+        _adminMainPage = adminMainPage;/////
+
+            DataGridUserRequests.ItemsSource = NewUsersRequests.ReturnRequestsListObject();
     }
 
-        private void RowDoubleClickRequest(object sender, RoutedEventArgs e)
+        public UserRequestPageWPF()
+        {
+            InitializeComponent();
+        }
+
+        public void RowDoubleClickRequest(object sender, RoutedEventArgs e)
         {
             Taskid = null;
-            var selectedItem = DataGridUserRequests.SelectedItem as Person;
+             var selectedItem = DataGridUserRequests.SelectedItem as Person;
 
             if (selectedItem != null)
             {
@@ -47,7 +53,7 @@ namespace GUI_zaliczenie2025
 
             //GridShortSla.Children.Clear();
             //GridShortSla.Children.Add(new NewUserRequests_UserControl());
-            var newUserRequestConfirm_Window = new NewUserRequestConfirm_Window();
+            var newUserRequestConfirm_Window = new NewUserRequestConfirm_Window(_adminMainPage);////
             newUserRequestConfirm_Window.ShowDialog();
             newUserRequestConfirm_Window.ResizeMode=ResizeMode.NoResize;
         }

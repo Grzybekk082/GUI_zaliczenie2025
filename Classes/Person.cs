@@ -13,5 +13,6 @@ namespace GUI_zaliczenie2025.Classes
         public string Surename { get; set; }
         public string Login { get; set; }
         public string Date_of_Request { get; set; }
+        public string Phone_Number { get; set; }
     }
 }

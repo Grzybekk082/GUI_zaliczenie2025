@@ -28,7 +28,16 @@ namespace GUI_zaliczenie2025
 
             //Poniżej podmieniamy widok głównego okna MainContent widokiem strony logowania LogInPAgeWPF używająć ich wartości x:name w plikach xaml
             Window window=Window.GetWindow(this);
+
+            //Przywróć przy oddawaniu projektu
+
             window.Content = new LoginPageWPF();
+
+            //usuń przed oddaniem>>
+            //window.Content = new AdminMainPageWPF();
+            //window.ResizeMode = ResizeMode.CanResize;
+            //window.WindowState = WindowState.Maximized;
+            //window.MinWidth = MinWidth = 1000;
         }
 
 

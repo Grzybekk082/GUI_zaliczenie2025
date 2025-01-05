@@ -26,25 +26,30 @@ namespace GUI_zaliczenie2025
     public partial class AdminMainPageWPF : UserControl
     {
         private bool isTextInt = true;
-
-
+        public object send;
+        public RoutedEventArgs argE;
 
         public AdminMainPageWPF()
         {
            
             InitializeComponent();
+            send = null;
+            argE = null;
 
-           // do poprawki ma generować tabele
+            // do poprawki ma generować tabele
             //ListVievUserRequests.ItemsSource = NewUsersRequests.ReturnRequestsListObject();
 
         }
 
 
-        private void UserRequestsButtonOnclick(object sender, RoutedEventArgs e)
+        internal void UserRequestsButtonOnclick(object sender, RoutedEventArgs e)
         {
+            send = sender;
+            argE = e;
             ActualTasksOperations.ReturnRequestsListObject();
             Main_Content_Change_Grid.Children.Clear();
-            Main_Content_Change_Grid.Children.Add(new UserRequestPageWPF());
+            Main_Content_Change_Grid.Children.Add(new UserRequestPageWPF(this));
+            /////
             Main_Admin_24h_Button.Visibility=Visibility.Hidden;
             Main_Admin_SLA_Button.Visibility=Visibility.Hidden;
         }
@@ -58,6 +63,7 @@ namespace GUI_zaliczenie2025
 
         private void ChangeToSla_ButtonOnClick(object sender, RoutedEventArgs e)
         {
+
             ActualTasksOperations.ReturnRequestsListObject();
             Main_Content_Change_Grid.Children.Clear();
             Main_Content_Change_Grid.Children.Add(new ShortSlaPageWPF_UserControl());
@@ -65,8 +71,9 @@ namespace GUI_zaliczenie2025
 
         private void TaskSearchButton_click(object sender, RoutedEventArgs e)
         {
+
             
-            
+             
             string choose = SearchForComboBox.Text;
             string SearchText = SearchTextBox.Text;
             (string warningText, bool isInt) IsInputIntReturns = ActualTasksOperations.IsInputInt(choose, SearchText);

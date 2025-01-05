@@ -22,7 +22,7 @@ namespace GUI_zaliczenie2025
     /// </summary>
     public partial class CreateAccountPageWPF : UserControl
     {
-        string newName, newSurename, newLogin, newPassword;
+        string newName, newSurename, newLogin, newPassword, newPhoneNumber;
         public CreateAccountPageWPF()
         {
             InitializeComponent();
@@ -38,10 +38,11 @@ namespace GUI_zaliczenie2025
             newName=textBoxName.Text;
             newSurename=textBoxSurename.Text;
             newPassword=textBoxPassword.Password;
+            newPhoneNumber = textBoxPhoneNumber.Text;
 
             newLogin = $"{newName}.{newSurename}";
             ;
-            if (String.IsNullOrEmpty(newName) || String.IsNullOrEmpty(newSurename) || String.IsNullOrEmpty(newLogin) || String.IsNullOrEmpty(newSurename))
+            if (String.IsNullOrEmpty(newName) || String.IsNullOrEmpty(newSurename) || String.IsNullOrEmpty(newLogin) || String.IsNullOrEmpty(newSurename) || String.IsNullOrEmpty(newPhoneNumber))
             {
                 warningLabel.Foreground = Brushes.IndianRed;
                 warningLabel.Content = "Wszystkie pola muszą być wypełnione";
@@ -80,12 +81,25 @@ namespace GUI_zaliczenie2025
                             }
                             else
                             {
-                                warningLabel.Foreground = Brushes.Black;
-                                NewUsersRequests nu = new NewUsersRequests(newName, newSurename, newPassword, newLogin);
-                                warningLabel.Content = "Prośba o utworzenie konta została wysłana do administratora.";
-                                Thread.Sleep(3000);
+                                if (newPhoneNumber.Length == 9 && int.TryParse(newPhoneNumber, out int phoneNumber)&&phoneNumber>0)
+                                {
+                                    warningLabel.Foreground = Brushes.Black;
+                                    NewUsersRequests nu = new NewUsersRequests(newName, newSurename, newPassword, newLogin,newPhoneNumber );
+                                    warningLabel.Content = "Prośba o utworzenie konta została wysłana do administratora.";
+                                    Thread.Sleep(3000);
+                                    textBoxPassword.Password=String.Empty;
+                                    textBoxName.Text = String.Empty;
+                                    textBoxSurename.Text = String.Empty;
+                                    textBoxPhoneNumber.Text = String.Empty;
+                                }
+                                else
+                                {
+                                    warningLabel.Foreground = Brushes.IndianRed;
+                                    warningLabel.Content = "Numer telefonu musi być liczbą całkowitą oraz zawierać 9 znaków";
 
+                                }
                             }
+
                         }
                     }
 

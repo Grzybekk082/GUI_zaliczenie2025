@@ -18,22 +18,29 @@ namespace GUI_zaliczenie2025.Classes
 {
     internal class NewUsersRequests : AccountAcces
     {
-        static string name, surename, password, login;
+        static string name, surename, password, login, phoneNumber;
         static string path = Path.Combine($"{ProgramSupport.ActualyPathReturn()}\\Service\\Administration");
         static string directoryPath = Path.Combine($"{ProgramSupport.ActualyPathReturn()}\\Service\\Accounts\\usersData");
 
+
+
+
         internal NewUsersRequests() { }
-        internal NewUsersRequests(string newName, string newSurename, string newPassword, string newLogin)
+        internal NewUsersRequests(string newName, string newSurename, string newPassword, string newLogin , string newPhoneNumber)
         {
             name = newName;
             surename = newSurename;
             password = newPassword;
             login = newLogin;
+            phoneNumber = newPhoneNumber;
+
             CreateRequest();
         }
 
         static void CreateRequest()
         {
+            DateTime currentDate = DateTime.Now;
+            string formattedDate = currentDate.ToString("yyyy-MM-dd HH-mm-ss");
             MySqlConnectionStringBuilder conn_string = new MySqlConnectionStringBuilder();
             conn_string.Server = "localhost";
             conn_string.Port = 3308;
@@ -44,7 +51,7 @@ namespace GUI_zaliczenie2025.Classes
             using (MySqlConnection con = new MySqlConnection(conn_string.ToString()))
             {
                 con.Open();
-                using (MySqlCommand command = new MySqlCommand($"INSERT INTO user_requests (Imie, Nazwisko, Haslo) VALUES ('{name}', '{surename}', '{password}') ;", con))
+                using (MySqlCommand command = new MySqlCommand($"INSERT INTO user_requests (Imie, Nazwisko, Haslo, Nr_tel, kolumna_dat) VALUES ('{name}', '{surename}', '{password}', '{phoneNumber}', '{formattedDate}') ;", con))
                 {
                     command.ExecuteNonQuery();
                 }
@@ -77,7 +84,8 @@ namespace GUI_zaliczenie2025.Classes
                                                                $" Imie, " +
                                                                $"Nazwisko, " +
                                                                $"Login," +
-                                                               $"kolumna_dat " +
+                                                               $"kolumna_dat, " +
+                                                               $"Nr_tel " +
                                                                $"FROM user_requests;", con))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
@@ -91,6 +99,7 @@ namespace GUI_zaliczenie2025.Classes
                                 Surename = $"{reader["Nazwisko"].ToString()}",
                                 Login = $"{reader["Login"].ToString()}",
                                 Date_of_Request = $"{reader["Kolumna_dat"].ToString()}",
+                                Phone_Number = $"{reader["Nr_tel"].ToString()}",
                             });
                         }
                     }

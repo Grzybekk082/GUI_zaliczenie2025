@@ -28,6 +28,8 @@
                 <RowDefinition Height="auto" MaxHeight="40"/>
                 <RowDefinition Height="auto" MaxHeight="40"/>
                 <RowDefinition Height="auto" MaxHeight="40"/>
+                <RowDefinition Height="auto" MaxHeight="40"/>
+                <RowDefinition Height="auto" MaxHeight="40"/>
                 <RowDefinition  Height="auto"/>
                 <RowDefinition  Height="auto"/>
                 <RowDefinition  Height="auto"/>
@@ -38,17 +40,19 @@
             <Label x:Name="resultLabel" Content="Załóż konto " Grid.Row="0" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="14" Margin="10"></Label>
             <Label  Content="Administrator zatwierdzi twoją prośbę " Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="14" Margin="3"></Label>
 
-            <Button  Content="Utwórz" Margin="10" Grid.Column="2" Grid.Row="6" Height="40" Width="130" Background="#FFC8C8C8" Click="Button_Send_Request_Click"/>
-            <Button  Content="Wróć" Margin="10" Grid.Column="2" Grid.Row="7" Height="40" Width="130" Background="#FFC8C8C8" Click="Button_Go_back_Click"/>
+            <Button  Content="Utwórz" Margin="10" Grid.Column="2" Grid.Row="8" Height="40" Width="130" Background="#FFC8C8C8" Click="Button_Send_Request_Click"/>
+            <Button  Content="Wróć" Margin="10" Grid.Column="2" Grid.Row="9" Height="40" Width="130" Background="#FFC8C8C8" Click="Button_Go_back_Click"/>
 
             <PasswordBox x:Name="textBoxPassword"  Height="30" Width="160" Grid.Column="2" Grid.Row="2"/>
             <TextBox x:Name="textBoxName" Height="30" Width="160" Grid.Column="2" Grid.Row="3"/>
             <TextBox x:Name="textBoxSurename" Height="30" Width="160" Grid.Column="2" Grid.Row="4"/>
+            <TextBox x:Name="textBoxPhoneNumber" Height="30" Width="160" Grid.Column="2" Grid.Row="5"/>
             <Label Content="Podaj Hasło" Grid.Row="2" Grid.ColumnSpan="2"  Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="14" Margin="10,10,10,10"></Label>
+            <Label Content="Numer telefonu" Grid.Row="5" Grid.ColumnSpan="2"  Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="14" Margin="10,10,10,10"></Label>
             <Label Content="Podaj Imię" Grid.Row="3" Grid.ColumnSpan="2"  Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="14" Margin="10"/>
             <Label Content="Podaj Nazwisko"  Grid.Row="4" Grid.ColumnSpan="2"  Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="14" Margin="10"></Label>
 
-            <Label x:Name="warningLabel" Content="Kontent Warninglabel" Grid.ColumnSpan="5" Grid.Row="8"  Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14" Margin="10"></Label>
+            <Label x:Name="warningLabel" Content="Kontent Warninglabel" Grid.ColumnSpan="5" Grid.Row="10"  Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14" Margin="10"></Label>
 
         </Grid>     
 

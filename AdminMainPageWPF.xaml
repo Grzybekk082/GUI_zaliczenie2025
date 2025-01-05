@@ -113,6 +113,7 @@
 
             
             <Rectangle Name="Main_Content_Change_Rectangle" Grid.Row="2" Grid.Column="0" Fill="#FFFFFFFC"/>
+
             <Grid Grid.Row="2" x:Name="Main_Content_Change_Grid"></Grid>
             <Rectangle Name="Main_Content_Rectangle" Grid.Column="0" Grid.ColumnSpan="2"  Panel.ZIndex="-1" Grid.Row="1" Grid.RowSpan="2" Fill="#FFCCCCCC"/>
             
@@ -120,7 +121,7 @@
                 <Label Content="Strona główna ADMIN" Grid.Row="0" Grid.Column="0"  FontSize="30"   HorizontalAlignment="Center" VerticalAlignment="top" Foreground="#FFD4D4D4" />
             </Border>
 
-            <Rectangle Name="Right_Side_Bar" Grid.Column="4" Panel.ZIndex="1" Grid.Row="0" Grid.RowSpan="3" Fill="#FF4E4C4C"/>
+            <Rectangle Name="Right_Side_Bar" Grid.Column="4" Panel.ZIndex="1" Grid.Row="0" Grid.RowSpan="3" Fill="#FF797979"/>
             <Grid x:Name="SecondRightBarGrid" Grid.Column="4" Panel.ZIndex="1" Grid.Row="0" Grid.RowSpan="3">
                 <Grid.RowDefinitions>
                     <RowDefinition/>
@@ -128,7 +129,7 @@
                     <RowDefinition/>
                 </Grid.RowDefinitions>
             </Grid>
-            <Rectangle Name="Page_Name_Rectangle" Grid.Column="0" Grid.ColumnSpan="4" Panel.ZIndex="-1" Grid.Row="0" Fill="#FF4E4C4C"/>
+            <Rectangle Name="Page_Name_Rectangle" Grid.Column="0" Grid.ColumnSpan="4" Panel.ZIndex="-1" Grid.Row="0" Fill="#FF797979"/>
         </Grid>
         
         <Grid x:Name="topBar"  Grid.Row="1"  Grid.Column="1" Grid.ColumnSpan="2">
@@ -155,7 +156,7 @@
             <Button Content="Urządzenia" Grid.Column="7" Background="#FFB5B5B5" Margin="1,40,0,1" Padding="10,0,10,0" Click="UserRequestsButtonOnclick"/>
             <Button Content="Strona główna" Grid.Column="1" Background="#FFB5B5B5" Margin="1,40,0,1"  Padding="10,0,10,0" Click="AdminMainPageButtonOnclick"/>
 
-            <Rectangle Name="Top_Bar_Rectangle" Grid.Column="0" Grid.Row="1" Fill="#FF4d4C4C" Panel.ZIndex="-1" Grid.ColumnSpan="12" />
+            <Rectangle Name="Top_Bar_Rectangle" Grid.Column="0" Grid.Row="1" Fill="#FF2D2D2D" Panel.ZIndex="-1" Grid.ColumnSpan="12" />
 
         </Grid>
 

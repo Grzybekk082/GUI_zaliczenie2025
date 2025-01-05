@@ -10,7 +10,7 @@
 
         <DataGrid x:Name="DataGridUserRequests"   Grid.Row="1" Grid.Column="1" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False"  ColumnWidth="*"  CanUserResizeRows="False" CanUserReorderColumns="False" MouseDoubleClick="RowDoubleClickRequest" >
             <DataGrid.Columns />
-            <!---->
+            <!--Tu wyświetla się wygenerowana tabela z MySQL-->
         </DataGrid>
 
 
