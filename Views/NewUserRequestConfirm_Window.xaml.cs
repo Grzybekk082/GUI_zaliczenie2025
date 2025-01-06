@@ -177,7 +177,7 @@ namespace GUI_zaliczenie2025
                     con.Open();
 
                     using (var selectCommand =
-                           new MySqlCommand($"SELECT Imie, Nazwisko, Login, Haslo FROM user_requests WHERE id='{taskId}';", con))
+                           new MySqlCommand($"SELECT Imie, Nazwisko, Login, Haslo, Nr_tel FROM user_requests WHERE id='{taskId}';", con))
                     using (var reader = selectCommand.ExecuteReader())
                     {
                         if (reader.Read())
@@ -186,16 +186,18 @@ namespace GUI_zaliczenie2025
                             var surename = reader["Nazwisko"].ToString();
                             var login = reader["Login"].ToString();
                             var pass = reader["Haslo"].ToString();
+                            var tell = reader["Nr_tel"].ToString();
 
                             reader.Close();
                             using (var insertCommand =
                                    new MySqlCommand(
-                                       $"INSERT INTO _user (name, surname, login, password, permissions, departament) VALUES (@name, @surename, @login, @pass, @permission, @departament );", con))
+                                       $"INSERT INTO _user (name, surname, login, password, permissions, departament, tel) VALUES (@name, @surename, @login, @pass, @permission, @departament, @tell );", con))
                             {
                                 insertCommand.Parameters.AddWithValue("@name", name);
                                 insertCommand.Parameters.AddWithValue("@surename", surename);
                                 insertCommand.Parameters.AddWithValue("@login", login);
                                 insertCommand.Parameters.AddWithValue("@pass", pass);
+                                insertCommand.Parameters.AddWithValue("@tell", tell);
                                 insertCommand.Parameters.AddWithValue("@permission", userPermission);
                                 insertCommand.Parameters.AddWithValue("@departament", userDepartament);
 

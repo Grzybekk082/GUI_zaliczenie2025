@@ -1,4 +1,5 @@
 ﻿using GUI_zaliczenie2025.Classes;
+using GUI_zaliczenie2025.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,11 +22,32 @@ namespace GUI_zaliczenie2025
     /// </summary>
     public partial class UserManagementWPF_UserControl : UserControl
     {
+        public static string Taskid;
+        public static string TaskLogin;
         public UserManagementWPF_UserControl()
         {
             InitializeComponent();
-            DataGridUserManagement.ItemsSource = UsersManagementOperations.ReturnRequestsListObject();
+            DataGridUserManagement.ItemsSource = UsersManagementOperations.ReturnUsersListObject();
             
+        }
+        
+        public void ShowSelectedUser_MouseDoubleClick(object sender, RoutedEventArgs e)
+        {
+
+            Taskid = null;
+            TaskLogin = null;
+            var selectedItem = DataGridUserManagement.SelectedItem as Classes.User;
+
+            if (selectedItem != null)
+            {
+                var (selectedLogin,selectedValue) = (selectedItem.Login,selectedItem.Id);
+                Taskid += selectedValue;
+                TaskLogin += selectedLogin;
+
+            }
+            GridUserManagement.Children.Clear();
+            GridUserManagement.Children.Add(new SelectedUser_UserControl());
+
         }
     }
 }

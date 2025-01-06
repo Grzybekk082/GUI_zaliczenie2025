@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid x:Name="GridUserManagement">
-        <DataGrid x:Name="DataGridUserManagement"   Grid.Row="1" Grid.Column="1" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False"  ColumnWidth="*"  CanUserResizeRows="False" CanUserReorderColumns="False" >
+        <DataGrid x:Name="DataGridUserManagement"   Grid.Row="1" Grid.Column="1" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False"  ColumnWidth="*"  CanUserResizeRows="False" CanUserReorderColumns="False" MouseDoubleClick="ShowSelectedUser_MouseDoubleClick" >
 
         </DataGrid>
     </Grid>
