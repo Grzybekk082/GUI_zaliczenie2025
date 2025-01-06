@@ -25,6 +25,7 @@ namespace GUI_zaliczenie2025
         {
             InitializeComponent();
             DataGridUserManagement.ItemsSource = UsersManagementOperations.ReturnRequestsListObject();
+            
         }
     }
 }
