@@ -69,6 +69,14 @@ namespace GUI_zaliczenie2025
             Main_Content_Change_Grid.Children.Add(new ShortSlaPageWPF_UserControl());
         }
 
+        private void UserManagement_ButtonOnClick(object sender, RoutedEventArgs e)
+        {
+
+            ActualTasksOperations.ReturnRequestsListObject();
+            Main_Content_Change_Grid.Children.Clear();
+            Main_Content_Change_Grid.Children.Add(new UserManagementWPF_UserControl());
+        }
+
         private void TaskSearchButton_click(object sender, RoutedEventArgs e)
         {
 

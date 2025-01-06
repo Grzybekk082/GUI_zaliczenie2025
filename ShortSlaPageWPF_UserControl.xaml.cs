@@ -40,6 +40,7 @@ namespace GUI_zaliczenie2025
             DataGridShortSla.ItemsSource = ActualTasksOperations.MessageBoxShowObject(choose,search);
 
         }
+        //Metoda zwracająca wybrany z listy task i wyświetla go w kontrolce użytkownika
         private void RowDoubleClicktask(object sender, RoutedEventArgs e)
         {
             Taskid = null;
