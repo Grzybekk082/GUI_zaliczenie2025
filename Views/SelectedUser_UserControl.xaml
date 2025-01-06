@@ -156,17 +156,14 @@
                     </Border>
                     
                     
-                        <Grid Grid.Row="9" Grid.ColumnSpan="2" HorizontalAlignment="Center">
+                        <Grid Grid.Row="9" Grid.ColumnSpan="2"  >
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="1*"/>
-                                <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
                             </Grid.ColumnDefinitions>
-                            <DataGrid x:Name="DevicesComboBox"   Grid.Column="0" Width="auto" Margin="5,0,0,0" HorizontalAlignment="Left">
-                                <ComboBoxItem Content="Laptop" />
-                                <ComboBoxItem Content="Telefon" />
-                                <ComboBoxItem Content="Tablet" />
+                            <DataGrid x:Name="DevicesComboBox"  IsReadOnly="True"  Grid.Column="0" Width="auto" Margin="0,0,0,0" HorizontalAlignment="Left">
                             </DataGrid>
-                            <DataGrid x:Name="TasksComboBox"  Grid.Column="1" Width="auto" Margin="5,0,0,0" HorizontalAlignment="Left">
+                            <DataGrid x:Name="TasksComboBox" IsReadOnly="True" Grid.Column="1" Width="auto" Margin="0,0,0,0" HorizontalAlignment="Left">
                             </DataGrid>
                         </Grid>
                     

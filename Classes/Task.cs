@@ -18,7 +18,6 @@ namespace GUI_zaliczenie2025.Classes
         public string Priorytet { get; set; }
         public string Company { get; set; }
         public string TelNumber { get; set; }
-        public string Technican { get; set; }
         public string CreateDate { get; set; }
         
         

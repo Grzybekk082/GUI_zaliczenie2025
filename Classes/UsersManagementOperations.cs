@@ -79,17 +79,18 @@ namespace GUI_zaliczenie2025.Classes
             return Requestors;
         }
 
-        internal static List<User> ReturnDevicesListObject()
+        internal static List<Device> ReturnDevicesListObject()
         {
-            mySqlQuery = $"SELECT id,name, surname, login, departament, permissions, tel, email FROM _user;";
-            List<User> Requestors = new List<User>();
+
+            List<Device> Devices = new List<Device>();
             MySqlConnectionStringBuilder conn_string = new MySqlConnectionStringBuilder();
             conn_string.Server = "localhost";
             conn_string.Port = 3308;
             conn_string.UserID = "root";
             conn_string.Password = "2137";
             conn_string.Database = "servicedeskv2";
-
+            
+            mySqlQuery = $"SELECT id,brand, model, SerialNumber, Registration_Number, category FROM resources WHERE assignment_technican='{loginSelected}';";
 
             using (MySqlConnection con = new MySqlConnection(conn_string.ToString()))
             {
@@ -102,16 +103,15 @@ namespace GUI_zaliczenie2025.Classes
                         while (reader.Read())
                         {
 
-                            Requestors.Add(new User
+                            Devices.Add(new Device
                             {
                                 Id = $"{reader["id"].ToString()}",
-                                Name = $"{reader["name"].ToString()}",
-                                Surname = $"{reader["surname"].ToString()}",
-                                Login = $"{reader["login"].ToString()}",
-                                Departament = $"{reader["departament"].ToString()}",
-                                Permission = $"{reader["permissions"].ToString()}",
-                                Phone_Number = $"{reader["tel"].ToString()}",
-                                Email = $"{reader["email"].ToString()}"
+                                Brand= $"{reader["brand"].ToString()}",
+                                Model = $"{reader["model"].ToString()}",
+                                Serial_Number = $"{reader["SerialNumber"].ToString()}",
+                                Registration_Number = $"{reader["Registration_Number"].ToString()}",
+                                Category = $"{reader["category"].ToString()}"
+
                             });
 
                         }
@@ -119,7 +119,7 @@ namespace GUI_zaliczenie2025.Classes
                     }
                 }
             }
-            return Requestors;
+            return Devices;
         }
 
         internal static List<Task> ReturnTasksListObject()

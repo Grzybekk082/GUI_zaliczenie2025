@@ -28,8 +28,8 @@ namespace GUI_zaliczenie2025.Views
             isSelected=true;
             UsersManagementOperations managementOperations = new UsersManagementOperations(this);
             this.DataContext = UsersManagementOperations.ReturnUsersListObject(isSelected);
-            //DevicesComboBox.ItemsSource;
-            //TasksComboBox.ItemsSource=
+            DevicesComboBox.ItemsSource= UsersManagementOperations.ReturnDevicesListObject();
+
             TasksComboBox.ItemsSource = UsersManagementOperations.ReturnTasksListObject();
         }
     }
