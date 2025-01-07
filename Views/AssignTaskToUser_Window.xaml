@@ -5,10 +5,32 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GUI_zaliczenie2025.Views"
         mc:Ignorable="d"
-        Title="AssignTaskToUser_Window" Height="450" Width="800">
-    <Grid>
-        <DataGrid x:Name="AssignTaskContent_DataGrid">
+        Title="AssignTaskToUser_Window" Height="450" Width="800" MinWidth="800" MinHeight="300">
+    <Grid x:Name="MainContent_Grid">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3.5*" MinWidth="600"/>
+            <ColumnDefinition Width="180" />
+        </Grid.ColumnDefinitions>
+        <DataGrid x:Name="AssignTaskContent_DataGrid" IsReadOnly="True" MouseDoubleClick="SelectTaskToList">
 
         </DataGrid>
+
+        <Border Grid.Column="1" Margin="5" BorderBrush="DarkGray" BorderThickness="1" CornerRadius="5" >
+            <Grid x:Name="RightBar_Grid">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="200"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Label Content="Zarządzaj" HorizontalAlignment="Center"/>
+                <Border Grid.Row="1" BorderBrush="DarkGray" BorderThickness="1" CornerRadius="5">
+                    <StackPanel>
+                        <Button Height="25" Content="Przypisz zaznaczone" Margin="7,20,7,0" FontSize="10" VerticalAlignment="Top" Foreground="AliceBlue" Background="#FF39943C"/>
+                        <Label Height="23" HorizontalAlignment="Center" Padding="0,5,0,3" Content="Zaznaczone:"/>
+                        <DataGrid x:Name="SelectedTasksToAssign_DataGrid" MaxHeight="130"></DataGrid>
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </Border>
     </Grid>
 </Window>
