@@ -28,9 +28,16 @@ namespace GUI_zaliczenie2025.Views
             isSelected=true;
             UsersManagementOperations managementOperations = new UsersManagementOperations(this);
             this.DataContext = UsersManagementOperations.ReturnUsersListObject(isSelected);
+            
             DevicesComboBox.ItemsSource= UsersManagementOperations.ReturnDevicesListObject();
-
             TasksComboBox.ItemsSource = UsersManagementOperations.ReturnTasksListObject();
+        }
+
+
+        private void AssignTaskToUser_OnClick(object sender, RoutedEventArgs e)
+        {
+            AssignTaskToUser_Window assignTaskToUser_Window = new AssignTaskToUser_Window();
+            assignTaskToUser_Window.ShowDialog();
         }
     }
 }
