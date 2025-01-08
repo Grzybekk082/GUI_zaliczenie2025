@@ -39,10 +39,11 @@ namespace GUI_zaliczenie2025.Views
             }
             SelectedTask.Add(AssignTaskContent_DataGrid.SelectedItem as Task);
             //SelectedTaskId.Add(this Task.id);
-            SelectedTasksToAssign_DataGrid.Items.Refresh();
+            
 
             SelectedTasksToAssign_DataGrid.ItemsSource = SelectedTask;
-            
+            SelectedTasksToAssign_DataGrid.Items.Refresh();
+
 
 
         }
