@@ -22,31 +22,65 @@ namespace GUI_zaliczenie2025.Views
     public partial class AssignTaskToUser_Window : Window
     {
         private List<Classes.Task> SelectedTask;
-        private List<Classes.Task> SelectedTaskId;
+        private List<string> SelectedTaskId;
         public AssignTaskToUser_Window()
         {
             InitializeComponent();
             AssignTaskContent_DataGrid.ItemsSource = ActualTasksOperations.ReturnRequestsListObject();
             SelectedTask = new List<Classes.Task>();
-            //SelectedTaskId = new List<string>();
+            SelectedTaskId = new List<string>();
         }
         
         private void SelectTaskToList(object sender, MouseButtonEventArgs mouseButtonEventArgs)
         {
-            if (SelectedTask.Count > 0)
+            Task Selected = AssignTaskContent_DataGrid.SelectedItem as Task;
+            bool isOcupated = false;
+
+
+            foreach (var tasks in SelectedTask)
             {
+                if (tasks == Selected)
+                {
+                    isOcupated = true;
+                }
                 
             }
-            SelectedTask.Add(AssignTaskContent_DataGrid.SelectedItem as Task);
-            //SelectedTaskId.Add(this Task.id);
-            
 
-            SelectedTasksToAssign_DataGrid.ItemsSource = SelectedTask;
-            SelectedTasksToAssign_DataGrid.Items.Refresh();
+            if (isOcupated)
+            {
+                MessageBox.Show("Task is already selected.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            else
+            {
+                SelectedTask.Add(AssignTaskContent_DataGrid.SelectedItem as Task);
+
+                if (SelectedTask!= null)
+                {
+                    SelectedTaskId.Add(Selected.Id);
+
+                }
+
+                SelectedTasksToAssign_DataGrid.ItemsSource = SelectedTask;
+                SelectedTasksToAssign_DataGrid.Items.Refresh();
+            }
 
 
 
         }
-        
+
+        private void RemoveTaskFromList(object sender, MouseButtonEventArgs mouseButtonEventArgs)
+        {
+            if (SelectedTasksToAssign_DataGrid.SelectedItem is Task selectedTask)
+            {
+                SelectedTask.Remove(selectedTask);
+                SelectedTaskId.Remove(selectedTask.Id);
+
+                SelectedTasksToAssign_DataGrid.ItemsSource = null;
+                SelectedTasksToAssign_DataGrid.ItemsSource = SelectedTask;
+                SelectedTasksToAssign_DataGrid.Items.Refresh();
+            }
+
+
+        }
     }
 }
