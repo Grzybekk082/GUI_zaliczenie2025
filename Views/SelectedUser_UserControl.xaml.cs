@@ -39,6 +39,14 @@ namespace GUI_zaliczenie2025.Views
 
             AssignTaskToUser_Window assignTaskToUser_Window = new AssignTaskToUser_Window();
             assignTaskToUser_Window.ShowDialog();
+        } 
+        private void AssignDeviceToUser_OnClick(object sender, RoutedEventArgs e)
+        {
+
+            AssignTaskToUser_Window assignTaskToUser_Window = new AssignTaskToUser_Window();
+            assignTaskToUser_Window.ShowDialog();
         }
+        
+        
     }
 }

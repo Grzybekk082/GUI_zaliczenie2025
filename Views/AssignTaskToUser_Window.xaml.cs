@@ -23,6 +23,7 @@ namespace GUI_zaliczenie2025.Views
     {
         private List<Classes.Task> SelectedTask;
         private List<string> SelectedTaskId;
+        //Konstruktor klasy AssignTaskToUser_Window
         public AssignTaskToUser_Window()
         {
             InitializeComponent();
@@ -30,7 +31,7 @@ namespace GUI_zaliczenie2025.Views
             SelectedTask = new List<Classes.Task>();
             SelectedTaskId = new List<string>();
         }
-        
+        //Metoda przypisująca zadanie do użytkownika
         private void SelectTaskToList(object sender, MouseButtonEventArgs mouseButtonEventArgs)
         {
             Task Selected = AssignTaskContent_DataGrid.SelectedItem as Task;
@@ -43,7 +44,6 @@ namespace GUI_zaliczenie2025.Views
                 {
                     isOcupated = true;
                 }
-                
             }
 
             if (isOcupated)
@@ -59,15 +59,11 @@ namespace GUI_zaliczenie2025.Views
                     SelectedTaskId.Add(Selected.Id);
 
                 }
-
                 SelectedTasksToAssign_DataGrid.ItemsSource = SelectedTask;
                 SelectedTasksToAssign_DataGrid.Items.Refresh();
             }
-
-
-
         }
-
+        //Metoda usuwająca zadanie z listy
         private void RemoveTaskFromList(object sender, MouseButtonEventArgs mouseButtonEventArgs)
         {
             if (SelectedTasksToAssign_DataGrid.SelectedItem is Task selectedTask)
@@ -79,8 +75,6 @@ namespace GUI_zaliczenie2025.Views
                 SelectedTasksToAssign_DataGrid.ItemsSource = SelectedTask;
                 SelectedTasksToAssign_DataGrid.Items.Refresh();
             }
-
-
         }
     }
 }

@@ -65,7 +65,6 @@ namespace GUI_zaliczenie2025
                                 Status = $"{reader["status"].ToString()}",
                                 SLA = $"{reader["date_of_sla"].ToString()}",
                                 Company = $"{reader["company_name"].ToString()}",
-                                TelNumber = $"{reader["telephone_number"].ToString()}",
                                 CreateDate = $"{reader["create_date"].ToString()}"
                             });
                             
