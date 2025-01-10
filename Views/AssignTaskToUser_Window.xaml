@@ -11,7 +11,7 @@
             <ColumnDefinition Width="3.5*" MinWidth="600"/>
             <ColumnDefinition Width="180" />
         </Grid.ColumnDefinitions>
-        <DataGrid x:Name="AssignTaskContent_DataGrid" IsReadOnly="True" MouseDoubleClick="SelectTaskToList">
+        <DataGrid x:Name="AssignTaskContent_DataGrid" IsReadOnly="True"  MouseDoubleClick="SelectObject">
 
         </DataGrid>
 

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GUI_zaliczenie2025.Classes
 {
-    internal class Device
+    internal class Device : Task
     {
         public string Id { get; set; }
         public string Brand { get; set; }
