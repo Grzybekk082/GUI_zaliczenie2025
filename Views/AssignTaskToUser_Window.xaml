@@ -27,7 +27,7 @@
                     <StackPanel>
                         <Button Height="25" Content="Przypisz zaznaczone" Margin="7,20,7,0" FontSize="10" VerticalAlignment="Top" Foreground="AliceBlue" Background="#FF39943C"/>
                         <Label Height="23" HorizontalAlignment="Center" Padding="0,5,0,3" Content="Zaznaczone:"/>
-                        <DataGrid x:Name="SelectedTasksToAssign_DataGrid" IsReadOnly="True" MaxHeight="230" MouseDoubleClick="RemoveTaskFromList"></DataGrid>
+                        <DataGrid x:Name="SelectedTasksToAssign_DataGrid" IsReadOnly="True" MaxHeight="230" MouseDoubleClick="RemoveObject" ></DataGrid>
                     </StackPanel>
                 </Border>
             </Grid>

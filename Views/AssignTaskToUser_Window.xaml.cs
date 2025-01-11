@@ -23,91 +23,55 @@ namespace GUI_zaliczenie2025.Views
     {
         private List<Classes.Task> SelectedTask;
         private List<Classes.Device> SelectedDevice;
-        private List<string> SelectedTaskId;
-        
+        private List<string> SelectedId;
+        SelectedUser_UserControl CurrentInstance;
+        bool isTask;
 
-        //Konstruktor klasy AssignTaskToUser_Window
-        public AssignTaskToUser_Window()
+
+        //Konstruktory klasy AssignTaskToUser_Window
+        public AssignTaskToUser_Window(){}
+
+        public AssignTaskToUser_Window(SelectedUser_UserControl CurrentInstance, bool isTask)
         {
+            
             InitializeComponent();
-            AssignTaskContent_DataGrid.ItemsSource = ActualTasksOperations.ReturnRequestsListObject();
-            SelectedTask = new List<Task>();
-            SelectedDevice = new List<Device>();
-            SelectedTaskId = new List<string>();
+            this.isTask= isTask;
+            this.CurrentInstance = CurrentInstance;
+            if (isTask)
+            {
+                SelectedTask = new List<Task>();
+                AssignTaskContent_DataGrid.ItemsSource = ActualTasksOperations.ReturnRequestsListObject();
+
+            }
+            if(!isTask)
+            {
+                SelectedDevice = new List<Device>();
+                AssignTaskContent_DataGrid.ItemsSource = UsersManagementOperations.ReturnDevicesListObject(true);
+            }
+            
+            SelectedId = new List<string>();
         }
-        //Metoda przypisująca zadanie do użytkownika
-        //private void SelectTaskToList(object sender, MouseButtonEventArgs mouseButtonEventArgs)
-        //{
-        //    Task Selected = (Task)AssignTaskContent_DataGrid.SelectedItem ;
-        //    bool isOcupated = false;
-
-
-        //    foreach (var tasks in SelectedTask)
-        //    {
-        //        if (tasks == Selected)
-        //        {
-        //            isOcupated = true;
-        //        }
-        //    }
-
-        //    if (isOcupated)
-        //    {
-        //        MessageBox.Show("Task is already selected.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-        //    }
-        //    else
-        //    {
-        //        SelectedTask.Add(AssignTaskContent_DataGrid.SelectedItem as Task);
-
-        //        if (SelectedTask!= null)
-        //        {
-        //            SelectedTaskId.Add(Selected.Id);
-
-        //        }
-        //        SelectedTasksToAssign_DataGrid.ItemsSource = SelectedTask;
-        //        SelectedTasksToAssign_DataGrid.Items.Refresh();
-        //    }
-        //}
-        ////Metoda usuwająca zadanie z listy
-        //private void RemoveTaskFromList(object sender, MouseButtonEventArgs mouseButtonEventArgs)
-        //{
-        //    if (SelectedTasksToAssign_DataGrid.SelectedItem is Task selectedTask)
-        //    {
-        //        SelectedTask.Remove(selectedTask);
-        //        SelectedTaskId.Remove(selectedTask.Id);
-
-        //        SelectedTasksToAssign_DataGrid.ItemsSource = null;
-        //        SelectedTasksToAssign_DataGrid.ItemsSource = SelectedTask;
-        //        SelectedTasksToAssign_DataGrid.Items.Refresh();
-        //    }
-        //}
-
-
 
         private void SelectObject(object sender, MouseButtonEventArgs mouseButtonEventArgs)
         {
-
-            string buttonName = (sender as Button).Name;
-            if (buttonName == "AssignTaskContent_DataGrid")
+            if (isTask)
             {
-                SelectedTask = new List<Classes.Task>();
-                SelectTaskToList<Task>();
+                SelectTaskToList(sender, mouseButtonEventArgs);
             }
-            
-
-            SelectTaskToList<Device>();
+            else
+            {
+                SelectDeviceToList(sender, mouseButtonEventArgs);
+            }
         }
 
-
         //Metoda przypisująca zadanie do użytkownika
-
-        private void SelectTaskToList<T>() where T : Task
+        private void SelectTaskToList(object sender, MouseButtonEventArgs mouseButtonEventArgs)
         {
-            List<T> SelectedObject = new List<T>();
-            T Selected = (T)AssignTaskContent_DataGrid.SelectedItem;
+            Task Selected = (Task)AssignTaskContent_DataGrid.SelectedItem;
             bool isOcupated = false;
 
 
-            foreach (var tasks in SelectedObject)
+            foreach (var tasks in SelectedTask)
             {
                 if (tasks == Selected)
                 {
@@ -117,43 +81,101 @@ namespace GUI_zaliczenie2025.Views
 
             if (isOcupated)
             {
-                MessageBox.Show("Object is already selected.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Task is already selected.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             else
             {
-                SelectedTask.Add((T)AssignTaskContent_DataGrid.SelectedItem);
+                SelectedTask.Add(AssignTaskContent_DataGrid.SelectedItem as Task);
 
                 if (SelectedTask != null)
                 {
-                    SelectedTaskId.Add(Selected.Id);
+                    SelectedId.Add(Selected.Id);
 
                 }
                 SelectedTasksToAssign_DataGrid.ItemsSource = SelectedTask;
                 SelectedTasksToAssign_DataGrid.Items.Refresh();
             }
+        }
 
-            if (typeof(T) is Task)
+        //Metoda przypisująca urządzenie do użytkownika
+        private void SelectDeviceToList(object sender, MouseButtonEventArgs mouseButtonEventArgs)
+        {
+            Device Selected = (Device)AssignTaskContent_DataGrid.SelectedItem;
+            bool isOcupated = false;
+
+
+            foreach (var device in SelectedDevice)
             {
-                SelectedTask = SelectedObject as List<Task>;
+                if (device == Selected)
+                {
+                    isOcupated = true;
+                }
             }
-            if (typeof(T) is Device)
+
+            if (isOcupated)
             {
-                SelectedDevice = SelectedObject as List<Device>;
+                MessageBox.Show("Task is already selected.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            else
+            {
+                SelectedDevice.Add(AssignTaskContent_DataGrid.SelectedItem as Device);
+
+                if (SelectedDevice != null)
+                {
+                    SelectedId.Add(Selected.Id);
+
+                }
+                SelectedTasksToAssign_DataGrid.ItemsSource = SelectedDevice;
+                SelectedTasksToAssign_DataGrid.Items.Refresh();
             }
         }
 
-        //Metoda usuwająca zadanie z listy
-        private void RemoveTaskFromList<T>(object sender, MouseButtonEventArgs mouseButtonEventArgs) where T : Task
+        private void RemoveObject(object sender, MouseButtonEventArgs mouseButtonEventArgs)
         {
-            if (SelectedTasksToAssign_DataGrid.SelectedItem is T selectedTask)
+            if (isTask)
+            {
+                RemoveTaskFromList(sender, mouseButtonEventArgs);
+            }
+            else
+            {
+                RemoveDeviceFromList(sender, mouseButtonEventArgs);
+            }
+        }
+        //Metoda usuwająca zadanie z listy
+        private void RemoveTaskFromList(object sender, MouseButtonEventArgs mouseButtonEventArgs)
+        {
+            if (SelectedTasksToAssign_DataGrid.SelectedItem is Task selectedTask)
             {
                 SelectedTask.Remove(selectedTask);
-                SelectedTaskId.Remove(selectedTask.Id);
+                SelectedId.Remove(selectedTask.Id);
 
                 SelectedTasksToAssign_DataGrid.ItemsSource = null;
                 SelectedTasksToAssign_DataGrid.ItemsSource = SelectedTask;
                 SelectedTasksToAssign_DataGrid.Items.Refresh();
             }
         }
+
+        //Metoda usuwająca urzadzenie z listy
+        private void RemoveDeviceFromList(object sender, MouseButtonEventArgs mouseButtonEventArgs)
+        {
+            if (SelectedTasksToAssign_DataGrid.SelectedItem is Device selectedDevice)
+            {
+                SelectedDevice.Remove(selectedDevice);
+                SelectedId.Remove(selectedDevice.Id);
+
+                SelectedTasksToAssign_DataGrid.ItemsSource = null;
+                SelectedTasksToAssign_DataGrid.ItemsSource = SelectedDevice;
+                SelectedTasksToAssign_DataGrid.Items.Refresh();
+            }
+        }
+
+
+
+
+
+
+
+
+
     }
 }

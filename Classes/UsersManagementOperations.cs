@@ -79,7 +79,7 @@ namespace GUI_zaliczenie2025.Classes
             return Requestors;
         }
 
-        internal static List<Device> ReturnDevicesListObject()
+        internal static List<Device> ReturnDevicesListObject( bool showAll=false)
         {
 
             List<Device> Devices = new List<Device>();
@@ -89,8 +89,16 @@ namespace GUI_zaliczenie2025.Classes
             conn_string.UserID = "root";
             conn_string.Password = "2137";
             conn_string.Database = "servicedeskv2";
-            
-            mySqlQuery = $"SELECT id,brand, model, SerialNumber, Registration_Number, category FROM resources WHERE assignment_technican='{loginSelected}';";
+            if (showAll)
+            {
+                mySqlQuery = $"SELECT id,brand, model, SerialNumber, Registration_Number, category FROM resources;";
+            }
+            else
+            {
+                mySqlQuery = $"SELECT id,brand, model, SerialNumber, Registration_Number, category FROM resources WHERE assignment_technican='{loginSelected}';";
+            }
+
+
 
             using (MySqlConnection con = new MySqlConnection(conn_string.ToString()))
             {

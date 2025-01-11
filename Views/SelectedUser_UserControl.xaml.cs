@@ -22,6 +22,7 @@ namespace GUI_zaliczenie2025.Views
     public partial class SelectedUser_UserControl : UserControl
     {
         internal bool isSelected = false;
+        internal bool isTask= false;
         public SelectedUser_UserControl()
         {
             InitializeComponent();
@@ -36,14 +37,14 @@ namespace GUI_zaliczenie2025.Views
 
         private void AssignTaskToUser_OnClick(object sender, RoutedEventArgs e)
         {
-
-            AssignTaskToUser_Window assignTaskToUser_Window = new AssignTaskToUser_Window();
+            isTask= true;
+            AssignTaskToUser_Window assignTaskToUser_Window = new AssignTaskToUser_Window( this, isTask);
             assignTaskToUser_Window.ShowDialog();
         } 
         private void AssignDeviceToUser_OnClick(object sender, RoutedEventArgs e)
         {
-
-            AssignTaskToUser_Window assignTaskToUser_Window = new AssignTaskToUser_Window();
+            isTask = false;
+            AssignTaskToUser_Window assignTaskToUser_Window = new AssignTaskToUser_Window( this, isTask );
             assignTaskToUser_Window.ShowDialog();
         }
         
