@@ -23,28 +23,31 @@ namespace GUI_zaliczenie2025.Views
     {
         internal bool isSelected = false;
         internal bool isTask= false;
-        public SelectedUser_UserControl()
+        private UserManagementWPF_UserControl CurrentInstance;
+        public SelectedUser_UserControl(){}
+        public SelectedUser_UserControl(UserManagementWPF_UserControl CurrentInstance)
         {
             InitializeComponent();
-            isSelected=true;
+            this.CurrentInstance = CurrentInstance;
+            isSelected =true;
             UsersManagementOperations managementOperations = new UsersManagementOperations(this);
             this.DataContext = UsersManagementOperations.ReturnUsersListObject(isSelected);
-            
-            DevicesComboBox.ItemsSource= UsersManagementOperations.ReturnDevicesListObject();
+
             TasksComboBox.ItemsSource = UsersManagementOperations.ReturnTasksListObject();
+            DevicesComboBox.ItemsSource= UsersManagementOperations.ReturnDevicesListObject(false);
         }
 
 
         private void AssignTaskToUser_OnClick(object sender, RoutedEventArgs e)
         {
             isTask= true;
-            AssignTaskToUser_Window assignTaskToUser_Window = new AssignTaskToUser_Window( this, isTask);
+            AssignToUser_Window assignTaskToUser_Window = new AssignToUser_Window( this, isTask);
             assignTaskToUser_Window.ShowDialog();
         } 
         private void AssignDeviceToUser_OnClick(object sender, RoutedEventArgs e)
         {
             isTask = false;
-            AssignTaskToUser_Window assignTaskToUser_Window = new AssignTaskToUser_Window( this, isTask );
+            AssignToUser_Window assignTaskToUser_Window = new AssignToUser_Window( this, isTask );
             assignTaskToUser_Window.ShowDialog();
         }
         

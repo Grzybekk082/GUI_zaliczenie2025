@@ -46,7 +46,7 @@ namespace GUI_zaliczenie2025
 
             }
             GridUserManagement.Children.Clear();
-            GridUserManagement.Children.Add(new SelectedUser_UserControl());
+            GridUserManagement.Children.Add(new SelectedUser_UserControl( this));
 
         }
     }

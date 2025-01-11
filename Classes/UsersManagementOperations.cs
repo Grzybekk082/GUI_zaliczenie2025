@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using Microsoft.IdentityModel.Tokens;
 
 namespace GUI_zaliczenie2025.Classes
 {
@@ -24,9 +26,10 @@ namespace GUI_zaliczenie2025.Classes
             loginSelected= UserManagementWPF_UserControl.TaskLogin;
             idSelected = UserManagementWPF_UserControl.Taskid;
         }
-        
 
+        //!!!!!!!!!!!!!!!!!!!! METODY ZWRACAJĄCE DANE Z BAZY DANYCH !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
+        //Metoda zwracająca dane danego użytkownika do strony AssignTaskToUser_Window
         internal static List<User> ReturnUsersListObject(bool isSelected=false)
         {
             mySqlQuery = mySqlQueryDefault;
@@ -78,7 +81,7 @@ namespace GUI_zaliczenie2025.Classes
 
             return Requestors;
         }
-
+        //Metoda zwracająca listę urządzeń przypisanych do użytkownika
         internal static List<Device> ReturnDevicesListObject( bool showAll=false)
         {
 
@@ -129,7 +132,7 @@ namespace GUI_zaliczenie2025.Classes
             }
             return Devices;
         }
-
+        //Metoda zwracająca listę zadań przypisanych do użytkownika
         internal static List<Task> ReturnTasksListObject()
         {
             List<Task> Tasks = new List<Task>();
@@ -170,6 +173,84 @@ namespace GUI_zaliczenie2025.Classes
                 }
             }
             return Tasks;
+        }
+
+        //!!!!!!!!!!!!!!!!!!!! METODY WPROWADZAJĄCE DANE DO BAZY DANYCH !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+        //Metoda dodająca zaznaczone zadania w klasie AssignTaskToUser_Window do użytkownika
+        internal static void AssignTaskToUser()
+        {
+            
+            try
+            {
+                List<string> SelectedIdsOfTasks = AssignToUser_Window.SelectedId;
+                if (SelectedIdsOfTasks.IsNullOrEmpty())
+                {
+                    MessageBox.Show("Do Listy nie dodano żadnego elementu.", "Brak wyboru",
+                        MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                else
+                {
+                    string mySqlQuery = $"UPDATE reports SET _user = '{loginSelected}' WHERE id IN ({string.Join(",", SelectedIdsOfTasks)});";
+                    MySqlConnectionStringBuilder conn_string = new MySqlConnectionStringBuilder();
+                    conn_string.Server = "localhost";
+                    conn_string.Port = 3308;
+                    conn_string.UserID = "root";
+                    conn_string.Password = "2137";
+                    conn_string.Database = "servicedeskv2";
+                    using (MySqlConnection con = new MySqlConnection(conn_string.ToString()))
+                    {
+                        con.Open();
+                        using (MySqlCommand command = new MySqlCommand(mySqlQuery, con))
+                        {
+                            command.ExecuteNonQuery();
+                            con.Close();
+                        }
+                    }
+
+                    MessageBox.Show("Zlecenia zostały przypisane do użytkownika.", "Sukces",
+                        MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+
+            }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show($"Wystąpił błąd podczas przetwarzania prośby: {ex.Message}", "Błąd", MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+            }
+
+        }
+        //Metoda dodająca zaznaczone urządzenia w klasie AssignTaskToUser_Window do użytkownika
+        internal static void AssignDeviceToUser()
+        {
+            try
+            {
+                List<string> SelectedIdsOfDevieces = AssignToUser_Window.SelectedId;
+                string mySqlQuery = $"UPDATE resources SET assignment_technican = '{loginSelected}' WHERE id IN ({string.Join(",", SelectedIdsOfDevieces)});";
+                MySqlConnectionStringBuilder conn_string = new MySqlConnectionStringBuilder();
+                conn_string.Server = "localhost";
+                conn_string.Port = 3308;
+                conn_string.UserID = "root";
+                conn_string.Password = "2137";
+                conn_string.Database = "servicedeskv2";
+                using (MySqlConnection con = new MySqlConnection(conn_string.ToString()))
+                {
+                    con.Open();
+                    using (MySqlCommand command = new MySqlCommand(mySqlQuery, con))
+                    {
+                        command.ExecuteNonQuery();
+                        con.Close();
+                    }
+                }
+
+                MessageBox.Show("Urządzenia zostały przypisane do użytkownika.", "Sukces",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show($"Wystąpił błąd podczas przetwarzania prośby: {ex.Message}", "Błąd", MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+            }
         }
     }
 }

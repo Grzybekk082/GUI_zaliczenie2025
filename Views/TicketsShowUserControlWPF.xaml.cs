@@ -46,7 +46,6 @@ namespace GUI_zaliczenie2025
                     $" date_of_sla," +
                     $" company_name," +
                     $" telephone_number," +
-                    $" technican," +
                     $" create_date" +
                     $" FROM reports WHERE id='{taskId}';", con))
                 {

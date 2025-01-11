@@ -19,34 +19,37 @@ namespace GUI_zaliczenie2025.Views
     /// <summary>
     /// Logika interakcji dla klasy AssignTaskToUser_Window.xaml
     /// </summary>
-    public partial class AssignTaskToUser_Window : Window
+    public partial class AssignToUser_Window : Window
     {
         private List<Classes.Task> SelectedTask;
         private List<Classes.Device> SelectedDevice;
-        private List<string> SelectedId;
-        SelectedUser_UserControl CurrentInstance;
+        internal static List<string> SelectedId;
+        private SelectedUser_UserControl CurrentInstanceOfSelectedUser;
+
+        public static string SelectedUserLogin;
         bool isTask;
 
 
         //Konstruktory klasy AssignTaskToUser_Window
-        public AssignTaskToUser_Window(){}
+        public AssignToUser_Window(){}
 
-        public AssignTaskToUser_Window(SelectedUser_UserControl CurrentInstance, bool isTask)
+        public AssignToUser_Window(SelectedUser_UserControl CurrentInstance, bool isTask)
         {
             
             InitializeComponent();
             this.isTask= isTask;
-            this.CurrentInstance = CurrentInstance;
+            CurrentInstanceOfSelectedUser = CurrentInstance;
+            SelectedUserLogin = UserManagementWPF_UserControl.TaskLogin;
             if (isTask)
             {
                 SelectedTask = new List<Task>();
-                AssignTaskContent_DataGrid.ItemsSource = ActualTasksOperations.ReturnRequestsListObject();
+                AssignTaskContent_DataGrid.ItemsSource = ActualTasksOperations.ReturnRequestsListObject(true);
 
             }
             if(!isTask)
             {
                 SelectedDevice = new List<Device>();
-                AssignTaskContent_DataGrid.ItemsSource = UsersManagementOperations.ReturnDevicesListObject(true);
+                AssignTaskContent_DataGrid.ItemsSource = UsersManagementOperations.ReturnDevicesListObject();
             }
             
             SelectedId = new List<string>();
@@ -129,7 +132,7 @@ namespace GUI_zaliczenie2025.Views
                 SelectedTasksToAssign_DataGrid.Items.Refresh();
             }
         }
-
+        //Metoda rozpoznająca czy usuwa z listy zadanie czy urządzenie
         private void RemoveObject(object sender, MouseButtonEventArgs mouseButtonEventArgs)
         {
             if (isTask)
@@ -164,18 +167,37 @@ namespace GUI_zaliczenie2025.Views
                 SelectedId.Remove(selectedDevice.Id);
 
                 SelectedTasksToAssign_DataGrid.ItemsSource = null;
-                SelectedTasksToAssign_DataGrid.ItemsSource = SelectedDevice;
+                SelectedTasksToAssign_DataGrid.ItemsSource = SelectedTask;
                 SelectedTasksToAssign_DataGrid.Items.Refresh();
             }
         }
 
+        //Metoda rozpoznaje zadanie lub urządzenie i wywołuje odpowiednią metodę przypisującą
+        private void AssignObject_ButtonOnClick(object sender, RoutedEventArgs e)
+        {
 
+            if (isTask)
+            {
+                UsersManagementOperations.AssignTaskToUser();
 
+                CurrentInstanceOfSelectedUser.TasksComboBox.ItemsSource = UsersManagementOperations.ReturnTasksListObject(); 
+                CurrentInstanceOfSelectedUser.TasksComboBox.Items.Refresh();
+                SelectedTask.Clear();
+                SelectedId.Clear();
 
+                SelectedTasksToAssign_DataGrid.ItemsSource = SelectedTask;
+                SelectedTasksToAssign_DataGrid.Items.Refresh();
 
+                AssignTaskContent_DataGrid.ItemsSource = ActualTasksOperations.ReturnRequestsListObject(true);
+                AssignTaskContent_DataGrid.Items.Refresh();
 
-
-
-
+            }
+            else
+            {
+                UsersManagementOperations.AssignDeviceToUser();
+                CurrentInstanceOfSelectedUser.DevicesComboBox.ItemsSource = UsersManagementOperations.ReturnDevicesListObject(); 
+                CurrentInstanceOfSelectedUser.DevicesComboBox.Items.Refresh();
+            }
+        }
     }
 }
