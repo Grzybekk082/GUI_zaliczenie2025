@@ -82,7 +82,7 @@ namespace GUI_zaliczenie2025.Classes
             return Requestors;
         }
         //Metoda zwracająca listę urządzeń przypisanych do użytkownika
-        internal static List<Device> ReturnDevicesListObject( bool showAll=false)
+        internal static List<Device> ReturnDevicesListObject( bool showAll=false, bool showWitchoutUser=false)
         {
 
             List<Device> Devices = new List<Device>();
@@ -96,40 +96,55 @@ namespace GUI_zaliczenie2025.Classes
             {
                 mySqlQuery = $"SELECT id,brand, model, SerialNumber, Registration_Number, category FROM resources;";
             }
+            if(showWitchoutUser)
+            {
+                mySqlQuery = $"SELECT id,brand, model, SerialNumber, Registration_Number, category FROM resources WHERE assignment_technican != '{AssignToUser_Window.SelectedUserLogin}' OR assignment_technican is NULL;";
+            }
             else
             {
-                mySqlQuery = $"SELECT id,brand, model, SerialNumber, Registration_Number, category FROM resources WHERE assignment_technican='{loginSelected}';";
+                mySqlQuery = $"SELECT id,brand, model, SerialNumber, Registration_Number, category FROM resources WHERE assignment_technican='{AssignToUser_Window.SelectedUserLogin}';";
             }
 
-
-
-            using (MySqlConnection con = new MySqlConnection(conn_string.ToString()))
+            try
             {
-                con.Open();
 
-                using (MySqlCommand command = new MySqlCommand(mySqlQuery, con))
+                using (MySqlConnection con = new MySqlConnection(conn_string.ToString()))
                 {
-                    using (MySqlDataReader reader = command.ExecuteReader())
+                    con.Open();
+
+                    using (MySqlCommand command = new MySqlCommand(mySqlQuery, con))
                     {
-                        while (reader.Read())
+                        using (MySqlDataReader reader = command.ExecuteReader())
                         {
-
-                            Devices.Add(new Device
+                            while (reader.Read())
                             {
-                                Id = $"{reader["id"].ToString()}",
-                                Brand= $"{reader["brand"].ToString()}",
-                                Model = $"{reader["model"].ToString()}",
-                                Serial_Number = $"{reader["SerialNumber"].ToString()}",
-                                Registration_Number = $"{reader["Registration_Number"].ToString()}",
-                                Category = $"{reader["category"].ToString()}"
 
-                            });
+                                Devices.Add(new Device
+                                {
+                                    Id = $"{reader["id"].ToString()}",
+                                    Brand = $"{reader["brand"].ToString()}",
+                                    Model = $"{reader["model"].ToString()}",
+                                    Serial_Number = $"{reader["SerialNumber"].ToString()}",
+                                    Registration_Number = $"{reader["Registration_Number"].ToString()}",
+                                    Category = $"{reader["category"].ToString()}"
 
+                                });
+
+                            }
+
+                            con.Close();
                         }
-                        con.Close();
                     }
                 }
+
+               
             }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show($"Wystąpił błąd podczas przetwarzania prośby: {ex.Message}", "Błąd", MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+            }
+
             return Devices;
         }
         //Metoda zwracająca listę zadań przypisanych do użytkownika
@@ -225,26 +240,36 @@ namespace GUI_zaliczenie2025.Classes
         {
             try
             {
+
                 List<string> SelectedIdsOfDevieces = AssignToUser_Window.SelectedId;
-                string mySqlQuery = $"UPDATE resources SET assignment_technican = '{loginSelected}' WHERE id IN ({string.Join(",", SelectedIdsOfDevieces)});";
-                MySqlConnectionStringBuilder conn_string = new MySqlConnectionStringBuilder();
-                conn_string.Server = "localhost";
-                conn_string.Port = 3308;
-                conn_string.UserID = "root";
-                conn_string.Password = "2137";
-                conn_string.Database = "servicedeskv2";
-                using (MySqlConnection con = new MySqlConnection(conn_string.ToString()))
+                if (SelectedIdsOfDevieces.IsNullOrEmpty())
                 {
-                    con.Open();
-                    using (MySqlCommand command = new MySqlCommand(mySqlQuery, con))
+                    MessageBox.Show("Do Listy nie dodano żadnego elementu.", "Brak wyboru",
+                        MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                else
+                {
+                    string mySqlQuery = $"UPDATE resources SET assignment_technican = '{loginSelected}' WHERE id IN ({string.Join(",", SelectedIdsOfDevieces)});";
+                    MySqlConnectionStringBuilder conn_string = new MySqlConnectionStringBuilder();
+                    conn_string.Server = "localhost";
+                    conn_string.Port = 3308;
+                    conn_string.UserID = "root";
+                    conn_string.Password = "2137";
+                    conn_string.Database = "servicedeskv2";
+                    using (MySqlConnection con = new MySqlConnection(conn_string.ToString()))
                     {
-                        command.ExecuteNonQuery();
-                        con.Close();
+                        con.Open();
+                        using (MySqlCommand command = new MySqlCommand(mySqlQuery, con))
+                        {
+                            command.ExecuteNonQuery();
+                            con.Close();
+                        }
                     }
+
+                    MessageBox.Show("Urządzenia zostały przypisane do użytkownika.", "Sukces",
+                        MessageBoxButton.OK, MessageBoxImage.Information);
                 }
 
-                MessageBox.Show("Urządzenia zostały przypisane do użytkownika.", "Sukces",
-                    MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (MySqlException ex)
             {

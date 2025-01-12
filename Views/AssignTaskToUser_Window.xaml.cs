@@ -49,7 +49,7 @@ namespace GUI_zaliczenie2025.Views
             if(!isTask)
             {
                 SelectedDevice = new List<Device>();
-                AssignTaskContent_DataGrid.ItemsSource = UsersManagementOperations.ReturnDevicesListObject();
+                AssignTaskContent_DataGrid.ItemsSource = UsersManagementOperations.ReturnDevicesListObject(false,true);
             }
             
             SelectedId = new List<string>();
@@ -167,7 +167,7 @@ namespace GUI_zaliczenie2025.Views
                 SelectedId.Remove(selectedDevice.Id);
 
                 SelectedTasksToAssign_DataGrid.ItemsSource = null;
-                SelectedTasksToAssign_DataGrid.ItemsSource = SelectedTask;
+                SelectedTasksToAssign_DataGrid.ItemsSource = SelectedDevice;
                 SelectedTasksToAssign_DataGrid.Items.Refresh();
             }
         }
@@ -197,6 +197,14 @@ namespace GUI_zaliczenie2025.Views
                 UsersManagementOperations.AssignDeviceToUser();
                 CurrentInstanceOfSelectedUser.DevicesComboBox.ItemsSource = UsersManagementOperations.ReturnDevicesListObject(); 
                 CurrentInstanceOfSelectedUser.DevicesComboBox.Items.Refresh();
+                SelectedDevice.Clear();
+                SelectedId.Clear();
+
+                SelectedTasksToAssign_DataGrid.ItemsSource = SelectedDevice;
+                SelectedTasksToAssign_DataGrid.Items.Refresh();
+
+                AssignTaskContent_DataGrid.ItemsSource = UsersManagementOperations.ReturnDevicesListObject(false,true);
+                AssignTaskContent_DataGrid.Items.Refresh();
             }
         }
     }
