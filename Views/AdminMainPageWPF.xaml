@@ -22,8 +22,8 @@
             <ColumnDefinition />
             <ColumnDefinition Width="10"/>
         </Grid.ColumnDefinitions>
-       
 
+<!--Widok do zmiany!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
         <Grid x:Name="mainContent" Grid.Row="2" Grid.Column="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="6.1*"/>
@@ -152,9 +152,13 @@
             <Button Content="Zarządzaj protokołąmi"  Grid.Column="3" Background="#FFB5B5B5"  Margin="1,40,0,1" Padding="10,0,10,0" Click="UserRequestsButtonOnclick"/>
             <Button Content="Zarządzaj użytkownikami" Grid.Column="4" Background="#FFB5B5B5" Margin="1,40,0,1" Padding="10,0,10,0" Click="UserManagement_ButtonOnClick"/>
             <Button Content="Zarządzaj prośbami"  Grid.Column="5" Background="#FFB5B5B5" Margin="1,40,0,1" Padding="10,0,10,0" Click="UserRequestsButtonOnclick"/>
-            <Button Content="Logistyka" Grid.Column="6" Background="#FFB5B5B5" Margin="1,40,0,1" Padding="10,0,10,0" Click="UserRequestsButtonOnclick"/>
-            <Button Content="Urządzenia" Grid.Column="7" Background="#FFB5B5B5" Margin="1,40,0,1" Padding="10,0,10,0" Click="UserRequestsButtonOnclick"/>
             <Button Content="Strona główna" Grid.Column="1" Background="#FFB5B5B5" Margin="1,40,0,1"  Padding="10,0,10,0" Click="AdminMainPageButtonOnclick"/>
+            <StackPanel Grid.Column="11" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,15,30,0">
+                <Label x:Name="CurrentPersonLabel" Content="{Binding CurrentLogin}" Foreground="AliceBlue" Padding="15,0,30,0"/>
+                <Button Content="Wyloguj" HorizontalAlignment="Right" VerticalAlignment="top" Background="#FFB5B5B5" Margin="1,0,0,1"  Padding="20,5,20,5" Click="LogOut_ButtonClick"/>
+
+
+            </StackPanel>
 
             <Rectangle Name="Top_Bar_Rectangle" Grid.Column="0" Grid.Row="1" Fill="#FF2D2D2D" Panel.ZIndex="-1" Grid.ColumnSpan="12" />
 

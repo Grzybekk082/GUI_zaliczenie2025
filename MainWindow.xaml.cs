@@ -31,13 +31,14 @@ namespace GUI_zaliczenie2025
 
             //Przywróć przy oddawaniu projektu
 
-            //window.Content = new LoginPageWPF();
+            window.Content = new LoginPageWPF();
 
             //usuń przed oddaniem>>
-            window.Content = new AdminMainPageWPF();
-            window.ResizeMode = ResizeMode.CanResize;
-            window.WindowState = WindowState.Maximized;
-            window.MinWidth = MinWidth = 1000;
+
+            //window.Content = new AdminMainPageWPF();
+            //window.ResizeMode = ResizeMode.CanResize;
+            //window.WindowState = WindowState.Maximized;
+            //window.MinWidth = MinWidth = 1000;
         }
 
 

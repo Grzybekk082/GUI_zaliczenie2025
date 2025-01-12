@@ -28,19 +28,29 @@ namespace GUI_zaliczenie2025
         private bool isTextInt = true;
         public object send;
         public RoutedEventArgs argE;
-
-        public AdminMainPageWPF()
+        private CurrentPerson CRperson;
+        public AdminMainPageWPF(){}
+        public AdminMainPageWPF(CurrentPerson person)
         {
-           
+           CRperson= person;
             InitializeComponent();
             send = null;
             argE = null;
-
+            CurrentPersonLabel.DataContext= CRperson;
             // do poprawki ma generować tabele
             //ListVievUserRequests.ItemsSource = NewUsersRequests.ReturnRequestsListObject();
 
         }
 
+        private void LogOut_ButtonClick(object sender, RoutedEventArgs e)
+        {
+            Window window = Window.GetWindow(this);
+            window.Content = new LoginPageWPF();
+            window.ResizeMode = ResizeMode.NoResize;
+            window.WindowState = WindowState.Normal;
+            window.Width = 800;
+            window.Height = 450;
+        }
 
         internal void UserRequestsButtonOnclick(object sender, RoutedEventArgs e)
         {
@@ -55,7 +65,7 @@ namespace GUI_zaliczenie2025
         }
         private void AdminMainPageButtonOnclick(object sender, RoutedEventArgs e)
         {
-
+            //Do poprawienia - klikniecie przycisku ma podmieniać jedynie GRID mainContent zamiast tworzenia nowej instancji strony.
             Window window = Window.GetWindow(this);
             window.Content = new AdminMainPageWPF();
 

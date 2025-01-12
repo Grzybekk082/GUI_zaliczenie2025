@@ -181,8 +181,7 @@
             <StackPanel  Orientation="Vertical" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="10,0,0,0">
                 <Button x:Name="AssignTaskButton" Content="Przypisz zlecenie" Click="AssignTaskToUser_OnClick" Width="150" Height="40" Margin="0,10"
                         Background="#FF39943C" Foreground="White" FontWeight="Bold" HorizontalAlignment="Center" />
-                <Button x:Name="RemoveTaskButton" Content="Zabierz zlecenie" Width="150" Height="40" Margin="0,10"
-                        Background="#FFA20B00" Foreground="White" FontWeight="Bold" HorizontalAlignment="Center" />
+
             </StackPanel>
         </Border>
 
@@ -190,8 +189,7 @@
             <StackPanel   Orientation="Vertical" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="10,0,0,0">
                 <Button x:Name="AssignDeviceButton" Content="Przypisz urządzenie" Click="AssignDeviceToUser_OnClick" Width="150" Height="40" Margin="0,10"
                         Background="#FF39943C" Foreground="White" FontWeight="Bold" HorizontalAlignment="Center" />
-                <Button x:Name="RemoveDeviceButton" Content="Zabierz urządzenie" Width="150" Height="40" Margin="0,10"
-                        Background="#FFA20B00" Foreground="White" FontWeight="Bold" HorizontalAlignment="Center" />
+
             </StackPanel>
         </Border>
 

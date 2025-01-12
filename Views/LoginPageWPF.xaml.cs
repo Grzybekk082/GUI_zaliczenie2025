@@ -21,8 +21,8 @@ namespace GUI_zaliczenie2025
     /// </summary>
     public partial class LoginPageWPF : UserControl
     {
-        string login, password, newName, newSurename, newPassword, newLogin;
-
+         string login, password, newName, newSurename, newPassword, newLogin;
+        public CurrentPerson CRperson;
         public LoginPageWPF()
         {
             InitializeComponent();
@@ -39,13 +39,14 @@ namespace GUI_zaliczenie2025
                     bool isAdmin = AccountAcces.LogIn(login, password).Item2;
                     if (isAdmin)
                     {
+                        CRperson = new CurrentPerson() { CurrentLogin = login };
                         Window window = Window.GetWindow(this);
-                        window.Content = new AdminMainPageWPF();
+                        window.Content = new AdminMainPageWPF(CRperson);
                         window.ResizeMode=ResizeMode.CanResize;
                         window.WindowState= WindowState.Maximized;
                         window.MinWidth = MinWidth = 1000;
-
-                }
+                        
+                    }
                     else
                     {
                         Window window = Window.GetWindow(this);
@@ -62,7 +63,8 @@ namespace GUI_zaliczenie2025
 
                     
                 }
- 
+
+                
         }
 
         private void Button_Create_Account_Click(object sender, RoutedEventArgs e)
