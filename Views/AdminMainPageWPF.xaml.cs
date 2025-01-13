@@ -3,6 +3,7 @@ using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,6 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using GUI_zaliczenie2025.Views;
 
 
 namespace GUI_zaliczenie2025
@@ -56,7 +58,6 @@ namespace GUI_zaliczenie2025
         {
             send = sender;
             argE = e;
-            ActualTasksOperations.ReturnRequestsListObject();
             Main_Content_Change_Grid.Children.Clear();
             Main_Content_Change_Grid.Children.Add(new UserRequestPageWPF(this));
             /////
@@ -66,15 +67,16 @@ namespace GUI_zaliczenie2025
         private void AdminMainPageButtonOnclick(object sender, RoutedEventArgs e)
         {
             //Do poprawienia - klikniecie przycisku ma podmieniać jedynie GRID mainContent zamiast tworzenia nowej instancji strony.
-            Window window = Window.GetWindow(this);
-            window.Content = new AdminMainPageWPF();
+
+            Main_Content_Change_Grid.Children.Clear();
+            Main_Admin_24h_Button.Visibility = Visibility.Visible;
+            Main_Admin_SLA_Button.Visibility = Visibility.Visible;
 
         }
 
         private void ChangeToSla_ButtonOnClick(object sender, RoutedEventArgs e)
         {
 
-            ActualTasksOperations.ReturnRequestsListObject();
             Main_Content_Change_Grid.Children.Clear();
             Main_Content_Change_Grid.Children.Add(new ShortSlaPageWPF_UserControl());
         }
@@ -82,12 +84,11 @@ namespace GUI_zaliczenie2025
         private void UserManagement_ButtonOnClick(object sender, RoutedEventArgs e)
         {
 
-            ActualTasksOperations.ReturnRequestsListObject();
             Main_Content_Change_Grid.Children.Clear();
             Main_Content_Change_Grid.Children.Add(new UserManagementWPF_UserControl());
         }
 
-        private void TaskSearchButton_click(object sender, RoutedEventArgs e)
+        internal void TaskSearchButton_click(object sender, RoutedEventArgs e)
         {
 
             
