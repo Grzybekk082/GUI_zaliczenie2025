@@ -14,6 +14,9 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using GUI_zaliczenie2025.Classes;
 using GUI_zaliczenie2025;
+using Task = GUI_zaliczenie2025.Classes.Task;
+using MySql.Data.MySqlClient;
+
 namespace GUI_zaliczenie2025.Views
 {
     /// <summary>
@@ -50,7 +53,55 @@ namespace GUI_zaliczenie2025.Views
             AssignToUser_Window assignTaskToUser_Window = new AssignToUser_Window( this, isTask );
             assignTaskToUser_Window.ShowDialog();
         }
-        
-        
+
+
+        private void UserTaskOperation_OnClick(object sender, MouseButtonEventArgs e)
+        {
+            Task task = (Task)TasksComboBox.SelectedItem;
+
+            if (task != null)
+            {
+                string taskId = task.Id;
+                MessageBoxResult result= MessageBox.Show("Zwrócić zlecenie na główną kolejkę?",
+                    "Zwróć zlecenie",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Question,
+                    defaultResult:MessageBoxResult.No);
+               if (result == MessageBoxResult.Yes)
+               {
+                   try
+                   {
+                       string mySqlQuery = $"Update reports SET _user = NULL WHERE id = '{taskId}';";
+
+
+                       MySqlConnectionStringBuilder conn_string = new MySqlConnectionStringBuilder();
+                       conn_string.Server = "localhost";
+                       conn_string.Port = 3308;
+                       conn_string.UserID = "root";
+                       conn_string.Password = "2137";
+                       conn_string.Database = "servicedeskv2";
+
+
+                       using (MySqlConnection con = new MySqlConnection(conn_string.ToString()))
+                       {
+                           con.Open();
+
+                           using (MySqlCommand command = new MySqlCommand(mySqlQuery, con))
+                           {
+                               command.ExecuteNonQuery();
+                           }
+                       }
+                       MessageBox.Show("Zlecenie zostało zwrócone na główną kolejkę", "Zlecenie zwrócone", MessageBoxButton.OK, MessageBoxImage.Information);
+                       TasksComboBox.ItemsSource = UsersManagementOperations.ReturnTasksListObject();
+                        TasksComboBox.Items.Refresh();
+                    }
+                   catch (MySqlException ex)
+                   {
+                       MessageBox.Show($"Wystąpił błąd w przetwarzaniu prośby : {ex}" ,"Błąd przetwarzania!", MessageBoxButton.OK , MessageBoxImage.Error );
+                   }
+               }
+
+            }
+        }
     }
 }

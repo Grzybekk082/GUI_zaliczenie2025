@@ -166,7 +166,7 @@
                             <TextBlock Text="Zlecenia:" HorizontalAlignment="Center" Grid.Column="0" Style="{StaticResource CustomTextBlockStyle}" />
                             <TextBlock Text="Urządzenia:" HorizontalAlignment="Center" Grid.Column="1" Grid.Row="2" Style="{StaticResource CustomTextBlockStyle}" />
 
-                            <DataGrid x:Name="TasksComboBox" IsReadOnly="True" Grid.Column="1"  Grid.Row="1" Width="auto" Margin="0,0,0,0" HorizontalAlignment="Left">
+                            <DataGrid x:Name="TasksComboBox" IsReadOnly="True" Grid.Column="1"  Grid.Row="1" Width="auto" Margin="0,0,0,0" HorizontalAlignment="Left" MouseDoubleClick="UserTaskOperation_OnClick">
                             </DataGrid>
 
                         <DataGrid x:Name="DevicesComboBox"  IsReadOnly="True"  Grid.Column="0" Grid.Row="3" Width="auto" Margin="0,0,0,0" HorizontalAlignment="Left">
