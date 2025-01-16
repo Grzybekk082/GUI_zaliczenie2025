@@ -1,5 +1,0 @@
-D
-F
-pass2
-Login2
-false

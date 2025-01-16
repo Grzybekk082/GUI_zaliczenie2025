@@ -1,14 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+﻿using System.IO;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using GUI_zaliczenie2025.Classes;
-using GUI_zaliczenie2025.User;
-using GUI_zaliczenie2025.Admin;
-using System.Threading;
 
 
 namespace GUI_zaliczenie2025.Classes

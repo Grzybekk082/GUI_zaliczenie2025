@@ -1,16 +1,4 @@
-﻿using System.Text;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using GUI_zaliczenie2025.Classes;
-using GUI_zaliczenie2025.User;
-using GUI_zaliczenie2025.Admin;
+﻿using System.Windows;
 
 
 
@@ -27,7 +15,7 @@ namespace GUI_zaliczenie2025
             // w MainWindow rozpoczyna się działanie programu, tu umiszczac bedziemy wszystkie podstrony itp, tak jak implemenujrmy metody do Program Main
 
             //Poniżej podmieniamy widok głównego okna MainContent widokiem strony logowania LogInPAgeWPF używająć ich wartości x:name w plikach xaml
-            Window window=Window.GetWindow(this);
+            Window window = Window.GetWindow(this);
 
             //Przywróć przy oddawaniu projektu
 

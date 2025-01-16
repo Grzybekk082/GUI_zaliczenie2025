@@ -1,15 +1,5 @@
-﻿using System;
-using System.Data;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MySql.Data.MySqlClient;
 using System.IO;
-using GUI_zaliczenie2025.Classes;
-using GUI_zaliczenie2025.User;
-using GUI_zaliczenie2025.Admin;
-using MySql.Data.MySqlClient;
-using System.Security.Cryptography.X509Certificates;
 
 
 
@@ -26,7 +16,7 @@ namespace GUI_zaliczenie2025.Classes
 
 
         internal NewUsersRequests() { }
-        internal NewUsersRequests(string newName, string newSurename, string newPassword, string newLogin , string newPhoneNumber)
+        internal NewUsersRequests(string newName, string newSurename, string newPassword, string newLogin, string newPhoneNumber)
         {
             name = newName;
             surename = newSurename;
@@ -41,12 +31,8 @@ namespace GUI_zaliczenie2025.Classes
         {
             DateTime currentDate = DateTime.Now;
             string formattedDate = currentDate.ToString("yyyy-MM-dd HH-mm-ss");
-            MySqlConnectionStringBuilder conn_string = new MySqlConnectionStringBuilder();
-            conn_string.Server = "localhost";
-            conn_string.Port = 3308;
-            conn_string.UserID = "root";
-            conn_string.Password = "2137";
-            conn_string.Database = "servicedeskv2";
+            MySqlConnectionStringBuilder conn_string = DatabaseConnection.ConnectionBuilder();
+
 
             using (MySqlConnection con = new MySqlConnection(conn_string.ToString()))
             {
@@ -56,11 +42,11 @@ namespace GUI_zaliczenie2025.Classes
                     command.ExecuteNonQuery();
                 }
             }
- 
+
         }
 
         //Metoda zwracająca tablicę aktualnych próśb użytkowników
-        internal static string[]  ReturnRequestList()
+        internal static string[] ReturnRequestList()
         {
             return Directory.GetFiles(path);
         }
@@ -69,14 +55,9 @@ namespace GUI_zaliczenie2025.Classes
         internal static List<Person> ReturnRequestsListObject()
         {
             List<Person> Requestors = new List<Person>();
-            MySqlConnectionStringBuilder conn_string = new MySqlConnectionStringBuilder();
-            conn_string.Server = "localhost";
-            conn_string.Port = 3308;
-            conn_string.UserID = "root";
-            conn_string.Password = "2137";
-            conn_string.Database = "servicedeskv2";
+            MySqlConnectionStringBuilder conn_string = DatabaseConnection.ConnectionBuilder();
 
-            using ( MySqlConnection con = new MySqlConnection(conn_string.ToString()))
+            using (MySqlConnection con = new MySqlConnection(conn_string.ToString()))
             {
                 con.Open();
                 using (MySqlCommand command = new MySqlCommand($"SELECT" +
@@ -93,7 +74,8 @@ namespace GUI_zaliczenie2025.Classes
                         while (reader.Read())
                         {
 
-                            Requestors.Add(new Person {
+                            Requestors.Add(new Person
+                            {
                                 Id = $"{reader["Id"].ToString()}",
                                 Name = $"{reader["Imie"].ToString()}",
                                 Surename = $"{reader["Nazwisko"].ToString()}",
@@ -120,7 +102,8 @@ namespace GUI_zaliczenie2025.Classes
 
             List<Person> Requestors = ReturnRequestsListObject();
 
-            foreach (Person person in Requestors) {
+            foreach (Person person in Requestors)
+            {
                 corectLogin = person.Login;
 
 
@@ -139,7 +122,7 @@ namespace GUI_zaliczenie2025.Classes
 
 
 
-        
+
 
     }
 }

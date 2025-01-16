@@ -51,8 +51,9 @@ namespace GUI_zaliczenie2025
             {
                 newName = char.ToUpper(newName[0]) + newName.Substring(1).ToLower();
                 newSurename = char.ToUpper(newSurename[0]) + newSurename.Substring(1).ToLower();
+                newLogin = newLogin.ToLower();
 
-                if (!AccountAcces.IsLoginFree(newName))
+                if (!AccountAcces.IsLoginFree(newLogin))
                 {
                     warningLabel.Content = "Podany login jest zajęty przez istniejącego użytkownika!";
 
