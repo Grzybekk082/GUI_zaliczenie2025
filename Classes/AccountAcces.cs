@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using GUI_zaliczenie2025.Classes;
 using GUI_zaliczenie2025.User;
 using GUI_zaliczenie2025.Admin;
+using MySql.Data.MySqlClient;
 
 namespace GUI_zaliczenie2025.Classes
 {
@@ -73,42 +76,56 @@ namespace GUI_zaliczenie2025.Classes
         //metoda porównuje uzyskane z metody zwrócone wartości prawidłowego loginu i hasła z danymi wprowadzonymi przez
         //użytkownika próbującego się zalogować i jeżeli takie dane istnieją w pojedynczym pliku "user#" użytkownik zostanie prawidłowo
         //zalogowany TOTLE
-        static internal (bool, bool)LogIn(string login, string password)
+
+
+        static internal (bool, bool) LogIn2(string login, string password)
         {
-
+            User person = null;
             string inputLogin = login,
-                   inputPassword = password,
-                   corectLogin,
-                   corectPassword;
-
-            bool isCorect=false, isAdmin=false;
-             
-            for (int i = 1;i<= ReturnUsersNumber(directoryPath); i++)
+                inputPassword = password;
+            bool isCorect = false, isAdmin = false;
+            string mySqlQuery = $"SELECT permissions FROM _user WHERE login='{inputLogin}' AND password='{inputPassword}'";
+            MySqlConnectionStringBuilder conn_string = DatabaseConnection.ConnectionBuilder();
+            try
             {
-                (string tutleName,string tutleSurename, string tutleIsAdmin)userInfoReturn = ReturnInfo(i);
-                corectLogin= userInfoReturn.tutleName;
-                corectPassword= userInfoReturn.tutleSurename;
-                
-                if(corectLogin.Equals(inputLogin)&&corectPassword.Equals(inputPassword))
+                using (MySqlConnection con = new MySqlConnection(conn_string.ToString()))
                 {
-                    isCorect = true;
-                    if(userInfoReturn.tutleIsAdmin.Equals("true"))
-                        {
-                        isAdmin = true;
-                        }
+                    con.Open();
 
-                }
-                else
-                {
-                    if( i== ReturnUsersNumber(directoryPath))
+                    using (MySqlCommand command = new MySqlCommand(mySqlQuery, con))
                     {
-                        break;
+                        using (MySqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read()) // Iterujemy przez wyniki zapytania
+                            {
+                                // Tworzenie obiektu User na podstawie danych z bazy
+                                person = new User()
+                                {
+                                    Permission = reader["permissions"].ToString()
+                                };
+
+                                // Sprawdzanie uprawnień użytkownika
+                                isCorect = true; // Jeśli dane zostały znalezione, zakładamy, że jest poprawny
+
+                                if (person.Permission == "admin")
+                                {
+                                    isAdmin = true;
+                                }
+                            }
+                        }
                     }
-                    continue;
                 }
             }
-            return (isCorect,isAdmin);
+            catch (MySqlException ex)
+            {
+                MessageBox.Show("Błąd połączenia z bazą", "Błąd połączenia!", MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+            }
+            return (isCorect, isAdmin);
         }
+
+
+        //////////////////////////////////
         //Metoda mająca za zadanie jedynie utworzenie pliku .txt z nowym użytkownikiem, jest wywoływana w konstruktorze
         internal void AccountCreator(string name, string surename, string permissions, string password, string login)
         {

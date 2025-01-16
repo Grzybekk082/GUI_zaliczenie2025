@@ -33,10 +33,10 @@ namespace GUI_zaliczenie2025
             login = textBoxLogin.Text;
             password = textBoxPassword.Text;
 
-                bool isCorect = AccountAcces.LogIn(login, password).Item1;
+                (bool isCorect, bool isAdmin)  = AccountAcces.LogIn2(login, password);
                 if (isCorect)
                 {
-                    bool isAdmin = AccountAcces.LogIn(login, password).Item2;
+                    
                     if (isAdmin)
                     {
                         CRperson = new CurrentPerson() { CurrentLogin = login };

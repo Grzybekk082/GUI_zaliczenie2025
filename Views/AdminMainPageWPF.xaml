@@ -148,7 +148,6 @@
                     <ColumnDefinition Width="10*"/>
                     <ColumnDefinition Width="10"/>
                 </Grid.ColumnDefinitions>
-            <Button Content="zarządzaj zleceniami" Grid.Column="2" Background="#FFB5B5B5"   Margin="1,40,0,1" Padding="10,0,10,0" Click="UserRequestsButtonOnclick"/>
             <Button Content="Zarządzaj protokołąmi"  Grid.Column="3" Background="#FFB5B5B5"  Margin="1,40,0,1" Padding="10,0,10,0" Click="UserRequestsButtonOnclick"/>
             <Button Content="Zarządzaj użytkownikami" Grid.Column="4" Background="#FFB5B5B5" Margin="1,40,0,1" Padding="10,0,10,0" Click="UserManagement_ButtonOnClick"/>
             <Button Content="Zarządzaj prośbami"  Grid.Column="5" Background="#FFB5B5B5" Margin="1,40,0,1" Padding="10,0,10,0" Click="UserRequestsButtonOnclick"/>
