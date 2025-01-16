@@ -50,7 +50,7 @@ namespace GUI_zaliczenie2025
             window.Content = new LoginPageWPF();
             window.ResizeMode = ResizeMode.NoResize;
             window.WindowState = WindowState.Normal;
-            window.Width = 800;
+            window.Width = 600;
             window.Height = 450;
         }
 

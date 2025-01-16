@@ -169,7 +169,7 @@
                             <DataGrid x:Name="TasksComboBox" IsReadOnly="True" Grid.Column="1"  Grid.Row="1" Width="auto" Margin="0,0,0,0" HorizontalAlignment="Left" MouseDoubleClick="UserTaskOperation_OnClick">
                             </DataGrid>
 
-                        <DataGrid x:Name="DevicesComboBox"  IsReadOnly="True"  Grid.Column="0" Grid.Row="3" Width="auto" Margin="0,0,0,0" HorizontalAlignment="Left">
+                        <DataGrid x:Name="DevicesComboBox"  IsReadOnly="True"  Grid.Column="0" Grid.Row="3" Width="auto" Margin="0,0,0,0" HorizontalAlignment="Left" MouseDoubleClick="UserDeviceOperation_OnClick">
                             </DataGrid>
 
                         </Grid>

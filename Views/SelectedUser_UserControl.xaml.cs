@@ -37,7 +37,7 @@ namespace GUI_zaliczenie2025.Views
             this.DataContext = UsersManagementOperations.ReturnUsersListObject(isSelected);
 
             TasksComboBox.ItemsSource = UsersManagementOperations.ReturnTasksListObject();
-            DevicesComboBox.ItemsSource= UsersManagementOperations.ReturnDevicesListObject(false);
+            DevicesComboBox.ItemsSource= UsersManagementOperations.ReturnDevicesListObject(false,false);
         }
 
 
@@ -57,7 +57,9 @@ namespace GUI_zaliczenie2025.Views
 
         private void UserTaskOperation_OnClick(object sender, MouseButtonEventArgs e)
         {
+
             Task task = (Task)TasksComboBox.SelectedItem;
+
 
             if (task != null)
             {
@@ -102,6 +104,58 @@ namespace GUI_zaliczenie2025.Views
                }
 
             }
+        }
+
+        private void UserDeviceOperation_OnClick(object sender, MouseButtonEventArgs e)
+        {
+
+            Device device = (Device)DevicesComboBox.SelectedItem;
+
+
+            if (device != null)
+            {
+                string deviceId = device.Id;
+                MessageBoxResult result = MessageBox.Show("Zwrócić zlecenie na główną kolejkę?",
+                    "Zwróć zlecenie",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Question,
+                    defaultResult: MessageBoxResult.No);
+                if (result == MessageBoxResult.Yes)
+                {
+                    try
+                    {
+                        string mySqlQuery = $"Update resources SET assignment_technican = NULL WHERE id = '{deviceId}';";
+
+
+                        MySqlConnectionStringBuilder conn_string = new MySqlConnectionStringBuilder();
+                        conn_string.Server = "localhost";
+                        conn_string.Port = 3308;
+                        conn_string.UserID = "root";
+                        conn_string.Password = "2137";
+                        conn_string.Database = "servicedeskv2";
+
+
+                        using (MySqlConnection con = new MySqlConnection(conn_string.ToString()))
+                        {
+                            con.Open();
+
+                            using (MySqlCommand command = new MySqlCommand(mySqlQuery, con))
+                            {
+                                command.ExecuteNonQuery();
+                            }
+                        }
+                        MessageBox.Show("Urządzenie zostało zwrócone na główną kolejkę", "Urządzenie zwrócone", MessageBoxButton.OK, MessageBoxImage.Information);
+                        DevicesComboBox.ItemsSource = UsersManagementOperations.ReturnDevicesListObject(false, false);
+                        DevicesComboBox.Items.Refresh();
+                    }
+                    catch (MySqlException ex)
+                    {
+                        MessageBox.Show($"Wystąpił błąd w przetwarzaniu prośby : {ex}", "Błąd przetwarzania!", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
+
+            }
+
         }
     }
 }

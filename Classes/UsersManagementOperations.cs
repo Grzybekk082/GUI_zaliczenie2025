@@ -98,11 +98,11 @@ namespace GUI_zaliczenie2025.Classes
             }
             if(showWitchoutUser)
             {
-                mySqlQuery = $"SELECT id,brand, model, SerialNumber, Registration_Number, category FROM resources WHERE assignment_technican != '{AssignToUser_Window.SelectedUserLogin}' OR assignment_technican is NULL;";
+                mySqlQuery = $"SELECT id,brand, model, SerialNumber, Registration_Number, category FROM resources WHERE assignment_technican != '{loginSelected}' OR assignment_technican is NULL;";
             }
             else
             {
-                mySqlQuery = $"SELECT id,brand, model, SerialNumber, Registration_Number, category FROM resources WHERE assignment_technican='{AssignToUser_Window.SelectedUserLogin}';";
+                mySqlQuery = $"SELECT id,brand, model, SerialNumber, Registration_Number, category FROM resources WHERE assignment_technican='{loginSelected}';";
             }
 
             try
