@@ -1,17 +1,6 @@
 ﻿using GUI_zaliczenie2025.Classes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using Task = GUI_zaliczenie2025.Classes.Task;
 
 namespace GUI_zaliczenie2025.Views
@@ -31,13 +20,13 @@ namespace GUI_zaliczenie2025.Views
 
 
         //Konstruktory klasy AssignTaskToUser_Window
-        public AssignToUser_Window(){}
+        public AssignToUser_Window() { }
 
         public AssignToUser_Window(SelectedUser_UserControl CurrentInstance, bool isTask)
         {
-            
+
             InitializeComponent();
-            this.isTask= isTask;
+            this.isTask = isTask;
             CurrentInstanceOfSelectedUser = CurrentInstance;
             SelectedUserLogin = UserManagementWPF_UserControl.TaskLogin;
             if (isTask)
@@ -46,12 +35,12 @@ namespace GUI_zaliczenie2025.Views
                 AssignTaskContent_DataGrid.ItemsSource = ActualTasksOperations.ReturnRequestsListObject(true);
 
             }
-            if(!isTask)
+            if (!isTask)
             {
                 SelectedDevice = new List<Device>();
-                AssignTaskContent_DataGrid.ItemsSource = UsersManagementOperations.ReturnDevicesListObject(false,true);
+                AssignTaskContent_DataGrid.ItemsSource = UsersManagementOperations.ReturnDevicesListObject(false, true);
             }
-            
+
             SelectedId = new List<string>();
         }
 
@@ -180,7 +169,7 @@ namespace GUI_zaliczenie2025.Views
             {
                 UsersManagementOperations.AssignTaskToUser();
 
-                CurrentInstanceOfSelectedUser.TasksComboBox.ItemsSource = UsersManagementOperations.ReturnTasksListObject(); 
+                CurrentInstanceOfSelectedUser.TasksComboBox.ItemsSource = UsersManagementOperations.ReturnTasksListObject();
                 CurrentInstanceOfSelectedUser.TasksComboBox.Items.Refresh();
                 SelectedTask.Clear();
                 SelectedId.Clear();
@@ -195,7 +184,7 @@ namespace GUI_zaliczenie2025.Views
             else
             {
                 UsersManagementOperations.AssignDeviceToUser();
-                CurrentInstanceOfSelectedUser.DevicesComboBox.ItemsSource = UsersManagementOperations.ReturnDevicesListObject(); 
+                CurrentInstanceOfSelectedUser.DevicesComboBox.ItemsSource = UsersManagementOperations.ReturnDevicesListObject();
                 CurrentInstanceOfSelectedUser.DevicesComboBox.Items.Refresh();
                 SelectedDevice.Clear();
                 SelectedId.Clear();
@@ -203,7 +192,7 @@ namespace GUI_zaliczenie2025.Views
                 SelectedTasksToAssign_DataGrid.ItemsSource = SelectedDevice;
                 SelectedTasksToAssign_DataGrid.Items.Refresh();
 
-                AssignTaskContent_DataGrid.ItemsSource = UsersManagementOperations.ReturnDevicesListObject(false,true);
+                AssignTaskContent_DataGrid.ItemsSource = UsersManagementOperations.ReturnDevicesListObject(false, true);
                 AssignTaskContent_DataGrid.Items.Refresh();
             }
         }

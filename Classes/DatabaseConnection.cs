@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MySql.Data.MySqlClient;
+﻿using MySql.Data.MySqlClient;
 
 namespace GUI_zaliczenie2025.Classes
 {
     public class DatabaseConnection
     {
-        public static MySqlConnectionStringBuilder ConnectionBuilder ()
+        public static MySqlConnectionStringBuilder ConnectionBuilder()
         {
             MySqlConnectionStringBuilder conn_string = new MySqlConnectionStringBuilder();
             conn_string.Server = "localhost";

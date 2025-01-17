@@ -9,8 +9,7 @@ namespace GUI_zaliczenie2025.Classes
     internal class NewUsersRequests : AccountAcces
     {
         static string name, surename, password, login, phoneNumber;
-        static string path = Path.Combine($"{ProgramSupport.ActualyPathReturn()}\\Service\\Administration");
-        static string directoryPath = Path.Combine($"{ProgramSupport.ActualyPathReturn()}\\Service\\Accounts\\usersData");
+
 
 
 
@@ -43,12 +42,6 @@ namespace GUI_zaliczenie2025.Classes
                 }
             }
 
-        }
-
-        //Metoda zwracająca tablicę aktualnych próśb użytkowników
-        internal static string[] ReturnRequestList()
-        {
-            return Directory.GetFiles(path);
         }
         //Metoda zwraca aktualną LISTE obiektów klasy PERSON (id ,imie, nazwisko, login, data wysłania prośby), potrzebna jest do wyświetlania
         //w GUI listy próśb użytkowników
@@ -96,33 +89,32 @@ namespace GUI_zaliczenie2025.Classes
         //jest już zajęty.
         static internal bool IsRequestLoginFree(string loginInput)
         {
-            bool isLoginOccupied = true;
-            string inputLogin = loginInput,
-                   corectLogin;
+            bool isLoginOccupied = false;
+            string inputLogin = loginInput;
 
-            List<Person> Requestors = ReturnRequestsListObject();
+            User user = null;
+            string mySqlQuery = $"SELECT id FROM user_requests WHERE Login='{inputLogin}';";
+            MySqlConnectionStringBuilder conn_string = DatabaseConnection.ConnectionBuilder();
 
-            foreach (Person person in Requestors)
+            using (MySqlConnection con = new MySqlConnection(conn_string.ToString()))
             {
-                corectLogin = person.Login;
+                con.Open();
 
+                using (MySqlCommand command = new MySqlCommand(mySqlQuery, con))
+                {
+                    command.Parameters.AddWithValue("@login", inputLogin);
 
-                if (corectLogin.Equals(inputLogin))
-                {
-                    isLoginOccupied = false;
-                    break;
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.HasRows)
+                        {
+                            isLoginOccupied = true;
+                        }
+                    }
                 }
-                else
-                {
-                    continue;
-                }
+                return isLoginOccupied;
             }
-            return isLoginOccupied;
         }
-
-
-
-
 
     }
 }

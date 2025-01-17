@@ -1,36 +1,31 @@
 ﻿using GUI_zaliczenie2025.Views;
-using MySql.Data.MySqlClient;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using Microsoft.IdentityModel.Tokens;
+using MySql.Data.MySqlClient;
+using System.Windows;
 
 namespace GUI_zaliczenie2025.Classes
 {
     internal class UsersManagementOperations
     {
-        private static string mySqlQuery= $"SELECT id,name, surname, login, departament, permissions, tel, email FROM _user;";
-        private static string mySqlQueryDefault= $"SELECT id,name, surname, login, departament, permissions, tel, email FROM _user;";
+        private static string mySqlQuery = $"SELECT id,name, surname, login, departament, permissions, tel, email FROM _user;";
+        private static string mySqlQueryDefault = $"SELECT id,name, surname, login, departament, permissions, tel, email FROM _user;";
         private SelectedUser_UserControl _SelectedUser;
         private static string loginSelected;
         private static string idSelected;
         private static bool isUserSelected;
-        public UsersManagementOperations(){}
+        public UsersManagementOperations() { }
 
         public UsersManagementOperations(SelectedUser_UserControl SelectedUser)
         {
             _SelectedUser = SelectedUser;
-            loginSelected= UserManagementWPF_UserControl.TaskLogin;
+            loginSelected = UserManagementWPF_UserControl.TaskLogin;
             idSelected = UserManagementWPF_UserControl.Taskid;
         }
 
         //!!!!!!!!!!!!!!!!!!!! METODY ZWRACAJĄCE DANE Z BAZY DANYCH !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
         //Metoda zwracająca dane danego użytkownika do strony AssignTaskToUser_Window
-        internal static List<User> ReturnUsersListObject(bool isSelected=false)
+        internal static List<User> ReturnUsersListObject(bool isSelected = false)
         {
             mySqlQuery = mySqlQueryDefault;
             isUserSelected = isSelected;
@@ -76,13 +71,13 @@ namespace GUI_zaliczenie2025.Classes
                     }
                 }
             }
-            isUserSelected=false;
+            isUserSelected = false;
 
 
             return Requestors;
         }
         //Metoda zwracająca listę urządzeń przypisanych do użytkownika
-        internal static List<Device> ReturnDevicesListObject( bool showAll=false, bool showWitchoutUser=false)
+        internal static List<Device> ReturnDevicesListObject(bool showAll = false, bool showWitchoutUser = false)
         {
 
             List<Device> Devices = new List<Device>();
@@ -96,7 +91,7 @@ namespace GUI_zaliczenie2025.Classes
             {
                 mySqlQuery = $"SELECT id,brand, model, SerialNumber, Registration_Number, category FROM resources;";
             }
-            if(showWitchoutUser)
+            if (showWitchoutUser)
             {
                 mySqlQuery = $"SELECT id,brand, model, SerialNumber, Registration_Number, category FROM resources WHERE assignment_technican != '{loginSelected}' OR assignment_technican is NULL;";
             }
@@ -137,7 +132,7 @@ namespace GUI_zaliczenie2025.Classes
                     }
                 }
 
-               
+
             }
             catch (MySqlException ex)
             {
@@ -158,7 +153,7 @@ namespace GUI_zaliczenie2025.Classes
             conn_string.Password = "2137";
             conn_string.Database = "servicedeskv2";
 
-            
+
 
             mySqlQuery = $"SELECT id,location, title, status FROM reports WHERE _user = '{loginSelected}';";
 
@@ -195,7 +190,7 @@ namespace GUI_zaliczenie2025.Classes
         //Metoda dodająca zaznaczone zadania w klasie AssignTaskToUser_Window do użytkownika
         internal static void AssignTaskToUser()
         {
-            
+
             try
             {
                 List<string> SelectedIdsOfTasks = AssignToUser_Window.SelectedId;

@@ -1,19 +1,8 @@
 ﻿using GUI_zaliczenie2025.Classes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Markup;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace GUI_zaliczenie2025
 {
@@ -34,10 +23,10 @@ namespace GUI_zaliczenie2025
 
         private void Button_Send_Request_Click(object sender, RoutedEventArgs e)
         {
-            
-            newName=textBoxName.Text;
-            newSurename=textBoxSurename.Text;
-            newPassword=textBoxPassword.Password;
+
+            newName = textBoxName.Text;
+            newSurename = textBoxSurename.Text;
+            newPassword = textBoxPassword.Password;
             newPhoneNumber = textBoxPhoneNumber.Text;
 
             newLogin = $"{newName}.{newSurename}";
@@ -51,9 +40,9 @@ namespace GUI_zaliczenie2025
             {
                 newName = char.ToUpper(newName[0]) + newName.Substring(1).ToLower();
                 newSurename = char.ToUpper(newSurename[0]) + newSurename.Substring(1).ToLower();
-                newLogin = newLogin.ToLower();
 
-                if (!AccountAcces.IsLoginFree(newLogin))
+
+                if (AccountAcces.IsLoginFree(newLogin))
                 {
                     warningLabel.Content = "Podany login jest zajęty przez istniejącego użytkownika!";
 
@@ -61,11 +50,11 @@ namespace GUI_zaliczenie2025
                 }
                 else
                 {
-                    if(!NewUsersRequests.IsRequestLoginFree(newLogin))
+                    if (NewUsersRequests.IsRequestLoginFree(newLogin))
                     {
                         warningLabel.Content = "Prośba z podanym loginem już istnieje.";
                     }
-                    else 
+                    else
                     {
                         (bool isUpper, bool isLenght) = AccountAcces.isPasswordReady(newPassword);
                         if (!isUpper)
@@ -82,13 +71,13 @@ namespace GUI_zaliczenie2025
                             }
                             else
                             {
-                                if (newPhoneNumber.Length == 9 && int.TryParse(newPhoneNumber, out int phoneNumber)&&phoneNumber>0)
+                                if (newPhoneNumber.Length == 9 && int.TryParse(newPhoneNumber, out int phoneNumber) && phoneNumber > 0)
                                 {
                                     warningLabel.Foreground = Brushes.Black;
-                                    NewUsersRequests nu = new NewUsersRequests(newName, newSurename, newPassword, newLogin,newPhoneNumber );
+                                    NewUsersRequests nu = new NewUsersRequests(newName, newSurename, newPassword, newLogin, newPhoneNumber);
                                     warningLabel.Content = "Prośba o utworzenie konta została wysłana do administratora.";
                                     Thread.Sleep(3000);
-                                    textBoxPassword.Password=String.Empty;
+                                    textBoxPassword.Password = String.Empty;
                                     textBoxName.Text = String.Empty;
                                     textBoxSurename.Text = String.Empty;
                                     textBoxPhoneNumber.Text = String.Empty;
