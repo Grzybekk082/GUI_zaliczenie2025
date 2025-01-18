@@ -1,22 +1,7 @@
 ﻿using GUI_zaliczenie2025.Classes;
 using Microsoft.IdentityModel.Tokens;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using GUI_zaliczenie2025.Views;
 
 
 namespace GUI_zaliczenie2025
@@ -31,14 +16,14 @@ namespace GUI_zaliczenie2025
         public object send;
         public RoutedEventArgs argE;
         private CurrentPerson CRperson;
-        public AdminMainPageWPF(){}
+        public AdminMainPageWPF() { }
         public AdminMainPageWPF(CurrentPerson person)
         {
-           CRperson= person;
+            CRperson = person;
             InitializeComponent();
             send = null;
             argE = null;
-            CurrentPersonLabel.DataContext= CRperson;
+            CurrentPersonLabel.DataContext = CRperson;
             // do poprawki ma generować tabele
             //ListVievUserRequests.ItemsSource = NewUsersRequests.ReturnRequestsListObject();
 
@@ -61,8 +46,8 @@ namespace GUI_zaliczenie2025
             Main_Content_Change_Grid.Children.Clear();
             Main_Content_Change_Grid.Children.Add(new UserRequestPageWPF(this));
             /////
-            Main_Admin_24h_Button.Visibility=Visibility.Hidden;
-            Main_Admin_SLA_Button.Visibility=Visibility.Hidden;
+            Main_Admin_24h_Button.Visibility = Visibility.Hidden;
+            Main_Admin_SLA_Button.Visibility = Visibility.Hidden;
         }
         private void AdminMainPageButtonOnclick(object sender, RoutedEventArgs e)
         {
@@ -91,15 +76,15 @@ namespace GUI_zaliczenie2025
         internal void TaskSearchButton_click(object sender, RoutedEventArgs e)
         {
 
-            
-             
+
+
             string choose = SearchForComboBox.Text;
             string SearchText = SearchTextBox.Text;
             (string warningText, bool isInt) IsInputIntReturns = ActualTasksOperations.IsInputInt(choose, SearchText);
             if (choose.IsNullOrEmpty() || SearchText.IsNullOrEmpty())
             {
 
-                warningSearchLabel.Visibility= Visibility.Visible;
+                warningSearchLabel.Visibility = Visibility.Visible;
 
                 warningSearchLabel.Content = "Pole wyszukiwania i lista rozwijana muszą być uzupełnione !";
             }
@@ -112,7 +97,7 @@ namespace GUI_zaliczenie2025
                         Main_Content_Change_Grid.Children.Clear();
                         Main_Content_Change_Grid.Children.Add(new ShortSlaPageWPF_UserControl(choose, SearchText));
                         SearchTextBox.Clear();
-                        
+
                         warningSearchLabel.Visibility = Visibility.Hidden;
                     }
                     else

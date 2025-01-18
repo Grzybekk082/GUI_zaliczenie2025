@@ -1,21 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using System.Globalization;
-using Microsoft.IdentityModel.Tokens;
-using GUI_zaliczenie2025.Classes;
 
 
 namespace GUI_zaliczenie2025
@@ -28,7 +12,7 @@ namespace GUI_zaliczenie2025
     {
         private string userPermission;
         private string userDepartament;
-        
+
         private AdminMainPageWPF _adminMainPage;
         /////
         public NewUserRequestConfirm_Window(AdminMainPageWPF adminMainPage)
@@ -86,11 +70,11 @@ namespace GUI_zaliczenie2025
             }
             return SelectedTask;
         }
-        
 
 
-        
-        
+
+
+
 
         public void DeleteUserRequestButton_Click(object sender, RoutedEventArgs e)
         {
@@ -120,11 +104,19 @@ namespace GUI_zaliczenie2025
                     {
                         var rowsAffected = command.ExecuteNonQuery();
                         if (rowsAffected > 0)
-                            MessageBox.Show("Prośba została pomyślnie usunięta.", "Sukces", MessageBoxButton.OK,
-                                MessageBoxImage.Information);
+                        {
+                            MessageBox.Show("Prośba została pomyślnie usunięta.", "Sukces", MessageBoxButton.OK);
+                            Window window = this;
+                            window.Close();
+                            _adminMainPage.Main_Content_Change_Grid.Children.Clear();
+                            _adminMainPage.UserRequestsButtonOnclick(_adminMainPage.send, _adminMainPage.argE);
+                        }
                         else
+                        {
                             MessageBox.Show("Nie znaleziono prośby do usunięcia.", "Błąd", MessageBoxButton.OK,
                                 MessageBoxImage.Warning);
+                        }
+
                     }
                 }
             }
@@ -140,7 +132,7 @@ namespace GUI_zaliczenie2025
             userPermission = PermisionComboBox.Text;
             userPermission = userPermission == "Technik" ? "Technican" : userPermission;
             userPermission = userPermission == "Administrator" ? "admin" : userPermission;
-            
+
             userDepartament = DepartamentComboBox.Text;
 
             userDepartament = userDepartament == "1 linia wsparcia" ? "1 linia" : userDepartament;
@@ -184,7 +176,7 @@ namespace GUI_zaliczenie2025
                         {
                             var name = reader["Imie"].ToString();
                             var surename = reader["Nazwisko"].ToString();
-                            var login = reader["Login"].ToString();
+                            var login = reader["Login"].ToString().ToLower();
                             var pass = reader["Haslo"].ToString();
                             var tell = reader["Nr_tel"].ToString();
 

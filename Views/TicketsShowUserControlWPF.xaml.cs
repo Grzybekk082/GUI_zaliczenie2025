@@ -27,51 +27,19 @@ namespace GUI_zaliczenie2025
         {
             string taskId = ShortSlaPageWPF_UserControl.Taskid;
 
-            List<Classes.Task> SelectedTask = new List<Classes.Task>();
-            MySqlConnectionStringBuilder conn_string = new MySqlConnectionStringBuilder();
-            conn_string.Server = "localhost";
-            conn_string.Port = 3308;
-            conn_string.UserID = "root";
-            conn_string.Password = "2137";
-            conn_string.Database = "servicedeskv2";
+            string command = $"SELECT id,title," +
+                $" description," +
+                $" location," +
+                $" _user," +
+                $" status," +
+                $" date_of_sla," +
+                $" priorytet," +
+                $" company_name," +
+                $" telephone_number," +
+                $" create_date" +
+                $" FROM reports WHERE id='{taskId}';";
+            List<Classes.Task> SelectedTask = MySqlQueryImplementation.TaskQueryImplementation(command);
 
-            using (MySqlConnection con = new MySqlConnection(conn_string.ToString()))
-            {
-                con.Open();
-                using (MySqlCommand command = new MySqlCommand($"SELECT id,title," +
-                    $" description," +
-                    $" location," +
-                    $" _user," +
-                    $" status," +
-                    $" date_of_sla," +
-                    $" company_name," +
-                    $" telephone_number," +
-                    $" create_date" +
-                    $" FROM reports WHERE id='{taskId}';", con))
-                {
-                    using (MySqlDataReader reader = command.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-
-                            SelectedTask.Add(new Classes.Task
-                            {
-                                Id = $"{reader["id"].ToString()}",
-                                Title = $"{reader["title"].ToString()}",
-                                Description = $"{reader["description"].ToString()}",
-                                Location = $"{reader["location"].ToString()}",
-                                User = $"{reader["_user"].ToString()}",
-                                Status = $"{reader["status"].ToString()}",
-                                SLA = $"{reader["date_of_sla"].ToString()}",
-                                Company = $"{reader["company_name"].ToString()}",
-                                CreateDate = $"{reader["create_date"].ToString()}"
-                            });
-                            
-                        }
-                        con.Close();
-                    }
-                }
-            }
             return SelectedTask;
         }
         public TicketsShowUserControlWPF()

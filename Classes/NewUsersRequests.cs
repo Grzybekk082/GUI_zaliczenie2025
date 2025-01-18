@@ -30,10 +30,10 @@ namespace GUI_zaliczenie2025.Classes
         {
             DateTime currentDate = DateTime.Now;
             string formattedDate = currentDate.ToString("yyyy-MM-dd HH-mm-ss");
-            MySqlConnectionStringBuilder conn_string = DatabaseConnection.ConnectionBuilder();
+            MySqlConnection con = DatabaseConnection.ConnectionBuilder();
 
 
-            using (MySqlConnection con = new MySqlConnection(conn_string.ToString()))
+            using (con)
             {
                 con.Open();
                 using (MySqlCommand command = new MySqlCommand($"INSERT INTO user_requests (Imie, Nazwisko, Haslo, Nr_tel, kolumna_dat) VALUES ('{name}', '{surename}', '{password}', '{phoneNumber}', '{formattedDate}') ;", con))
@@ -48,9 +48,9 @@ namespace GUI_zaliczenie2025.Classes
         internal static List<Person> ReturnRequestsListObject()
         {
             List<Person> Requestors = new List<Person>();
-            MySqlConnectionStringBuilder conn_string = DatabaseConnection.ConnectionBuilder();
+            MySqlConnection con = DatabaseConnection.ConnectionBuilder();
 
-            using (MySqlConnection con = new MySqlConnection(conn_string.ToString()))
+            using (con)
             {
                 con.Open();
                 using (MySqlCommand command = new MySqlCommand($"SELECT" +
@@ -94,9 +94,9 @@ namespace GUI_zaliczenie2025.Classes
 
             User user = null;
             string mySqlQuery = $"SELECT id FROM user_requests WHERE Login='{inputLogin}';";
-            MySqlConnectionStringBuilder conn_string = DatabaseConnection.ConnectionBuilder();
+            MySqlConnection con = DatabaseConnection.ConnectionBuilder();
 
-            using (MySqlConnection con = new MySqlConnection(conn_string.ToString()))
+            using (con)
             {
                 con.Open();
 

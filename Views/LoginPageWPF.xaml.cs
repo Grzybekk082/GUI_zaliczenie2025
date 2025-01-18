@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using GUI_zaliczenie2025.Views.UserViews;
 
 namespace GUI_zaliczenie2025
 {
@@ -25,10 +26,9 @@ namespace GUI_zaliczenie2025
             (bool isCorect, bool isAdmin) = AccountAcces.LogIn2(login, password);
             if (isCorect)
             {
-
+                CRperson = new CurrentPerson() { CurrentLogin = login };
                 if (isAdmin)
                 {
-                    CRperson = new CurrentPerson() { CurrentLogin = login };
                     Window window = Window.GetWindow(this);
                     window.Content = new AdminMainPageWPF(CRperson);
                     window.ResizeMode = ResizeMode.CanResize;
@@ -39,7 +39,10 @@ namespace GUI_zaliczenie2025
                 else
                 {
                     Window window = Window.GetWindow(this);
-                    //window.Content = new UserPageWPF();
+                    window.Content = new UserMainPageWPF(CRperson);
+                    window.ResizeMode = ResizeMode.CanResize;
+                    window.WindowState = WindowState.Maximized;
+                    window.MinWidth = MinWidth = 1000;
 
                 }
 

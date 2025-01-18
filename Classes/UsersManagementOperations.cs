@@ -145,43 +145,21 @@ namespace GUI_zaliczenie2025.Classes
         //Metoda zwracająca listę zadań przypisanych do użytkownika
         internal static List<Task> ReturnTasksListObject()
         {
-            List<Task> Tasks = new List<Task>();
-            MySqlConnectionStringBuilder conn_string = new MySqlConnectionStringBuilder();
-            conn_string.Server = "localhost";
-            conn_string.Port = 3308;
-            conn_string.UserID = "root";
-            conn_string.Password = "2137";
-            conn_string.Database = "servicedeskv2";
+            mySqlQuery = $"SELECT id,title," +
+                         $" description," +
+                         $" location," +
+                         $" _user," +
+                         $" status," +
+                         $" date_of_sla," +
+                         $" priorytet," +
+                         $" company_name," +
+                         $" telephone_number," +
+                         $" create_date" +
+                         $" FROM reports WHERE _user= '{loginSelected}';";
+            string command = mySqlQuery;
 
+            List<Task> Tasks = MySqlQueryImplementation.TaskQueryImplementation(command);
 
-
-            mySqlQuery = $"SELECT id,location, title, status FROM reports WHERE _user = '{loginSelected}';";
-
-            using (MySqlConnection con = new MySqlConnection(conn_string.ToString()))
-            {
-                con.Open();
-
-                using (MySqlCommand command = new MySqlCommand(mySqlQuery, con))
-                {
-                    using (MySqlDataReader reader = command.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-
-                            Tasks.Add(new Task
-                            {
-                                Id = $"{reader["id"].ToString()}",
-                                Location = $"{reader["location"].ToString()}",
-                                Title = $"{reader["title"].ToString()}",
-                                Status = $"{reader["status"].ToString()}"
-
-                            });
-
-                        }
-                        con.Close();
-                    }
-                }
-            }
             return Tasks;
         }
 

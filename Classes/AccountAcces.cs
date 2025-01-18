@@ -21,9 +21,9 @@ namespace GUI_zaliczenie2025.Classes
                 
             User user = null;
             string mySqlQuery = $"SELECT id FROM _user WHERE login='{inputLogin}';";
-            MySqlConnectionStringBuilder conn_string = DatabaseConnection.ConnectionBuilder();
+            MySqlConnection con = DatabaseConnection.ConnectionBuilder();
 
-            using (MySqlConnection con = new MySqlConnection(conn_string.ToString()))
+            using (con)
             {
                 con.Open();
 
@@ -56,10 +56,10 @@ namespace GUI_zaliczenie2025.Classes
                 inputPassword = password;
             bool isCorect = false, isAdmin = false;
             string mySqlQuery = $"SELECT permissions FROM _user WHERE login='{inputLogin}' AND password='{inputPassword}'";
-            MySqlConnectionStringBuilder conn_string = DatabaseConnection.ConnectionBuilder();
+            MySqlConnection con = DatabaseConnection.ConnectionBuilder();
             try
             {
-                using (MySqlConnection con = new MySqlConnection(conn_string.ToString()))
+                using (con)
                 {
                     con.Open();
 

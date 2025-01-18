@@ -66,47 +66,8 @@ namespace GUI_zaliczenie2025.Classes
 
                 mySqlQuery =$"SELECT id,title, description, location, _user, status, date_of_sla, company_name, telephone_number, priorytet, create_date FROM reports WHERE _user != '{AssignToUser_Window.SelectedUserLogin}';";
             }
+            List<Task> Requestors = MySqlQueryImplementation.TaskQueryImplementation(mySqlQuery);
 
-            List<Task> Requestors = new List<Task>();
-            MySqlConnectionStringBuilder conn_string = new MySqlConnectionStringBuilder();
-            conn_string.Server = "localhost";
-            conn_string.Port = 3308;
-            conn_string.UserID = "root";
-            conn_string.Password = "2137";
-            conn_string.Database = "servicedeskv2";
-            
-
-            using (MySqlConnection con = new MySqlConnection(conn_string.ToString()))
-            {
-                con.Open();
-
-                using (MySqlCommand command = new MySqlCommand(mySqlQuery, con))
-                {
-                    using (MySqlDataReader reader = command.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-
-                            Requestors.Add(new Task {
-                                Id = $"{reader["id"].ToString()}",
-                                Title = $"{reader["title"].ToString()}",
-                                Description = $"{reader["description"].ToString()}",
-                                Location = $"{reader["location"].ToString()}",
-                                User = $"{reader["_user"].ToString()}",
-                                Status = $"{reader["status"].ToString()}",
-                                SLA = $"{reader["date_of_sla"].ToString()}",
-                                Company = $"{reader["company_name"].ToString()}",
-                                TelNumber = $"{reader["telephone_number"].ToString()}",
-                                Priorytet = $"{reader["priorytet"].ToString()}",
-                                CreateDate = $"{reader["create_date"].ToString()}"
-
-                            });
-
-                        }
-                        con.Close();
-                    }
-                }
-            }
             mySqlQuery = modifyMySqlQuery;
             return Requestors;
         }
