@@ -1,5 +1,6 @@
 ﻿using MySql.Data.MySqlClient;
 using System.Windows;
+using GUI_zaliczenie2025.Classes;
 
 
 namespace GUI_zaliczenie2025
@@ -30,14 +31,9 @@ namespace GUI_zaliczenie2025
             string taskId = UserRequestPageWPF.Taskid;
 
             List<Classes.Person> SelectedTask = new List<Classes.Person>();
-            MySqlConnectionStringBuilder conn_string = new MySqlConnectionStringBuilder();
-            conn_string.Server = "localhost";
-            conn_string.Port = 3308;
-            conn_string.UserID = "root";
-            conn_string.Password = "2137";
-            conn_string.Database = "servicedeskv2";
+            MySqlConnection con = DatabaseConnection.ConnectionBuilder();
 
-            using (MySqlConnection con = new MySqlConnection(conn_string.ToString()))
+            using (con)
             {
                 con.Open();
                 using (MySqlCommand command = new MySqlCommand($"SELECT " +
