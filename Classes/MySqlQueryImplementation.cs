@@ -51,5 +51,87 @@ namespace GUI_zaliczenie2025.Classes
 
             return Tasks;
         }
+
+
+
+
+
+
+        public static List<Objects.User> UsersQueryImplementation(string commandText)
+        {
+            List<Objects.User> Tasks = new List<Objects.User>();
+            MySqlConnection connection = DatabaseConnection.ConnectionBuilder();
+
+            MySqlCommand command = new MySqlCommand(commandText, connection);
+            using (connection)
+            {
+                connection.Open();
+                using (command)
+                {
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+
+                            Tasks.Add(new Classes.Objects.User
+                            {
+                                Id = $"{reader["id"].ToString()}",
+                                Name = $"{reader["name"].ToString()}",
+                                Surname = $"{reader["surname"].ToString()}",
+                                Login = $"{reader["login"].ToString()}",
+                                Departament = $"{reader["departament"].ToString()}",
+                                Permission = $"{reader["permissions"].ToString()}",
+                                Phone_Number = $"{reader["tel"].ToString()}",
+                                Email = $"{reader["email"].ToString()}"
+                            });
+
+                        }
+                        connection.Close();
+                    }
+                }
+            }
+
+            return Tasks;
+        }
+
+
+
+
+
+
+        public static List<Person> RequestsQueryImplementation(string commandText)
+        {
+            List<Objects.Person> Tasks = new List<Objects.Person>();
+            MySqlConnection connection = DatabaseConnection.ConnectionBuilder();
+
+            MySqlCommand command = new MySqlCommand(commandText, connection);
+            using (connection)
+            {
+                connection.Open();
+                using (command)
+                {
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+
+                            Tasks.Add(new Classes.Objects.Person
+                            {
+                                Id = $"{reader["id"].ToString()}",
+                                Name = $"{reader["Imie"].ToString()}",
+                                Surename = $"{reader["Nazwisko"].ToString()}",
+                                Login = $"{reader["Login"].ToString()}",
+                                Date_of_Request = $"{reader["kolumna_dat"].ToString()}",
+                                Phone_Number = $"{reader["Nr_tel"].ToString()}"
+                            });
+
+                        }
+                        connection.Close();
+                    }
+                }
+            }
+
+            return Tasks;
+        }
     }
 }

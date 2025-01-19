@@ -3,6 +3,8 @@ using GUI_zaliczenie2025.Classes.Objects;
 using GUI_zaliczenie2025.Views;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Documents;
+using Org.BouncyCastle.Utilities;
 
 namespace GUI_zaliczenie2025
 {
@@ -13,10 +15,20 @@ namespace GUI_zaliczenie2025
     {
         public static string Taskid;
         public static string TaskLogin;
+
         public UserManagementWPF_UserControl()
         {
             InitializeComponent();
             DataGridUserManagement.ItemsSource = UsersManagementOperations.ReturnUsersListObject();
+        }
+        public UserManagementWPF_UserControl(string queryText, string SearchText)
+        {
+
+            InitializeComponent();
+            string mySqlQuery =
+                $"SELECT id,name, surname, login, departament, permissions, tel, email FROM _user where {queryText} = '{SearchText}' ;";
+            List<User> usersList = MySqlQueryImplementation.UsersQueryImplementation(mySqlQuery);
+            DataGridUserManagement.ItemsSource = usersList;
 
         }
 

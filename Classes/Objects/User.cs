@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GUI_zaliczenie2025.Classes.Objects
 {
-    internal class User
+    public class User
     {
         public string Id { get; set; }
         public string Name { get; set; }

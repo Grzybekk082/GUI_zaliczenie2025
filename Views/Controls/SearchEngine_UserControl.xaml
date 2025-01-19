@@ -25,13 +25,13 @@
 
                 <StackPanel Grid.Row="3" x:Name="SearchForStackPanel">
                     <Label Content="Filtruj : " FontSize="12" Margin="10,5,5,0"/>
-                    <ComboBox x:Name="SearchEngine_ComboBox" Margin="10,10" SelectedIndex="0">
-                        <ComboBoxItem  Content="Id" DataContext="id" />
+                    <ComboBox x:Name="SearchEngine_ComboBox" Margin="10,10" SelectedIndex="0" ItemsSource="{Binding SearchListItems}">
+                        <!--<ComboBoxItem  Content="Id" DataContext="id" />
                         <ComboBoxItem Content="Technican" DataContext="technican"/>
                         <ComboBoxItem Content="Status" DataContext="status"/>
                         <ComboBoxItem Content="Company_name" DataContext="company"/>
                         <ComboBoxItem Content="Location" DataContext="location"/>
-                        <ComboBoxItem Content="Priorytet" DataContext="priorytet"/>
+                        <ComboBoxItem Content="Priorytet" DataContext="priorytet"/>-->
                     </ComboBox>
                     <Label x:Name="warningSearchLabel" Content="błąd" FontSize="12" Foreground="DarkRed" Visibility="Hidden" />
                     <!--Do dokończenia wybieranie filtrowania wyszukiwania i 2 pozostałe gridy-->

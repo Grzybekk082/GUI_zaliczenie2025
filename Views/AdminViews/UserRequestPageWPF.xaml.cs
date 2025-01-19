@@ -21,6 +21,22 @@ namespace GUI_zaliczenie2025
             DataGridUserRequests.ItemsSource = NewUsersRequests.ReturnRequestsListObject();
         }
 
+        public UserRequestPageWPF(string queryText, string SearchText)////
+        {
+            InitializeComponent();
+            string mySqlQuery =
+                $"SELECT" +
+                $" id, " +
+                $" Imie, " +
+                $"Nazwisko, " +
+                $"Login," +
+                $"kolumna_dat, " +
+                $"Nr_tel " +
+                $"FROM user_requests WHERE {queryText} = '{SearchText}';";
+            List<Person> usersList = MySqlQueryImplementation.RequestsQueryImplementation(mySqlQuery);
+            DataGridUserRequests.ItemsSource = usersList;
+        }
+
         public UserRequestPageWPF()
         {
             InitializeComponent();

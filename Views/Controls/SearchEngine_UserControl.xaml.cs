@@ -3,6 +3,8 @@ using Microsoft.IdentityModel.Tokens;
 using System.Windows;
 using System.Windows.Controls;
 using GUI_zaliczenie2025.Classes.Objects;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 
 namespace GUI_zaliczenie2025.Views.Controls
 {
@@ -13,47 +15,81 @@ namespace GUI_zaliczenie2025.Views.Controls
     {
         private AdminMainPageWPF _CRinstance;
         private string _MotherClass;
-        private Dictionary<int, string> searchList;
+        private Dictionary<string, string> searchList;
+
+
 
         public SearchEngine_UserControl()
         {
         }
         public SearchEngine_UserControl(AdminMainPageWPF Instacne, string MotherClass)
         {
-            _MotherClass = MotherClass;
-            _CRinstance = Instacne;
             InitializeComponent();
+            _CRinstance = Instacne;
+            _MotherClass = MotherClass;
+
             if (MotherClass == "UserManagementWPF")
             {
-                searchList = new Dictionary<int, string>()
+                searchList = new Dictionary<string, string>()
                 {
-                    {1,"Imię"},
-                    {2,"Nazwisko"},
-                    {3,"Login"}
+                    {"name","Imię"},
+                    {"surname","Nazwisko"},
+                    {"login","Login"}
                 };
+
+                SearchEngine_ComboBox.ItemsSource = searchList.Values;
             }
-            if (MotherClass == "UserManagementWPF")
+
+            if (MotherClass == "AdminMainPageWPF")
             {
-                searchList = new Dictionary<int, string>()
+                searchList = new Dictionary<string, string>()
                 {
-                    {1,"Imię"},
-                    {2,"Nazwisko"},
-                    {3,"Login"}
+                    {"Id","id"},
+                    {"technican","technik"},
+                    {"status","status"},
+                    {"company_name","company"},
+                    {"location","location"},
+                    {"priorytet","priorytet"},
                 };
+
+                SearchEngine_ComboBox.ItemsSource = searchList.Values;
             }
+
+            if (MotherClass == "UserRequestPageWPF")
+            {
+                searchList = new Dictionary<string, string>()
+                {
+                    {"Imie","Imię"},
+                    {"Nazwisko","Nazwisko"},
+                    {"Login","Login"}
+                };
+
+                SearchEngine_ComboBox.ItemsSource = searchList.Values;
+            }
+
         }
+
+
 
 
         internal void TaskSearchButton_click(object sender, RoutedEventArgs e)
         {
-            SearchEngine_ComboBox.Items.Clear();
-            SearchEngine_ComboBox.ItemsSource = searchList;
+
 
 
             string choose = SearchEngine_ComboBox.Text;
             string SearchText = SearchEngine_TextBox.Text;
-            (string warningText, bool isInt) IsInputIntReturns = ActualTasksOperations.IsInputInt(choose, SearchText);
-            if (choose.IsNullOrEmpty() || SearchText.IsNullOrEmpty())
+            string queryText=null;
+            foreach (var element in searchList)
+            {
+                if(choose==element.Value)
+                {
+                    queryText = element.Key;
+                    break;
+                }
+            }
+            (string warningText, bool isInt) IsInputIntReturns = ActualTasksOperations.IsInputInt(queryText, SearchText);
+            if (queryText.IsNullOrEmpty() || queryText.IsNullOrEmpty())
             {
 
                 warningSearchLabel.Visibility = Visibility.Visible;
@@ -65,12 +101,12 @@ namespace GUI_zaliczenie2025.Views.Controls
             }
             else
             {
-                if (choose == "Id")
+                if (queryText == "Id" || queryText == "id")
                 {
                     if (IsInputIntReturns.isInt)
                     {
                         _CRinstance.Main_Content_Change_Grid.Children.Clear();
-                        _CRinstance.Main_Content_Change_Grid.Children.Add(new ShortSlaPageWPF_UserControl(choose, SearchText));
+                        _CRinstance.Main_Content_Change_Grid.Children.Add(new ShortSlaPageWPF_UserControl(queryText, SearchText));
                         SearchEngine_TextBox.Clear();
 
                         warningSearchLabel.Visibility = Visibility.Hidden;
@@ -84,10 +120,22 @@ namespace GUI_zaliczenie2025.Views.Controls
                 }
                 else
                 {
-                    _CRinstance.Main_Content_Change_Grid.Children.Clear();
-                    _CRinstance.Main_Content_Change_Grid.Children.Add(new ShortSlaPageWPF_UserControl(choose, SearchText));
-                    SearchEngine_TextBox.Clear();
-                    warningSearchLabel.Visibility = Visibility.Hidden;
+                    if (_MotherClass == "AdminMainPageWPF")
+                    {
+                        SearchingForTasks(queryText, SearchText);
+                    }
+                    if(_MotherClass == "UserManagementWPF")
+                    {
+                        SearchingForUser(queryText, SearchText);
+                    }
+                    if (_MotherClass == "UserRequestPageWPF")
+                    {
+                        SearchingForRequests(queryText, SearchText);
+                    }
+                    //_CRinstance.Main_Content_Change_Grid.Children.Clear();
+                    //_CRinstance.Main_Content_Change_Grid.Children.Add(new ShortSlaPageWPF_UserControl(queryText, SearchText));
+                    //SearchEngine_TextBox.Clear();
+                    //warningSearchLabel.Visibility = Visibility.Hidden;
                 }
 
 
@@ -97,8 +145,31 @@ namespace GUI_zaliczenie2025.Views.Controls
 
         }
 
-        
-        
+        private void SearchingForUser(string queryText, string SearchText)
+        {
+            _CRinstance.Main_Content_Change_Grid.Children.Clear();
+            _CRinstance.Main_Content_Change_Grid.Children.Add(new UserManagementWPF_UserControl(queryText, SearchText));
+            SearchEngine_TextBox.Clear();
+            warningSearchLabel.Visibility = Visibility.Hidden;
+        }
+
+        private void SearchingForRequests(string queryText, string SearchText)
+        {
+            _CRinstance.Main_Content_Change_Grid.Children.Clear();
+            _CRinstance.Main_Content_Change_Grid.Children.Add(new UserRequestPageWPF(queryText, SearchText));
+            SearchEngine_TextBox.Clear();
+            warningSearchLabel.Visibility = Visibility.Hidden;
+        }
+        private void SearchingForTasks(string queryText, string SearchText)
+        {
+            _CRinstance.Main_Content_Change_Grid.Children.Clear();
+            _CRinstance.Main_Content_Change_Grid.Children.Add(new ShortSlaPageWPF_UserControl(queryText, SearchText));
+            SearchEngine_TextBox.Clear();
+            warningSearchLabel.Visibility = Visibility.Hidden;
+        }
+
+
+
 
 
     }

@@ -84,7 +84,6 @@ namespace GUI_zaliczenie2025
         {
             Main_Content_Change_Grid.Children.Clear();
             Main_Content_Change_Grid.Children.Add(new AdministrativeRequests_UserControl());
-            SearchEngineControl_Grid.Children.Add(new SearchEngine_UserControl(this, "AdministrativeRequests"));
         }
 
     }
