@@ -31,7 +31,7 @@
                 <ColumnDefinition Width="1.2*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="0.06*" MinHeight="50"/>
+                <RowDefinition Height="0.063*" MinHeight="50"/>
                 <RowDefinition Height="0.06*" MinHeight="50"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
@@ -44,38 +44,8 @@
                     <RowDefinition Height="4*"/>
                     <RowDefinition Height="1*"/>
                 </Grid.RowDefinitions>
- 
-                <Border Grid.Row="1" BorderBrush="#FF4E4C4C" BorderThickness="1">
-                    <Grid x:Name="SearchTasksGrid" >
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="1*"/>
-                            <RowDefinition Height="1*"/>
-                            <RowDefinition Height="5*"/>
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="3.5*"/>
-                            <ColumnDefinition Width="1*"/>
-                        </Grid.ColumnDefinitions>
-                        
-                        <Label Content="Wyszukaj zlecenie" HorizontalAlignment="Center" Grid.Column="0"  Grid.ColumnSpan="2"  VerticalAlignment="Center" FontSize="20"/>
-                        <Button Content="Idz"  Padding="2"  Grid.Row="1" Grid.Column="1" Width="34" VerticalAlignment="Center" HorizontalAlignment="Center" Click="TaskSearchButton_click"/>
-                        <TextBox x:Name="SearchTextBox" IsEnabled="True" Grid.Row="1" Margin="10,5"  />
-
-                        <StackPanel Grid.Row="3" x:Name="SearchForStackPanel">
-                            <Label Content="Filtruj : " FontSize="12" Margin="10,5,5,0"/>
-                            <ComboBox x:Name="SearchForComboBox" Margin="10,10" SelectedIndex="0">
-                                <ComboBoxItem  Content="Id" DataContext="id" />
-                                <ComboBoxItem Content="Technican" DataContext="technican"/>
-                                <ComboBoxItem Content="Status" DataContext="status"/>
-                                <ComboBoxItem Content="Company_name" DataContext="company"/>
-                                <ComboBoxItem Content="Location" DataContext="location"/>
-                                <ComboBoxItem Content="Priorytet" DataContext="priorytet"/>
-                            </ComboBox>
-                            <Label x:Name="warningSearchLabel" Content="błąd" FontSize="12" Foreground="DarkRed" Visibility="Hidden" />
-                            <!--Do dokończenia wybieranie filtrowania wyszukiwania i 2 pozostałe gridy-->
-                        </StackPanel>
-                    </Grid>
-                </Border>
+                <Grid Grid.Row="1" x:Name="SearchEngineControl_Grid"></Grid>
+                
                 <Border Grid.Row="2" BorderBrush="#FF4E4C4C" BorderThickness="1">
                     <Grid >
                         <Grid.RowDefinitions>
@@ -105,8 +75,8 @@
                         <ColumnDefinition/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                <Button x:Name="Main_Admin_SLA_Button" Content="Wczesne SLA"  Grid.Column="0"  Background="#FFB5B5B5"   Margin="1,20,0,1" Padding="10,0,10,0"  BorderThickness="0" Click="ChangeToSla_ButtonOnClick" HorizontalAlignment="Left" Width="348"/>
-                <Button x:Name="Main_Admin_24h_Button" Content="Ostatnie 24H" Grid.Column="1"  Background="#FFB5B5B5"   Margin="1,20,0,1" Padding="10,0,10,0" BorderThickness="0"/>
+                <Button x:Name="Main_Admin_SLA_Button" Content="Wszytskie zlecenia"  Grid.Column="0"  Background="#FFB5B5B5"   Margin="1,20,0,1" Padding="10,0,10,0"  BorderThickness="0" Click="ChangeToSla_ButtonOnClick" HorizontalAlignment="Left" Width="348"/>
+                <Button x:Name="Main_Admin_24h_Button" Content="Ostatnie 5 dni" Grid.Column="1"  Background="#FFB5B5B5"   Margin="1,20,0,1" Padding="10,0,10,0" BorderThickness="0"/>
 
             </Grid>
 
@@ -118,7 +88,7 @@
             <Rectangle Name="Main_Content_Rectangle" Grid.Column="0" Grid.ColumnSpan="2"  Panel.ZIndex="-1" Grid.Row="1" Grid.RowSpan="2" Fill="#FFCCCCCC"/>
             
             <Border BorderThickness="2" BorderBrush="#FF5A5959" Grid.ColumnSpan="2">
-                <Label Content="Strona główna ADMIN" Grid.Row="0" Grid.Column="0"  FontSize="30"   HorizontalAlignment="Center" VerticalAlignment="top" Foreground="#FFD4D4D4" />
+                <Label Content="Strona główna ADMIN"  FontSize="30"   HorizontalAlignment="Center" VerticalAlignment="top" Foreground="#FFD4D4D4" />
             </Border>
 
             <Rectangle Name="Right_Side_Bar" Grid.Column="4" Panel.ZIndex="1" Grid.Row="0" Grid.RowSpan="3" Fill="#FF797979"/>
@@ -148,12 +118,13 @@
                     <ColumnDefinition Width="10*"/>
                     <ColumnDefinition Width="10"/>
                 </Grid.ColumnDefinitions>
+            <Button Content="Strona główna" Grid.Column="1" Background="#FFB5B5B5" Margin="1,40,0,1"  Padding="10,0,10,0" Click="AdminMainPageButtonOnclick"/>
             <Button Content="Zarządzaj protokołąmi"  Grid.Column="3" Background="#FFB5B5B5"  Margin="1,40,0,1" Padding="10,0,10,0" Click="UserRequestsButtonOnclick"/>
             <Button Content="Zarządzaj użytkownikami" Grid.Column="4" Background="#FFB5B5B5" Margin="1,40,0,1" Padding="10,0,10,0" Click="UserManagement_ButtonOnClick"/>
             <Button Content="Zarządzaj prośbami"  Grid.Column="5" Background="#FFB5B5B5" Margin="1,40,0,1" Padding="10,0,10,0" Click="UserRequestsButtonOnclick"/>
-            <Button Content="Strona główna" Grid.Column="1" Background="#FFB5B5B5" Margin="1,40,0,1"  Padding="10,0,10,0" Click="AdminMainPageButtonOnclick"/>
+            <Button Content="Prośby administracyjne"  Grid.Column="6" Background="#FFB5B5B5" Margin="1,40,0,1" Padding="10,0,10,0" Click="AdministrativeRequests_ButtonClick"/>
             <StackPanel Grid.Column="11" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,15,30,0">
-                <Label x:Name="CurrentPersonLabel" Content="{Binding CurrentLogin}" Foreground="AliceBlue" Padding="15,0,30,0"/>
+                <Label x:Name="CurrentPersonLabel" Content="{Binding CurrentLogin}" Foreground="AliceBlue" Padding="15,5,70,0" FontWeight="SemiBold" FontSize="16"/>
                 <Button Content="Wyloguj" HorizontalAlignment="Right" VerticalAlignment="top" Background="#FFB5B5B5" Margin="1,0,0,1"  Padding="20,5,20,5" Click="LogOut_ButtonClick"/>
 
 

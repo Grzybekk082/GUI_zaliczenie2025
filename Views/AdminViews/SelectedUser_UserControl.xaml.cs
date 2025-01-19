@@ -1,9 +1,10 @@
 ﻿using GUI_zaliczenie2025.Classes;
+using GUI_zaliczenie2025.Classes.Objects;
 using MySql.Data.MySqlClient;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using Task = GUI_zaliczenie2025.Classes.Task;
+using Task = GUI_zaliczenie2025.Classes.Objects.Task;
 
 namespace GUI_zaliczenie2025.Views
 {

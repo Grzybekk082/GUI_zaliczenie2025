@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GUI_zaliczenie2025.Classes
+namespace GUI_zaliczenie2025.Classes.Objects
 {
-    public class Task 
+    public class Task
     {
         public string Id { get; set; }
         public string Title { get; set; }
@@ -19,8 +19,8 @@ namespace GUI_zaliczenie2025.Classes
         public string Company { get; set; }
         public string TelNumber { get; set; }
         public string CreateDate { get; set; }
-        
-        
+
+
     }
 
 

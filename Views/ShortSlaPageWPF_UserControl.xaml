@@ -11,7 +11,7 @@
 
     <Grid x:Name="GridShortSla">
 
-        <DataGrid x:Name="DataGridShortSla"   Grid.Row="1" Grid.Column="1" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False"  ColumnWidth="*"  CanUserResizeRows="False" CanUserReorderColumns="False" MouseDoubleClick="RowDoubleClicktask">
+        <DataGrid x:Name="DataGridShortSla"   Grid.Row="1" Grid.Column="1" RowHeight="20" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False"  ColumnWidth="*"  CanUserResizeRows="False" CanUserReorderColumns="False" MouseDoubleClick="RowDoubleClicktask">
 
         </DataGrid>
 

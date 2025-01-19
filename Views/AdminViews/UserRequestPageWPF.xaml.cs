@@ -1,4 +1,5 @@
 ﻿using GUI_zaliczenie2025.Classes;
+using GUI_zaliczenie2025.Classes.Objects;
 using System.Windows;
 using System.Windows.Controls;
 

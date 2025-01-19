@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GUI_zaliczenie2025.Classes
+namespace GUI_zaliczenie2025.Classes.Objects
 {
     internal class Device
     {

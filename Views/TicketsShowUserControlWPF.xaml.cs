@@ -23,7 +23,7 @@ namespace GUI_zaliczenie2025
     public partial class TicketsShowUserControlWPF : UserControl
     {
 
-        internal static List<Classes.Task> ReturnSelectedTask()
+        internal static List<Classes.Objects.Task> ReturnSelectedTask()
         {
             string taskId = ShortSlaPageWPF_UserControl.Taskid;
 
@@ -38,7 +38,7 @@ namespace GUI_zaliczenie2025
                 $" telephone_number," +
                 $" create_date" +
                 $" FROM reports WHERE id='{taskId}';";
-            List<Classes.Task> SelectedTask = MySqlQueryImplementation.TaskQueryImplementation(command);
+            List<Classes.Objects.Task> SelectedTask = MySqlQueryImplementation.TaskQueryImplementation(command);
 
             return SelectedTask;
         }

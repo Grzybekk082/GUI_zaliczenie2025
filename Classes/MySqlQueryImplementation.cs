@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GUI_zaliczenie2025.Classes.Objects;
 using MySql.Data.MySqlClient;
+using Task = GUI_zaliczenie2025.Classes.Objects.Task;
 
 namespace GUI_zaliczenie2025.Classes
 {
@@ -12,7 +14,7 @@ namespace GUI_zaliczenie2025.Classes
 
         public static List<Task> TaskQueryImplementation(string commandText)
         {
-            List<Classes.Task> Tasks = new List<Classes.Task>();
+            List<Objects.Task> Tasks = new List<Objects.Task>();
             MySqlConnection connection  = DatabaseConnection.ConnectionBuilder();
 
             MySqlCommand command = new MySqlCommand(commandText, connection);
@@ -26,7 +28,7 @@ namespace GUI_zaliczenie2025.Classes
                         while (reader.Read())
                         {
 
-                            Tasks.Add(new Classes.Task
+                            Tasks.Add(new Classes.Objects.Task
                             {
                                 Id = $"{reader["id"].ToString()}",
                                 Title = $"{reader["title"].ToString()}",

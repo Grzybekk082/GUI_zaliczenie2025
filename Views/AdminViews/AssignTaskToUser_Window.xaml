@@ -11,7 +11,7 @@
             <ColumnDefinition Width="3.5*" MinWidth="600"/>
             <ColumnDefinition Width="180" />
         </Grid.ColumnDefinitions>
-        <DataGrid x:Name="AssignTaskContent_DataGrid" IsReadOnly="True"  MouseDoubleClick="SelectObject">
+        <DataGrid x:Name="AssignTaskContent_DataGrid" IsReadOnly="True" RowHeight="20"  MouseDoubleClick="SelectObject">
 
         </DataGrid>
 
@@ -28,7 +28,7 @@
                         <Button Height="25" Content="Przypisz zaznaczone" Margin="7,20,7,0" FontSize="10" VerticalAlignment="Top" Foreground="AliceBlue" Background="#FF39943C" Click="AssignObject_ButtonOnClick"  />
                         <Label Height="23" HorizontalAlignment="Center" Padding="0,5,0,3" Content="Zaznaczone:"/>
                         <!--Click="AssignObject_ButtonOnClick"-->
-                        <DataGrid x:Name="SelectedTasksToAssign_DataGrid" IsReadOnly="True" MaxHeight="230" MouseDoubleClick="RemoveObject" ></DataGrid>
+                        <DataGrid x:Name="SelectedTasksToAssign_DataGrid" IsReadOnly="True" RowHeight="20" MaxHeight="230" MouseDoubleClick="RemoveObject" ></DataGrid>
                     </StackPanel>
                 </Border>
             </Grid>

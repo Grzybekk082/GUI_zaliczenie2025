@@ -1,4 +1,5 @@
 ﻿using Google.Protobuf.WellKnownTypes;
+using GUI_zaliczenie2025.Classes.Objects;
 using GUI_zaliczenie2025.Views;
 using MySql.Data.MySqlClient;
 using System;
@@ -7,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using Task = GUI_zaliczenie2025.Classes.Objects.Task;
 
 namespace GUI_zaliczenie2025.Classes
 {

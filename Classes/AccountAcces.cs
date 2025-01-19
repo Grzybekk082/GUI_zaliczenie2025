@@ -1,4 +1,5 @@
-﻿using MySql.Data.MySqlClient;
+﻿using GUI_zaliczenie2025.Classes.Objects;
+using MySql.Data.MySqlClient;
 using System.IO;
 using System.Windows;
 

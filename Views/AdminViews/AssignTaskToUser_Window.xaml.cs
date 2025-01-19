@@ -1,7 +1,8 @@
 ﻿using GUI_zaliczenie2025.Classes;
+using GUI_zaliczenie2025.Classes.Objects;
 using System.Windows;
 using System.Windows.Input;
-using Task = GUI_zaliczenie2025.Classes.Task;
+using Task = GUI_zaliczenie2025.Classes.Objects.Task;
 
 namespace GUI_zaliczenie2025.Views
 {
@@ -10,8 +11,8 @@ namespace GUI_zaliczenie2025.Views
     /// </summary>
     public partial class AssignToUser_Window : Window
     {
-        private List<Classes.Task> SelectedTask;
-        private List<Classes.Device> SelectedDevice;
+        private List<Task> SelectedTask;
+        private List<Device> SelectedDevice;
         internal static List<string> SelectedId;
         private SelectedUser_UserControl CurrentInstanceOfSelectedUser;
 

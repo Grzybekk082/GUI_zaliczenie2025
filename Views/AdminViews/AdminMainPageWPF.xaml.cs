@@ -1,7 +1,9 @@
 ﻿using GUI_zaliczenie2025.Classes;
+using GUI_zaliczenie2025.Views.AdminViews;
 using Microsoft.IdentityModel.Tokens;
 using System.Windows;
 using System.Windows.Controls;
+using GUI_zaliczenie2025.Views.Controls;
 
 
 namespace GUI_zaliczenie2025
@@ -24,6 +26,8 @@ namespace GUI_zaliczenie2025
             send = null;
             argE = null;
             CurrentPersonLabel.DataContext = CRperson;
+            SearchEngineControl_Grid.Children.Clear();
+            SearchEngineControl_Grid.Children.Add(new SearchEngine_UserControl( this, "AdminMainPageWPF"));
             // do poprawki ma generować tabele
             //ListVievUserRequests.ItemsSource = NewUsersRequests.ReturnRequestsListObject();
 
@@ -45,6 +49,7 @@ namespace GUI_zaliczenie2025
             argE = e;
             Main_Content_Change_Grid.Children.Clear();
             Main_Content_Change_Grid.Children.Add(new UserRequestPageWPF(this));
+            SearchEngineControl_Grid.Children.Add(new SearchEngine_UserControl(this, "UserRequestPageWPF"));
             /////
             Main_Admin_24h_Button.Visibility = Visibility.Hidden;
             Main_Admin_SLA_Button.Visibility = Visibility.Hidden;
@@ -71,55 +76,16 @@ namespace GUI_zaliczenie2025
 
             Main_Content_Change_Grid.Children.Clear();
             Main_Content_Change_Grid.Children.Add(new UserManagementWPF_UserControl());
+            SearchEngineControl_Grid.Children.Add(new SearchEngine_UserControl(this, "UserManagementWPF"));
+
         }
 
-        internal void TaskSearchButton_click(object sender, RoutedEventArgs e)
+        private void AdministrativeRequests_ButtonClick(object sender, RoutedEventArgs e)
         {
-
-
-
-            string choose = SearchForComboBox.Text;
-            string SearchText = SearchTextBox.Text;
-            (string warningText, bool isInt) IsInputIntReturns = ActualTasksOperations.IsInputInt(choose, SearchText);
-            if (choose.IsNullOrEmpty() || SearchText.IsNullOrEmpty())
-            {
-
-                warningSearchLabel.Visibility = Visibility.Visible;
-
-                warningSearchLabel.Content = "Pole wyszukiwania i lista rozwijana muszą być uzupełnione !";
-            }
-            else
-            {
-                if (choose == "Id")
-                {
-                    if (IsInputIntReturns.isInt)
-                    {
-                        Main_Content_Change_Grid.Children.Clear();
-                        Main_Content_Change_Grid.Children.Add(new ShortSlaPageWPF_UserControl(choose, SearchText));
-                        SearchTextBox.Clear();
-
-                        warningSearchLabel.Visibility = Visibility.Hidden;
-                    }
-                    else
-                    {
-                        SearchTextBox.Clear();
-                        warningSearchLabel.Visibility = Visibility.Visible;
-                        warningSearchLabel.Content = IsInputIntReturns.warningText;
-                    }
-                }
-                else
-                {
-                    Main_Content_Change_Grid.Children.Clear();
-                    Main_Content_Change_Grid.Children.Add(new ShortSlaPageWPF_UserControl(choose, SearchText));
-                    SearchTextBox.Clear();
-                    warningSearchLabel.Visibility = Visibility.Hidden;
-                }
-
-
-
-            }
-
+            Main_Content_Change_Grid.Children.Clear();
+            Main_Content_Change_Grid.Children.Add(new AdministrativeRequests_UserControl());
+            SearchEngineControl_Grid.Children.Add(new SearchEngine_UserControl(this, "AdministrativeRequests"));
         }
-        //Do poprawienia - klikniecie przycisku wczesne SLA ma pomijać metodę showMessage i od razu pokazywać wynik.
+
     }
 }

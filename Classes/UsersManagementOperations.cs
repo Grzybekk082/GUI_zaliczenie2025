@@ -1,7 +1,9 @@
-﻿using GUI_zaliczenie2025.Views;
+﻿using GUI_zaliczenie2025.Classes.Objects;
+using GUI_zaliczenie2025.Views;
 using Microsoft.IdentityModel.Tokens;
 using MySql.Data.MySqlClient;
 using System.Windows;
+using Task = GUI_zaliczenie2025.Classes.Objects.Task;
 
 namespace GUI_zaliczenie2025.Classes
 {

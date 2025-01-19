@@ -1,6 +1,7 @@
 ﻿using MySql.Data.MySqlClient;
 using System.Windows;
 using GUI_zaliczenie2025.Classes;
+using GUI_zaliczenie2025.Classes.Objects;
 
 
 namespace GUI_zaliczenie2025
@@ -26,11 +27,11 @@ namespace GUI_zaliczenie2025
         }
 
 
-        internal static List<Classes.Person> ReturnSelectedTask()
+        internal static List<Person> ReturnSelectedTask()
         {
             string taskId = UserRequestPageWPF.Taskid;
 
-            List<Classes.Person> SelectedTask = new List<Classes.Person>();
+            List<Person> SelectedTask = new List<Person>();
             MySqlConnection con = DatabaseConnection.ConnectionBuilder();
 
             using (con)
@@ -49,7 +50,7 @@ namespace GUI_zaliczenie2025
                         while (reader.Read())
                         {
 
-                            SelectedTask.Add(new Classes.Person()
+                            SelectedTask.Add(new Classes.Objects.Person()
                             {
                                 Id = $"{reader["Id"].ToString()}",
                                 Name = $"{reader["Imie"].ToString()}",

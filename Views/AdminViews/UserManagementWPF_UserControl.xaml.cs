@@ -1,4 +1,5 @@
 ﻿using GUI_zaliczenie2025.Classes;
+using GUI_zaliczenie2025.Classes.Objects;
 using GUI_zaliczenie2025.Views;
 using System.Windows;
 using System.Windows.Controls;
@@ -24,7 +25,7 @@ namespace GUI_zaliczenie2025
 
             Taskid = null;
             TaskLogin = null;
-            var selectedItem = DataGridUserManagement.SelectedItem as Classes.User;
+            var selectedItem = DataGridUserManagement.SelectedItem as User;
 
             if (selectedItem != null)
             {

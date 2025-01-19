@@ -1,7 +1,7 @@
 ﻿using GUI_zaliczenie2025.Classes;
 using System.Windows;
 using System.Windows.Controls;
-using Task = GUI_zaliczenie2025.Classes.Task;
+using Task = GUI_zaliczenie2025.Classes.Objects.Task;
 
 namespace GUI_zaliczenie2025
 {

@@ -31,7 +31,7 @@
                 <ColumnDefinition Width="1.2*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="0.06*" MinHeight="50"/>
+                <RowDefinition Height="0.063*" MinHeight="50"/>
                 <RowDefinition Height="0.06*" MinHeight="50"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
@@ -121,7 +121,7 @@
             <Button Content="Moje zlecenia"  Grid.Column="3" Background="#FFB5B5B5"  Margin="1,40,0,1" Padding="10,0,10,0" Click="UserTasks_ButtonClick"/>
             <Button Content="Protokoły i urządzenia" Grid.Column="4" Background="#FFB5B5B5" Margin="1,40,0,1" Padding="10,0,10,0" Click="UserProtocolsAndDevices_ButtonClick"/>
             <StackPanel Grid.Column="11" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,15,30,0">
-                <Label x:Name="CurrentPersonLabel" Content="{Binding CurrentLogin}" Foreground="AliceBlue" Padding="15,0,30,0"/>
+                <Label x:Name="CurrentPersonLabel" Content="{Binding CurrentLogin}" Foreground="AliceBlue" Padding="15,5,70,0" FontWeight="SemiBold" FontSize="16"/>
                 <Button Content="Wyloguj" HorizontalAlignment="Right" VerticalAlignment="top" Background="#FFB5B5B5" Margin="1,0,0,1"  Padding="20,5,20,5" Click="LogOut_ButtonClick"/>
 
 
