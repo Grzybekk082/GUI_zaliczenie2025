@@ -26,7 +26,7 @@ namespace GUI_zaliczenie2025
 
             InitializeComponent();
             string mySqlQuery =
-                $"SELECT id,name, surname, login, departament, permissions, tel, email FROM _user where {queryText} = '{SearchText}' ;";
+                $"SELECT id,name, surname, login, departament, permissions, tel, email FROM _user where {queryText} like upper('%{SearchText}%');";
             List<User> usersList = MySqlQueryImplementation.UsersQueryImplementation(mySqlQuery);
             DataGridUserManagement.ItemsSource = usersList;
 
