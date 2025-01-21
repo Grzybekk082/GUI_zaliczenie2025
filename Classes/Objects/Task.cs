@@ -14,6 +14,7 @@ namespace GUI_zaliczenie2025.Classes.Objects
         public string Location { get; set; }
         public string User { get; set; }
         public string Status { get; set; }
+        public string Technican { get; set; }
         public string SLA { get; set; }
         public string Priorytet { get; set; }
         public string Company { get; set; }

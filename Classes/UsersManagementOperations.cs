@@ -152,6 +152,7 @@ namespace GUI_zaliczenie2025.Classes
                          $" location," +
                          $" _user," +
                          $" status," +
+                         $" technican," +
                          $" date_of_sla," +
                          $" priorytet," +
                          $" company_name," +
@@ -160,7 +161,7 @@ namespace GUI_zaliczenie2025.Classes
                          $" FROM reports WHERE _user= '{loginSelected}';";
             string command = mySqlQuery;
 
-            List<Task> Tasks = MySqlQueryImplementation.TaskQueryImplementation(command);
+            List<Task> Tasks = MySqlQueryImplementation.TaskQueryImplementation_Show(command);
 
             return Tasks;
         }

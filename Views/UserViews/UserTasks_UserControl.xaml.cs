@@ -36,6 +36,7 @@ namespace GUI_zaliczenie2025.Views.UserViews
                                                     $" location," +
                                                     $" _user," +
                                                     $" status," +
+                                                    $" technican," +
                                                     $" date_of_sla," +
                                                     $" priorytet," +
                                                     $" company_name," +
@@ -43,7 +44,7 @@ namespace GUI_zaliczenie2025.Views.UserViews
                                                     $" create_date" +
                                                     $" FROM reports WHERE _user='{login}' AND status !='Closed';";
 
-            List<Classes.Objects.Task> Tasks= MySqlQueryImplementation.TaskQueryImplementation(command);
+            List<Classes.Objects.Task> Tasks= MySqlQueryImplementation.TaskQueryImplementation_Show(command);
 
 
             UserTasks_DataGrid.ItemsSource = Tasks;

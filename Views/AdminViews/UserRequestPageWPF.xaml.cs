@@ -33,7 +33,7 @@ namespace GUI_zaliczenie2025
                 $"kolumna_dat, " +
                 $"Nr_tel " +
                 $"FROM user_requests WHERE {queryText} like upper('%{SearchText}%');";
-            List<Person> usersList = MySqlQueryImplementation.RequestsQueryImplementation(mySqlQuery);
+            List<Person> usersList = MySqlQueryImplementation.RequestsQueryImplementation_Show(mySqlQuery);
             DataGridUserRequests.ItemsSource = usersList;
         }
 

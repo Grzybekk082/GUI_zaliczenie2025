@@ -16,8 +16,8 @@ namespace GUI_zaliczenie2025.Classes
     {
 
         //static List<SearchQuery> searchQueries;
-        static string mySqlQuery = $"SELECT id,title, description, location, _user, status, date_of_sla, company_name, telephone_number, priorytet, create_date FROM reports;";
-        static string modifyMySqlQuery = $"SELECT id,title, description, location, _user, status, date_of_sla, company_name, telephone_number, priorytet, create_date FROM reports;";
+        static string mySqlQuery = $"SELECT id,title, description, location, _user, status, technican, date_of_sla, company_name, telephone_number, priorytet, create_date FROM reports;";
+        static string modifyMySqlQuery = $"SELECT id,title, description, location, _user, status, technican, date_of_sla, company_name, telephone_number, priorytet, create_date FROM reports;";
 
         static bool isTextInt = true;
 
@@ -45,14 +45,14 @@ namespace GUI_zaliczenie2025.Classes
             
                 if(choose=="Id")
                 {
-                    mySqlQuery = $"select id,title, description, location, _user, status, date_of_sla, company_name, telephone_number, priorytet, create_date from reports where {choose} ={SearchText};";
+                    mySqlQuery = $"select id,title, description, location, _user, status, technican, date_of_sla, company_name, telephone_number, priorytet, create_date from reports where {choose} ={SearchText};";
 
 
 
                 }
                 else
                 {
-                    mySqlQuery = $"select id,title, description, location, _user, status, date_of_sla, company_name, telephone_number, priorytet, create_date from reports where upper({choose})  like upper('%{SearchText}%');";
+                    mySqlQuery = $"select id,title, description, location, _user, status, technican, date_of_sla, company_name, telephone_number, priorytet, create_date from reports where upper({choose})  like upper('%{SearchText}%');";
                 }
 
             
@@ -66,9 +66,9 @@ namespace GUI_zaliczenie2025.Classes
             if (forTaskAssign)
             {
 
-                mySqlQuery =$"SELECT id,title, description, location, _user, status, date_of_sla, company_name, telephone_number, priorytet, create_date FROM reports WHERE _user != '{AssignToUser_Window.SelectedUserLogin}';";
+                mySqlQuery =$"SELECT id,title, description, location, _user, status, technican, date_of_sla, company_name, telephone_number, priorytet, create_date FROM reports WHERE _user != '{AssignToUser_Window.SelectedUserLogin}';";
             }
-            List<Task> Requestors = MySqlQueryImplementation.TaskQueryImplementation(mySqlQuery);
+            List<Task> Requestors = MySqlQueryImplementation.TaskQueryImplementation_Show(mySqlQuery);
 
             mySqlQuery = modifyMySqlQuery;
             return Requestors;

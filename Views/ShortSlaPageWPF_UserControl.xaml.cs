@@ -11,6 +11,7 @@ namespace GUI_zaliczenie2025
     public partial class ShortSlaPageWPF_UserControl : UserControl
     {
         public static string Taskid;
+        public static string TaskUser;
 
         public ShortSlaPageWPF_UserControl()
         {
@@ -34,7 +35,9 @@ namespace GUI_zaliczenie2025
             if (selectedItem != null)
             {
                 string selectedValue = selectedItem.Id;
+                string selectedTechnican = selectedItem.Technican;
                 Taskid += selectedValue;
+                TaskUser += selectedTechnican;
 
             }
             GridShortSla.Children.Clear();

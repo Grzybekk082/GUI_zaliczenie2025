@@ -12,7 +12,7 @@ namespace GUI_zaliczenie2025.Classes
     public class MySqlQueryImplementation
     {
 
-        public static List<Task> TaskQueryImplementation(string commandText)
+        public static List<Task> TaskQueryImplementation_Show(string commandText)
         {
             List<Objects.Task> Tasks = new List<Objects.Task>();
             MySqlConnection connection  = DatabaseConnection.ConnectionBuilder();
@@ -36,6 +36,7 @@ namespace GUI_zaliczenie2025.Classes
                                 Location = $"{reader["location"].ToString()}",
                                 User = $"{reader["_user"].ToString()}",
                                 Status = $"{reader["status"].ToString()}",
+                                Technican= $"{reader["technican"].ToString()}",
                                 SLA = $"{reader["date_of_sla"].ToString()}",
                                 Priorytet = $"{reader["priorytet"].ToString()}",
                                 Company = $"{reader["company_name"].ToString()}",
@@ -57,7 +58,7 @@ namespace GUI_zaliczenie2025.Classes
 
 
 
-        public static List<Objects.User> UsersQueryImplementation(string commandText)
+        public static List<Objects.User> UsersQueryImplementation_Show(string commandText)
         {
             List<Objects.User> Tasks = new List<Objects.User>();
             MySqlConnection connection = DatabaseConnection.ConnectionBuilder();
@@ -99,7 +100,7 @@ namespace GUI_zaliczenie2025.Classes
 
 
 
-        public static List<Person> RequestsQueryImplementation(string commandText)
+        public static List<Person> RequestsQueryImplementation_Show(string commandText)
         {
             List<Objects.Person> Tasks = new List<Objects.Person>();
             MySqlConnection connection = DatabaseConnection.ConnectionBuilder();
@@ -128,6 +129,58 @@ namespace GUI_zaliczenie2025.Classes
                         }
                         connection.Close();
                     }
+                }
+            }
+
+            return Tasks;
+        }
+
+
+        public static List<AssignUser> AssignUSerToTaskImplementation_Show(string commandText)
+        {
+            List<Objects.AssignUser> Tasks = new List<Objects.AssignUser>();
+            MySqlConnection connection = DatabaseConnection.ConnectionBuilder();
+
+            MySqlCommand command = new MySqlCommand(commandText, connection);
+            using (connection)
+            {
+                connection.Open();
+                using (command)
+                {
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+
+                            Tasks.Add(new Classes.Objects.AssignUser
+                            {
+                                Name = $"{reader["name"].ToString()}",
+                                Surname = $"{reader["surname"].ToString()}",
+                                Login = $"{reader["login"].ToString()}"
+
+                            });
+
+                        }
+                        connection.Close();
+                    }
+                }
+            }
+
+            return Tasks;
+        }
+
+        public static List<Task> AssignUSerToTaskImplementation_Upadate(string commandText)
+        {
+            List<Objects.Task> Tasks = new List<Objects.Task>();
+            MySqlConnection connection = DatabaseConnection.ConnectionBuilder();
+
+            MySqlCommand command = new MySqlCommand(commandText, connection);
+            using (connection)
+            {
+                connection.Open();
+                using (command)
+                {
+                    command.ExecuteNonQuery();
                 }
             }
 
