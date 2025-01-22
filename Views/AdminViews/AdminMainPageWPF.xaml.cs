@@ -4,6 +4,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Windows;
 using System.Windows.Controls;
 using GUI_zaliczenie2025.Views.Controls;
+using GUI_zaliczenie2025.Views;
 
 
 namespace GUI_zaliczenie2025
@@ -84,7 +85,13 @@ namespace GUI_zaliczenie2025
         {
             Main_Content_Change_Grid.Children.Clear();
             Main_Content_Change_Grid.Children.Add(new AdministrativeRequests_UserControl());
+        }        
+        private void ShowProtocols_ButtonOnclick(object sender, RoutedEventArgs e)
+        {
+            Main_Content_Change_Grid.Children.Clear();
+            Main_Content_Change_Grid.Children.Add(new ProtocolManagement_UserControl());
         }
+
 
     }
 }

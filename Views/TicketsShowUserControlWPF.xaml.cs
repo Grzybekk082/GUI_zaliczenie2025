@@ -23,11 +23,14 @@ namespace GUI_zaliczenie2025
     /// </summary>
     public partial class TicketsShowUserControlWPF : UserControl
     {
-        internal static string taskId = ShortSlaPageWPF_UserControl.Taskid;
+        internal static string TaskId;
+        private string ActualTechnican;
 
         public TicketsShowUserControlWPF()
         {
+
             InitializeComponent();
+            TaskId = ShortSlaPageWPF_UserControl.Taskid;
             this.DataContext = ReturnSelectedTask();
             string mySqlQuery = $"SELECT name, surname, login FROM _user";
             this.AssignUserToTask_DataGrid.ItemsSource = MySqlQueryImplementation.AssignUSerToTaskImplementation_Show(mySqlQuery);
@@ -50,7 +53,7 @@ namespace GUI_zaliczenie2025
                              $" company_name," +
                              $" telephone_number," +
                              $" create_date" +
-                             $" FROM reports WHERE id='{taskId}';";
+                             $" FROM reports WHERE id='{TaskId}';";
             List<Classes.Objects.Task> SelectedTask = MySqlQueryImplementation.TaskQueryImplementation_Show(command);
 
             return SelectedTask;
@@ -62,8 +65,10 @@ namespace GUI_zaliczenie2025
             var selectedUserLogin = ((AssignUser)AssignUserToTask_DataGrid.SelectedItem).Login;
             try
             {
-                if (ShortSlaPageWPF_UserControl.TaskUser == selectedUserLogin)
+                
+                if (ShortSlaPageWPF_UserControl.TaskUser == selectedUserLogin || selectedUserLogin==ActualTechnican)
                 {
+                    ActualTechnican = null;
                     MessageBox.Show("Ten użytkownik jest już przypisany do tego zlecenia!", "Błędny wybór!",
                         MessageBoxButton.OK, MessageBoxImage.Error);
                 }
@@ -76,9 +81,11 @@ namespace GUI_zaliczenie2025
                     {
                         try
                         {
-                            string mySqlQuery = $"UPDATE reports SET technican ='{selectedUserLogin}' WHERE Id = '{taskId}';";
+                            string mySqlQuery = $"UPDATE reports SET technican ='{selectedUserLogin}' WHERE Id = '{TaskId}';";
                             MySqlQueryImplementation.AssignUSerToTaskImplementation_Upadate(mySqlQuery);
                             this.DataContext = ReturnSelectedTask();
+                            ActualTechnican = selectedUserLogin;
+
                         }
                         catch (MySqlException ex)
                         {

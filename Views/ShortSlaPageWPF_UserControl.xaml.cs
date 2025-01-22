@@ -12,6 +12,8 @@ namespace GUI_zaliczenie2025
     {
         public static string Taskid;
         public static string TaskUser;
+        public static string Choose;
+        public static string Search;
 
         public ShortSlaPageWPF_UserControl()
         {
@@ -22,12 +24,14 @@ namespace GUI_zaliczenie2025
         }
         public ShortSlaPageWPF_UserControl(string choose, string search)
         {
+            Choose = choose;
+            Search = search;
             InitializeComponent();
             DataGridShortSla.ItemsSource = ActualTasksOperations.MessageBoxShowObject(choose, search);
 
         }
         //Metoda zwracająca wybrany z listy task i wyświetla go w kontrolce użytkownika
-        private void RowDoubleClicktask(object sender, RoutedEventArgs e)
+        public void RowDoubleClicktask(object sender, RoutedEventArgs e)
         {
             Taskid = null;
             var selectedItem = DataGridShortSla.SelectedItem as Task;

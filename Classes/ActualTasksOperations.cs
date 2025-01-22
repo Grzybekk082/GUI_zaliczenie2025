@@ -1,13 +1,4 @@
-﻿using Google.Protobuf.WellKnownTypes;
-using GUI_zaliczenie2025.Classes.Objects;
-using GUI_zaliczenie2025.Views;
-using MySql.Data.MySqlClient;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using GUI_zaliczenie2025.Views;
 using Task = GUI_zaliczenie2025.Classes.Objects.Task;
 
 namespace GUI_zaliczenie2025.Classes
@@ -21,7 +12,6 @@ namespace GUI_zaliczenie2025.Classes
 
         static bool isTextInt = true;
 
-        private static string login= UserManagementWPF_UserControl.TaskLogin;
 
         public ActualTasksOperations() { }
 
@@ -30,43 +20,43 @@ namespace GUI_zaliczenie2025.Classes
         {
             if (!int.TryParse(SearchText, out int intSearchText))
             {
-                
+
                 return ("Podaj dodatnią liczbę całkowitą", !isTextInt);
             }
 
             return (null, isTextInt);
         }
         //Metoda zmieniająca kwerendę dla wyszukiwarki w zależności od wyboru filtrowania dla metody TaskSearchButton_click klasy AdminMainPageWPF()
-        internal static  List<Task> MessageBoxShowObject(string choose = null, string SearchText = null)
+        internal static List<Task> MessageBoxShowObject(string choose = null, string SearchText = null)
         {
             List<Task> requests;
             isTextInt = true;
-           
-            
-                if(choose=="Id")
-                {
-                    mySqlQuery = $"select id,title, description, location, _user, status, technican, date_of_sla, company_name, telephone_number, priorytet, create_date from reports where {choose} ={SearchText};";
+
+
+            if (choose == "Id")
+            {
+                mySqlQuery = $"select id,title, description, location, _user, status, technican, date_of_sla, company_name, telephone_number, priorytet, create_date from reports where {choose} ={SearchText};";
 
 
 
-                }
-                else
-                {
-                    mySqlQuery = $"select id,title, description, location, _user, status, technican, date_of_sla, company_name, telephone_number, priorytet, create_date from reports where upper({choose})  like upper('%{SearchText}%');";
-                }
+            }
+            else
+            {
+                mySqlQuery = $"select id,title, description, location, _user, status, technican, date_of_sla, company_name, telephone_number, priorytet, create_date from reports where upper({choose})  like upper('%{SearchText}%');";
+            }
 
-            
 
-            requests= ReturnRequestsListObject();
+
+            requests = ReturnRequestsListObject();
             return requests;
         }
         //Metoda zwracająca listę obiektów typu Task 
-        internal static List<Task> ReturnRequestsListObject(bool forTaskAssign=false)
+        internal static List<Task> ReturnRequestsListObject(bool forTaskAssign = false)
         {
             if (forTaskAssign)
             {
 
-                mySqlQuery =$"SELECT id,title, description, location, _user, status, technican, date_of_sla, company_name, telephone_number, priorytet, create_date FROM reports WHERE _user != '{AssignToUser_Window.SelectedUserLogin}';";
+                mySqlQuery = $"SELECT id,title, description, location, _user, status, technican, date_of_sla, company_name, telephone_number, priorytet, create_date FROM reports WHERE _user != '{AssignToUser_Window.SelectedUserLogin}';";
             }
             List<Task> Requestors = MySqlQueryImplementation.TaskQueryImplementation_Show(mySqlQuery);
 

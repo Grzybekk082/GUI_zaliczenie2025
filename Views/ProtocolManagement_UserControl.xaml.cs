@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using GUI_zaliczenie2025.Classes;
 
 namespace GUI_zaliczenie2025.Views
 {
@@ -23,6 +24,8 @@ namespace GUI_zaliczenie2025.Views
         public ProtocolManagement_UserControl()
         {
             InitializeComponent();
+            string mySqlQuery = $"SELECT ID_protocol, Protocol, end_date, Id, title, description, location, _user, status, technican, date_of_sla, priorytet, company_name, telephone_number, create_date  FROM reports where status ='Closed'";
+            ProtocolManagment_DataGrid.ItemsSource = MySqlQueryImplementation.ProtocolsQueryImplementation_Show(mySqlQuery);
         }
     }
 }

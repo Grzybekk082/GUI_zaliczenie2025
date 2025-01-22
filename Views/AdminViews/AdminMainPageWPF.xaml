@@ -119,7 +119,7 @@
                     <ColumnDefinition Width="10"/>
                 </Grid.ColumnDefinitions>
             <Button Content="Strona główna" Grid.Column="1" Background="#FFB5B5B5" Margin="1,40,0,1"  Padding="10,0,10,0" Click="AdminMainPageButtonOnclick"/>
-            <Button Content="Zarządzaj protokołąmi"  Grid.Column="3" Background="#FFB5B5B5"  Margin="1,40,0,1" Padding="10,0,10,0" Click="UserRequestsButtonOnclick"/>
+            <Button Content="Zarządzaj protokołąmi"  Grid.Column="3" Background="#FFB5B5B5"  Margin="1,40,0,1" Padding="10,0,10,0" Click="ShowProtocols_ButtonOnclick"/>
             <Button Content="Zarządzaj użytkownikami" Grid.Column="4" Background="#FFB5B5B5" Margin="1,40,0,1" Padding="10,0,10,0" Click="UserManagement_ButtonOnClick"/>
             <Button Content="Zarządzaj prośbami"  Grid.Column="5" Background="#FFB5B5B5" Margin="1,40,0,1" Padding="10,0,10,0" Click="UserRequestsButtonOnclick"/>
             <Button Content="Prośby administracyjne"  Grid.Column="6" Background="#FFB5B5B5" Margin="1,40,0,1" Padding="10,0,10,0" Click="AdministrativeRequests_ButtonClick"/>

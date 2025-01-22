@@ -6,8 +6,11 @@ using System.Threading.Tasks;
 
 namespace GUI_zaliczenie2025.Classes.Objects
 {
-    public class Task
+   public class ClosedTaskProtocol
     {
+        public string NewTask_Id { get; set; }
+        public string Protocol_Description { get; set; }
+        public string End_Date { get; set; }
         public string Id { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
@@ -22,6 +25,4 @@ namespace GUI_zaliczenie2025.Classes.Objects
         public string CreateDate { get; set; }
 
     }
-
-
 }

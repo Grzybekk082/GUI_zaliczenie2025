@@ -17,6 +17,6 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="5"/>
         </Grid.ColumnDefinitions>
-        <DataGrid x:Name="ProtocolManagment_DataGrid"></DataGrid>
+        <DataGrid x:Name="ProtocolManagment_DataGrid" Grid.Row="1" Grid.Column="1"  RowHeight="20" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False"  ColumnWidth="*"  CanUserResizeRows="False" CanUserReorderColumns="False"></DataGrid>
     </Grid>
 </UserControl>

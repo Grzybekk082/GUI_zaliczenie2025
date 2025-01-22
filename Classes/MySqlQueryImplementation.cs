@@ -53,6 +53,51 @@ namespace GUI_zaliczenie2025.Classes
             return Tasks;
         }
 
+        public static List<ClosedTaskProtocol> ProtocolsQueryImplementation_Show(string commandText)
+        {
+            List<Objects.ClosedTaskProtocol> Tasks = new List<Objects.ClosedTaskProtocol>();
+            MySqlConnection connection = DatabaseConnection.ConnectionBuilder();
+
+            MySqlCommand command = new MySqlCommand(commandText, connection);
+            using (connection)
+            {
+                connection.Open();
+                using (command)
+                {
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+
+                            Tasks.Add(new Classes.Objects.ClosedTaskProtocol
+                            {
+                                NewTask_Id = $"{reader["ID_protocol"].ToString()}",
+                                Protocol_Description = $"{reader["Protocol"].ToString()}",
+                                End_Date = $"{reader["Protocol"].ToString()}",
+                                Id = $"{reader["id"].ToString()}",
+                                Title = $"{reader["title"].ToString()}",
+                                Description = $"{reader["description"].ToString()}",
+                                Location = $"{reader["location"].ToString()}",
+                                User = $"{reader["_user"].ToString()}",
+                                Status = $"{reader["status"].ToString()}",
+                                Technican = $"{reader["technican"].ToString()}",
+                                SLA = $"{reader["date_of_sla"].ToString()}",
+                                Priorytet = $"{reader["priorytet"].ToString()}",
+                                Company = $"{reader["company_name"].ToString()}",
+                                TelNumber = $"{reader["telephone_number"].ToString()}",
+                                CreateDate = $"{reader["create_date"].ToString()}"
+
+                            });
+
+                        }
+                        connection.Close();
+                    }
+                }
+            }
+
+            return Tasks;
+        }
+
 
 
 
