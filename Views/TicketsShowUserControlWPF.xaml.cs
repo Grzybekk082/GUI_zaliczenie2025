@@ -1,20 +1,9 @@
-﻿using MySql.Data.MySqlClient;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using GUI_zaliczenie2025.Classes;
+using GUI_zaliczenie2025.Classes.Objects;
+using MySql.Data.MySqlClient;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using GUI_zaliczenie2025.Classes;
-using GUI_zaliczenie2025.Classes.Objects;
 
 namespace GUI_zaliczenie2025
 {
@@ -40,13 +29,13 @@ namespace GUI_zaliczenie2025
 
         internal static List<Classes.Objects.Task> ReturnSelectedTask()
         {
-            
+
 
             string command = $"SELECT id,title," +
                              $" description," +
                              $" location," +
                              $" _user," +
-                             $" status," + 
+                             $" status," +
                              $" technican," +
                              $" date_of_sla," +
                              $" priorytet," +
@@ -65,8 +54,8 @@ namespace GUI_zaliczenie2025
             var selectedUserLogin = ((AssignUser)AssignUserToTask_DataGrid.SelectedItem).Login;
             try
             {
-                
-                if (ShortSlaPageWPF_UserControl.TaskUser == selectedUserLogin || selectedUserLogin==ActualTechnican)
+
+                if (ShortSlaPageWPF_UserControl.TaskUser == selectedUserLogin || selectedUserLogin == ActualTechnican)
                 {
                     ActualTechnican = null;
                     MessageBox.Show("Ten użytkownik jest już przypisany do tego zlecenia!", "Błędny wybór!",

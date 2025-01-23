@@ -1,18 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using GUI_zaliczenie2025.Classes;
+using GUI_zaliczenie2025.Classes.Objects;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using GUI_zaliczenie2025.Classes;
 
 namespace GUI_zaliczenie2025.Views
 {
@@ -24,8 +13,17 @@ namespace GUI_zaliczenie2025.Views
         public ProtocolManagement_UserControl()
         {
             InitializeComponent();
-            string mySqlQuery = $"SELECT ID_protocol, Protocol, end_date, Id, title, description, location, _user, status, technican, date_of_sla, priorytet, company_name, telephone_number, create_date  FROM reports where status ='Closed'";
+            string mySqlQuery = $"SELECT ID_protocol, Protocol, end_date, Id, title, description, location, _user, status, technican, date_of_sla, priorytet, company_name, telephone_number, create_date  FROM reports where status ='Closed' OR status ='Resolved'";
             ProtocolManagment_DataGrid.ItemsSource = MySqlQueryImplementation.ProtocolsQueryImplementation_Show(mySqlQuery);
+        }
+
+
+
+        private void OpenNewTask_OnClick(object sender, MouseButtonEventArgs e)
+        {
+            this.ProtocolManagement_Grid.Children.Clear();
+            this.ProtocolManagement_Grid.Children.Add(new ShowProtocol_UserControl());
+
         }
     }
 }
