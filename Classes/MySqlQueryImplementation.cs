@@ -231,5 +231,25 @@ namespace GUI_zaliczenie2025.Classes
 
             return Tasks;
         }
+
+        public static void GenericMethodTest_Upadate(string commandText)
+        {
+            
+            MySqlConnection connection = DatabaseConnection.ConnectionBuilder();
+
+            MySqlCommand command = new MySqlCommand(commandText, connection);
+            using (connection)
+            {
+                connection.Open();
+                using (command)
+                {
+                    command.ExecuteNonQuery();
+                }
+            }
+
+            
+        }
+
+
     }
 }

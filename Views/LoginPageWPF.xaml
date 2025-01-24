@@ -34,7 +34,7 @@
         <Button  Content="Zaloguj" Grid.ColumnSpan="3" Margin="10" Grid.Column="1" Grid.Row="3" Height="40" Width="130" Background="#FFC8C8C8" Click="Button_LogIn_Click"  ></Button>
         <Button  Content="Utwórz konto" Grid.ColumnSpan="3" Margin="10" Grid.Column="1" Grid.Row="4" Height="40" Width="130" Background="#FFC8C8C8" Click="Button_Create_Account_Click"  ></Button>
 
-        <TextBox x:Name="textBoxLogin" Grid.ColumnSpan="3" Height="30" Width="160" Grid.Column="1" Grid.Row="1" Text="login1"/>
-        <TextBox x:Name="textBoxPassword" Grid.ColumnSpan="3" Height="30" Width="160" Grid.Column="1" Grid.Row="2" Text="Admin1"/>
+        <TextBox x:Name="textBoxLogin" Grid.ColumnSpan="3" Height="30" Width="160" Grid.Column="1" Grid.Row="1" Text="Rafal.Piatek"/>
+        <TextBox x:Name="textBoxPassword" Grid.ColumnSpan="3" Height="30" Width="160" Grid.Column="1" Grid.Row="2" Text="g~jc5E}."/>
     </Grid>
 </UserControl>

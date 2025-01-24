@@ -96,9 +96,9 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <Button x:Name="CancelChanges_Button" Content="Anuluj" Grid.Column="0" Margin="10,5,5,5"  Background="#FFA20B00" Foreground="White" FontWeight="Bold"
-                                BorderBrush="#FFA20B00" BorderThickness="1" Visibility="Hidden"/>
+                                BorderBrush="#FFA20B00" BorderThickness="1" Visibility="Hidden" Click="CancelChanges_Button_OnClick"/>
                         <Button x:Name="ConfirmChanges_Button" Content="Zatwierdź" Grid.Column="2" Margin="5,5,10,5"  Background="#FF39943C" Foreground="White" FontWeight="Bold"
-                                BorderBrush="#FF39943C" BorderThickness="1" Visibility="Hidden"/>
+                                BorderBrush="#FF39943C" BorderThickness="1" Visibility="Hidden" Click="ConfirmChanges_Button_OnClick"/>
                     </Grid>
 
                 </Grid>

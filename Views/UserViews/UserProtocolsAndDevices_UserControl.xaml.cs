@@ -23,6 +23,7 @@ namespace GUI_zaliczenie2025.Views.UserViews
         public UserProtocolsAndDevices_UserControl()
         {
             InitializeComponent();
+
         }
 
         private void EditClosedTask_OnClick(object sender, RoutedEventArgs e)
