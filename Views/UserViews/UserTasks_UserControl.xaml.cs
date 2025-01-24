@@ -52,7 +52,8 @@ namespace GUI_zaliczenie2025.Views.UserViews
         }
 
 
-
-        
+        private void ShowTicket_DoubleClick(object sender, MouseButtonEventArgs e)
+        {
+        }
     }
 }
