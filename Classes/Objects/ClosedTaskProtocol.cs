@@ -24,5 +24,6 @@ namespace GUI_zaliczenie2025.Classes.Objects
         public string TelNumber { get; set; }
         public string CreateDate { get; set; }
 
+
     }
 }

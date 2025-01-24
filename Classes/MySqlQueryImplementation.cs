@@ -73,7 +73,7 @@ namespace GUI_zaliczenie2025.Classes
                             {
                                 NewTask_Id = $"{reader["ID_protocol"].ToString()}",
                                 Protocol_Description = $"{reader["Protocol"].ToString()}",
-                                End_Date = $"{reader["Protocol"].ToString()}",
+                                End_Date = $"{reader["end_date"].ToString()}",
                                 Id = $"{reader["id"].ToString()}",
                                 Title = $"{reader["title"].ToString()}",
                                 Description = $"{reader["description"].ToString()}",

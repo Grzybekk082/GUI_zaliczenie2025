@@ -21,9 +21,9 @@ namespace GUI_zaliczenie2025.Views
 
         private void OpenNewTask_OnClick(object sender, MouseButtonEventArgs e)
         {
+            string TaskId = ((ClosedTaskProtocol)ProtocolManagment_DataGrid.SelectedItem).Id;
             this.ProtocolManagement_Grid.Children.Clear();
-            this.ProtocolManagement_Grid.Children.Add(new ShowProtocol_UserControl());
-
+            this.ProtocolManagement_Grid.Children.Add(new ShowProtocol_UserControl(TaskId));
         }
     }
 }

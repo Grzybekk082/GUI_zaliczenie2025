@@ -1,4 +1,8 @@
-﻿using System.Windows.Controls;
+﻿using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Media;
+using GUI_zaliczenie2025.Classes;
+using GUI_zaliczenie2025.Classes.Objects;
 
 namespace GUI_zaliczenie2025.Views
 {
@@ -7,9 +11,48 @@ namespace GUI_zaliczenie2025.Views
     /// </summary>
     public partial class ShowProtocol_UserControl : UserControl
     {
-        public ShowProtocol_UserControl()
+        private string ProtocolDescription;
+        public ShowProtocol_UserControl(string TaskId)
         {
             InitializeComponent();
+            string mySqlQuery = $"SELECT ID_protocol, Protocol, end_date, Id, title, description, location, _user, status, technican, date_of_sla, priorytet, company_name, telephone_number, create_date  FROM reports where Id ='{TaskId}'";
+            List<ClosedTaskProtocol> Protocol= MySqlQueryImplementation.ProtocolsQueryImplementation_Show(mySqlQuery);
+            DataContext = Protocol;
+            if (Protocol != null && Protocol.Any())
+            {
+                var enumerator = Protocol.GetEnumerator();
+
+                if (enumerator.MoveNext())
+                {
+                    ProtocolDescription = enumerator.Current.Protocol_Description;
+                    
+                }
+            }
+            else
+            {
+                Console.WriteLine("Kolekcja jest pusta lub null.");
+            }
+        }
+
+        private void ChangeProtocolDescription(object sender, System.Windows.RoutedEventArgs e)
+        {
+ 
+            TextBox textBox = new TextBox();
+            textBox.Background=Brushes.AntiqueWhite;
+            textBox.Text = ProtocolDescription;
+            textBox.TextWrapping= TextWrapping.Wrap;
+            textBox.Margin = new Thickness(5, 5, 5, 5);
+            textBox.FontSize=14;
+            textBox.FontWeight= FontWeights.Bold;
+            textBox.Foreground=Brushes.DimGray;
+
+            //textBox.AcceptsReturn = true;
+
+            ChangeProtocolDescription_Button.Visibility = Visibility.Hidden;
+            CancelChanges_Button.Visibility = Visibility.Visible;
+            ConfirmChanges_Button.Visibility = Visibility.Visible;
+            ProtocolDescription_Grid.Children.Clear();
+            ProtocolDescription_Grid.Children.Add(textBox);
         }
     }
 }

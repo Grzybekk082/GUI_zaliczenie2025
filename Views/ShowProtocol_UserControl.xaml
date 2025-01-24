@@ -5,13 +5,13 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:GUI_zaliczenie2025.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="852" d:DesignWidth="1396">
     <Grid Background="#F7F7F7" Margin="10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="5" />
-            <ColumnDefinition Width="1.6*" />
+            <ColumnDefinition Width="0.85*" />
             <ColumnDefinition Width="3*" />
-            <ColumnDefinition Width="2.7*" />
+            <ColumnDefinition Width="3.5*" />
             <ColumnDefinition Width="5" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -22,31 +22,95 @@
             <RowDefinition Height="3*" />
             <RowDefinition Height="5" />
         </Grid.RowDefinitions>
-        <!-- Nagłówki -->
+       
         <TextBlock x:Name="TextBlockId" Text="{Binding Id}" Grid.Row="1" Grid.Column="1" 
                Margin="12,10,0,0" FontSize="16" FontWeight="Bold" Foreground="#333" />
         <TextBlock x:Name="TextBlockTitle" Text="{Binding Title}" Grid.Row="1" Grid.Column="2" 
                Margin="12,10,0,0" FontSize="16" FontWeight="Bold" Foreground="#333" />
-        <TextBlock Text="Szczegóły zlecenia" Grid.Row="3" Grid.Column="1" 
+        <TextBlock Text="Szczegóły zlecenia"  Grid.Row="3" Grid.Column="1" 
                Margin="12,10,0,0" FontSize="16" FontWeight="Bold" Foreground="#333" />
-        <!-- Obramowania -->
+        
+        
+        <Grid Row="1" Column="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="3*"/>
+            </Grid.ColumnDefinitions>
+            <Border Grid.Column="0" BorderBrush="#D1D1D1" CornerRadius="0,4,4,0" BorderThickness="1" ></Border>
+            <TextBlock Text="Nr. Protokołu"  Grid.Column="0" Margin="12,10,0,0" FontSize="16" FontWeight="Bold" Foreground="#333" />
+            <TextBlock x:Name="ProtocolNumber_TextBlock" Text="{Binding NewTask_Id}"  Grid.Column="1" Margin="12,10,0,0" FontSize="16" FontWeight="Bold" Foreground="#333" />
+        </Grid>
+
+        
         <Border BorderBrush="#D1D1D1" BorderThickness="1" CornerRadius="4" Grid.Row="1" Grid.Column="1" />
         <Border BorderBrush="#D1D1D1" BorderThickness="1" CornerRadius="4" Grid.Row="1" Grid.Column="2" />
         <Border BorderBrush="#D1D1D1" BorderThickness="1" CornerRadius="4" Grid.Row="1" Grid.Column="3" />
         <Border BorderBrush="#D1D1D1" BorderThickness="1" CornerRadius="4" Grid.Row="2" Grid.RowSpan="4" Grid.Column="3" />
-        <Grid Row="2" RowSpan="4" Column="3">
+        <Grid x:Name="ActualProtocol_Grid" Row="2" RowSpan="4" Column="3">
             <Grid.RowDefinitions>
-                <RowDefinition Height="10"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="10"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="4.91*"/>
+                <RowDefinition Height="3*"/>
             </Grid.RowDefinitions>
+            <Border BorderBrush="#D1D1D1" BorderThickness="1" CornerRadius="0,0,4,4" Grid.Row="0" Grid.Column="3" />
+                <Grid x:Name="ProtocolDetails_Grid">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="2*"/>
+                    </Grid.ColumnDefinitions>
+                <TextBlock Text="Protokół użytkownika : " VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="14" FontWeight="Bold" Grid.Row="0" Grid.Column="0" Margin="10,0,0,0"/>
+                <TextBlock x:Name="CreateBy_TextBlock" Text="{Binding Technican}" Grid.Row="0" Grid.Column="1"  Margin="12,10,0,0" FontSize="14" Foreground="#555" TextWrapping="Wrap"/>
+                <TextBlock Text="Zrealizowano : " VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="14" FontWeight="Bold" Grid.Row="1" Grid.Column="0"  Margin="10,0,0,0"/>
+                <TextBlock x:Name="CreatedAt_TextBlock" Text="{Binding End_Date }" Grid.Row="1" Grid.Column="1"  Margin="12,10,0,0" FontSize="14" Foreground="#555" TextWrapping="Wrap"/>
+                
+                </Grid>
+            <Grid Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1.4*"/>
+                    <ColumnDefinition Width="4*"/>
+                </Grid.ColumnDefinitions>
+                <Border BorderBrush="#D1D1D1" BorderThickness="1" CornerRadius="0,0,4,4" Grid.Row="0" Grid.Column="0" />
+                <Border BorderBrush="#D1D1D1" BorderThickness="1" CornerRadius="0,0,4,4" Grid.Row="0" Grid.Column="1" />
+                <TextBlock Text="Szczegóły realizacji" Margin="12,10,0,0" FontSize="16" FontWeight="Bold" Foreground="#333"/>
+                <Grid  Grid.Row="1" Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="40"/>
+                    </Grid.RowDefinitions>
+                    <Border BorderBrush="#D1D1D1" BorderThickness="1" CornerRadius="0,0,4,4" Grid.Row="0" Grid.Column="3" />
+
+                    <Grid Grid.Row="0" x:Name="ProtocolDescription_Grid">
+                        <TextBlock x:Name="ProtocolDescription_TextBlock" Text="{Binding Protocol_Description}" Grid.Row="0" Margin="12,10,12,0" FontSize="14" Foreground="#555" TextWrapping="Wrap"/>
+
+                    </Grid>
+
+                    <Button x:Name="ChangeProtocolDescription_Button"  Content="Edytuj treść protokołu" Grid.Row="1" Margin="10,5,10,5"  Background="#FF39943C" Foreground="White" FontWeight="Bold"
+                            BorderBrush="#FF39943C" BorderThickness="1" Click="ChangeProtocolDescription" Visibility="Visible"/>
+                    <Grid Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Button x:Name="CancelChanges_Button" Content="Anuluj" Grid.Column="0" Margin="10,5,5,5"  Background="#FFA20B00" Foreground="White" FontWeight="Bold"
+                                BorderBrush="#FFA20B00" BorderThickness="1" Visibility="Hidden"/>
+                        <Button x:Name="ConfirmChanges_Button" Content="Zatwierdź" Grid.Column="2" Margin="5,5,10,5"  Background="#FF39943C" Foreground="White" FontWeight="Bold"
+                                BorderBrush="#FF39943C" BorderThickness="1" Visibility="Hidden"/>
+                    </Grid>
+
+                </Grid>
+            </Grid>
+
         </Grid>
-        <!-- Szczegóły -->
+       
         <TextBlock x:Name="TextBlockDescription" Text="{Binding Description}" Grid.Row="3" Grid.Column="2" 
                Margin="12,10,0,0" FontSize="14" Foreground="#555" TextWrapping="Wrap" />
         <Border BorderBrush="#D1D1D1" CornerRadius="3" BorderThickness="1" Grid.Row="3" Grid.Column="1"  />
         <Border BorderBrush="#D1D1D1" CornerRadius="3" BorderThickness="1" Grid.Row="3" Grid.Column="2" />
-        <!-- Informacje o kliencie -->
+        
         <Border BorderBrush="#D1D1D1" BorderThickness="1" CornerRadius="4" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="2">
             <Grid x:Name="ClientInformationGrid" Margin="10">
                 <Grid.ColumnDefinitions>
@@ -66,7 +130,7 @@
                 <TextBlock x:Name="TextBoxPhoneNumber" Text="{Binding TelNumber}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="14" Grid.Row="2" Grid.Column="1" Margin="0,5" Foreground="#555" />
             </Grid>
         </Border>
-        <!-- Informacje administracyjne -->
+        
         <Border BorderBrush="#D1D1D1" BorderThickness="1" CornerRadius="4" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="4">
             <Grid x:Name="TicketAdministrationInformationGrid" Margin="10">
                 <Grid.ColumnDefinitions>
