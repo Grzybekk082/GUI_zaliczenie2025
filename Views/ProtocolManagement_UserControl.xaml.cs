@@ -1,7 +1,10 @@
 ﻿using GUI_zaliczenie2025.Classes;
 using GUI_zaliczenie2025.Classes.Objects;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace GUI_zaliczenie2025.Views
 {
@@ -21,9 +24,29 @@ namespace GUI_zaliczenie2025.Views
 
         private void OpenNewTask_OnClick(object sender, MouseButtonEventArgs e)
         {
-            string TaskId = ((ClosedTaskProtocol)ProtocolManagment_DataGrid.SelectedItem).Id;
-            this.ProtocolManagement_Grid.Children.Clear();
-            this.ProtocolManagement_Grid.Children.Add(new ShowProtocol_UserControl(TaskId));
+            var hit = e.OriginalSource as DependencyObject;
+
+            while (hit != null)
+            {
+                if (hit is DataGridColumnHeader)
+                {
+                    e.Handled = true;
+                    return;
+                }
+
+                if (hit is TextBlock)
+                {
+                    if (ProtocolManagment_DataGrid.SelectedItem != null)
+                    {
+                        string TaskId = ((ClosedTaskProtocol)ProtocolManagment_DataGrid.SelectedItem).Id;
+                        this.ProtocolManagement_Grid.Children.Clear();
+                        this.ProtocolManagement_Grid.Children.Add(new ShowProtocol_UserControl(TaskId));
+                    }
+                }
+                return;
+
+            }
+
         }
     }
 }

@@ -1,6 +1,8 @@
 ﻿using GUI_zaliczenie2025.Classes;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
+using System.Windows.Media;
 using Task = GUI_zaliczenie2025.Classes.Objects.Task;
 
 namespace GUI_zaliczenie2025
@@ -33,19 +35,37 @@ namespace GUI_zaliczenie2025
         //Metoda zwracająca wybrany z listy task i wyświetla go w kontrolce użytkownika
         public void RowDoubleClicktask(object sender, RoutedEventArgs e)
         {
-            Taskid = null;
-            var selectedItem = DataGridShortSla.SelectedItem as Task;
 
-            if (selectedItem != null)
+            var hit = e.OriginalSource as DependencyObject;
+
+            while (hit != null)
             {
-                string selectedValue = selectedItem.Id;
-                string selectedTechnican = selectedItem.Technican;
-                Taskid += selectedValue;
-                TaskUser += selectedTechnican;
+                if (hit is DataGridColumnHeader)
+                {
+                    e.Handled = true;
+                    return;
+                }
 
+                if (hit is TextBlock)
+                {
+                    if (DataGridShortSla.SelectedItem != null)
+                    {
+                        Taskid = null;
+                        var selectedItem = DataGridShortSla.SelectedItem as Task;
+
+                        string selectedValue = selectedItem.Id;
+                        string selectedTechnican = selectedItem.Technican;
+                        Taskid += selectedValue;
+                        TaskUser += selectedTechnican;
+
+                        GridShortSla.Children.Clear();
+                        GridShortSla.Children.Add(new TicketsShowUserControlWPF());
+                    }
+
+                }
+                return;
             }
-            GridShortSla.Children.Clear();
-            GridShortSla.Children.Add(new TicketsShowUserControlWPF());
+
         }
 
 

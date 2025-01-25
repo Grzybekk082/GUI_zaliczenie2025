@@ -2,6 +2,8 @@
 using GUI_zaliczenie2025.Classes.Objects;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
+using System.Windows.Media;
 
 namespace GUI_zaliczenie2025
 {
@@ -44,21 +46,37 @@ namespace GUI_zaliczenie2025
 
         public void RowDoubleClickRequest(object sender, RoutedEventArgs e)
         {
-            Taskid = null;
-            var selectedItem = DataGridUserRequests.SelectedItem as Person;
 
-            if (selectedItem != null)
+            var hit = e.OriginalSource as DependencyObject;
+
+            while (hit != null)
             {
-                string selectedValue = selectedItem.Id;
-                Taskid += selectedValue;
+                if (hit is DataGridColumnHeader)
+                {
+                    e.Handled = true;
+                    return;
+                }
 
+                if (hit is TextBlock)
+                {
+                    if (DataGridUserRequests.SelectedItem != null)
+                    {
+                        Taskid = null;
+                        var selectedItem = DataGridUserRequests.SelectedItem as Person;
+
+                        string selectedValue = selectedItem.Id;
+                        Taskid += selectedValue;
+
+                        //GridShortSla.Children.Clear();
+                        //GridShortSla.Children.Add(new NewUserRequests_UserControl());
+                        var newUserRequestConfirm_Window = new NewUserRequestConfirm_Window(_adminMainPage); ////
+                        newUserRequestConfirm_Window.ShowDialog();
+                        newUserRequestConfirm_Window.ResizeMode = ResizeMode.NoResize;
+                    }
+
+                }
+                return;
             }
-
-            //GridShortSla.Children.Clear();
-            //GridShortSla.Children.Add(new NewUserRequests_UserControl());
-            var newUserRequestConfirm_Window = new NewUserRequestConfirm_Window(_adminMainPage);////
-            newUserRequestConfirm_Window.ShowDialog();
-            newUserRequestConfirm_Window.ResizeMode = ResizeMode.NoResize;
         }
     }
 }

@@ -3,8 +3,10 @@ using GUI_zaliczenie2025.Classes.Objects;
 using GUI_zaliczenie2025.Views;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Documents;
 using Org.BouncyCastle.Utilities;
+using System.Windows.Media;
 
 namespace GUI_zaliczenie2025
 {
@@ -34,20 +36,37 @@ namespace GUI_zaliczenie2025
 
         public void ShowSelectedUser_MouseDoubleClick(object sender, RoutedEventArgs e)
         {
-
             Taskid = null;
             TaskLogin = null;
-            var selectedItem = DataGridUserManagement.SelectedItem as User;
 
-            if (selectedItem != null)
+            var hit = e.OriginalSource as DependencyObject;
+
+            while (hit != null)
             {
-                var (selectedLogin, selectedValue) = (selectedItem.Login, selectedItem.Id);
-                Taskid += selectedValue;
-                TaskLogin += selectedLogin;
+                if (hit is DataGridColumnHeader)
+                {
+                    e.Handled = true;
+                    return;
+                }
 
+                if (hit is TextBlock)
+                {
+                    if (DataGridUserManagement.SelectedItem != null)
+                    {
+                        var selectedItem = DataGridUserManagement.SelectedItem as User;
+
+                        var (selectedLogin, selectedValue) = (selectedItem.Login, selectedItem.Id);
+                        Taskid += selectedValue;
+                        TaskLogin += selectedLogin;
+
+                        GridUserManagement.Children.Clear();
+                        GridUserManagement.Children.Add(new SelectedUser_UserControl(this));
+                    }
+
+
+                }
+                return;
             }
-            GridUserManagement.Children.Clear();
-            GridUserManagement.Children.Add(new SelectedUser_UserControl(this));
 
         }
     }
