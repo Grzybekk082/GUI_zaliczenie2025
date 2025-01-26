@@ -1,19 +1,9 @@
 ﻿using GUI_zaliczenie2025.Classes;
-using MySql.Data.MySqlClient;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
+using System.Windows.Controls.Primitives;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using Task = GUI_zaliczenie2025.Classes.Objects.Task;
 
 namespace GUI_zaliczenie2025.Views.UserViews
 {
@@ -22,11 +12,12 @@ namespace GUI_zaliczenie2025.Views.UserViews
     /// </summary>
     public partial class UserTasks_UserControl : UserControl
     {
-        private string login; 
+        private string login;
+        public static string Taskid;
         public UserTasks_UserControl()
         {
             InitializeComponent();
-            
+
 
 
             login = UserMainPageWPF.CRperson.CurrentLogin;
@@ -44,7 +35,7 @@ namespace GUI_zaliczenie2025.Views.UserViews
                                                     $" create_date" +
                                                     $" FROM reports WHERE _user='{login}' AND status !='Closed';";
 
-            List<Classes.Objects.Task> Tasks= MySqlQueryImplementation.TaskQueryImplementation_Show(command);
+            List<Classes.Objects.Task> Tasks = MySqlQueryImplementation.TaskQueryImplementation_Show(command);
 
 
             UserTasks_DataGrid.ItemsSource = Tasks;
@@ -54,6 +45,35 @@ namespace GUI_zaliczenie2025.Views.UserViews
 
         private void ShowTicket_DoubleClick(object sender, MouseButtonEventArgs e)
         {
+
+            var hit = e.OriginalSource as DependencyObject;
+
+            while (hit != null)
+            {
+                if (hit is DataGridColumnHeader)
+                {
+                    e.Handled = true;
+                    return;
+                }
+
+                if (hit is TextBlock)
+                {
+                    if (UserTasks_DataGrid.SelectedItem != null)
+                    {
+
+                        Taskid = null;
+
+                        var selectedItem = UserTasks_DataGrid.SelectedItem as Task;
+
+                        Taskid = selectedItem.Id;
+
+                        UserTasks_Grid.Children.Clear();
+                        UserTasks_Grid.Children.Add(new UserShowSelectedTask_UserControl());
+                    }
+                }
+                return;
+            }
+
         }
     }
 }

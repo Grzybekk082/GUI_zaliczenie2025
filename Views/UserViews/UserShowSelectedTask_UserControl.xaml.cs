@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using GUI_zaliczenie2025.Classes;
 
 namespace GUI_zaliczenie2025.Views.UserViews
 {
@@ -23,6 +24,19 @@ namespace GUI_zaliczenie2025.Views.UserViews
         public UserShowSelectedTask_UserControl()
         {
             InitializeComponent();
+            string mySqlQuery = $"SELECT id,title," +
+                                                    $" description," +
+                                                    $" location," +
+                                                    $" _user," +
+                                                    $" status," +
+                                                    $" technican," +
+                                                    $" date_of_sla," +
+                                                    $" priorytet," +
+                                                    $" company_name," +
+                                                    $" telephone_number," +
+                                                    $" create_date" +
+                                                    $" FROM reports WHERE id='{UserTasks_UserControl.Taskid}';";
+            this.DataContext = MySqlQueryImplementation.TaskQueryImplementation_Show(mySqlQuery);
         }
     }
 }

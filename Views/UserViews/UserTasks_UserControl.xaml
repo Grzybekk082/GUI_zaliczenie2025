@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:GUI_zaliczenie2025.Views.UserViews"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid >
+    <Grid x:Name="UserTasks_Grid">
         <DataGrid x:Name="UserTasks_DataGrid" Grid.Row="1" Grid.Column="1" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False"  ColumnWidth="*" RowHeight="20" CanUserResizeRows="False" CanUserReorderColumns="False" MouseDoubleClick="ShowTicket_DoubleClick"></DataGrid>
     </Grid>
 </UserControl>
