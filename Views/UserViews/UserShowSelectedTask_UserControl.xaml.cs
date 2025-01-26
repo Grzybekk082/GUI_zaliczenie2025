@@ -21,9 +21,11 @@ namespace GUI_zaliczenie2025.Views.UserViews
     /// </summary>
     public partial class UserShowSelectedTask_UserControl : UserControl
     {
+        private string TaskId;
         public UserShowSelectedTask_UserControl()
         {
             InitializeComponent();
+            TaskId = UserTasks_UserControl.Taskid;
             string mySqlQuery = $"SELECT id,title," +
                                                     $" description," +
                                                     $" location," +
@@ -35,8 +37,15 @@ namespace GUI_zaliczenie2025.Views.UserViews
                                                     $" company_name," +
                                                     $" telephone_number," +
                                                     $" create_date" +
-                                                    $" FROM reports WHERE id='{UserTasks_UserControl.Taskid}';";
+                                                    $" FROM reports WHERE id='{TaskId}';";
             this.DataContext = MySqlQueryImplementation.TaskQueryImplementation_Show(mySqlQuery);
+        }
+
+
+        private void CreateProtocol_ButtonClick(object sender, RoutedEventArgs e)
+        {
+            UserCreateProtocol_Widnow window = new UserCreateProtocol_Widnow();
+            window.ShowDialog();
         }
     }
 }

@@ -6,6 +6,8 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using GUI_zaliczenie2025.Views.AdminViews;
 using Object = Mysqlx.Datatypes.Object;
+using GUI_zaliczenie2025.Views.UserViews;
+using System.Threading.Tasks;
 
 namespace GUI_zaliczenie2025
 {
@@ -115,6 +117,25 @@ namespace GUI_zaliczenie2025
                 }
 
 
+            }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show($"Wystąpił błąd w przetwarzaniu prośby : {ex}", "Błąd przetwarzania!", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+        }
+
+        private void UserTakeTask_ButtonClick(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string technican = UserMainPageWPF.Technican;
+
+                string mySqlQuery = $"UPDATE reports SET technican ='{technican}' WHERE Id = '{TaskId}';";
+                MySqlQueryImplementation.GenericMethodTest_Upadate(mySqlQuery);
+                MessageBox.Show("Pomyślnie przypisano zlecenie", "Sukces", MessageBoxButton.OK,
+                    MessageBoxImage.Information);
+                this.DataContext = ReturnSelectedTask();
             }
             catch (MySqlException ex)
             {

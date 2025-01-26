@@ -215,6 +215,43 @@ namespace GUI_zaliczenie2025.Classes
             return Tasks;
         }
 
+        public static List<Objects.Device> SelectedUserDevicesList_Show(string commandText)
+        {
+            List<Objects.Device> Tasks = new List<Objects.Device>();
+            MySqlConnection connection = DatabaseConnection.ConnectionBuilder();
+
+            MySqlCommand command = new MySqlCommand(commandText, connection);
+            using (connection)
+            {
+                connection.Open();
+                using (command)
+                {
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+
+                            Tasks.Add(new Classes.Objects.Device
+                            {
+                                Id = $"{reader["id"].ToString()}",
+                                Brand = $"{reader["brand"].ToString()}",
+                                Model = $"{reader["model"].ToString()}",
+                                Serial_Number = $"{reader["SerialNumber"].ToString()}",
+                                Registration_Number = $"{reader["Registration_Number"].ToString()}",
+                                Category = $"{reader["category"].ToString()}"
+
+
+                            });
+
+                        }
+                        connection.Close();
+                    }
+                }
+            }
+
+            return Tasks;
+        }
+
         public static List<Task> AssignUSerToTaskImplementation_Upadate(string commandText)
         {
             List<Objects.Task> Tasks = new List<Objects.Task>();
