@@ -62,7 +62,7 @@ namespace GUI_zaliczenie2025
             Main_Content_Change_Grid.Children.Clear();
             Main_Admin_24h_Button.Visibility = Visibility.Visible;
             Main_Admin_SLA_Button.Visibility = Visibility.Visible;
-
+            SearchEngineControl_Grid.Children.Add(new SearchEngine_UserControl(this, "AdminMainPageWPF"));
         }
 
         private void ChangeToSla_ButtonOnClick(object sender, RoutedEventArgs e)
@@ -70,6 +70,7 @@ namespace GUI_zaliczenie2025
 
             Main_Content_Change_Grid.Children.Clear();
             Main_Content_Change_Grid.Children.Add(new ShortSlaPageWPF_UserControl());
+            SearchEngineControl_Grid.Children.Add(new SearchEngine_UserControl(this, "AdminMainPageWPF"));
         }
 
         private void UserManagement_ButtonOnClick(object sender, RoutedEventArgs e)
@@ -90,6 +91,14 @@ namespace GUI_zaliczenie2025
         {
             Main_Content_Change_Grid.Children.Clear();
             Main_Content_Change_Grid.Children.Add(new ProtocolManagement_UserControl());
+        }
+
+        private void MostImportantTasks_ButtonClick(object sender, RoutedEventArgs e)
+        {
+
+            Main_Content_Change_Grid.Children.Clear();
+            Main_Content_Change_Grid.Children.Add(new AdminMostImportantTasks_USerControl());
+            SearchEngineControl_Grid.Children.Add(new SearchEngine_UserControl(this, "MostImportantTasksWPF"));
         }
 
 

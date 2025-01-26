@@ -5,6 +5,7 @@ using System.Windows.Controls;
 using GUI_zaliczenie2025.Classes.Objects;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using GUI_zaliczenie2025.Views.AdminViews;
 
 namespace GUI_zaliczenie2025.Views.Controls
 {
@@ -27,6 +28,20 @@ namespace GUI_zaliczenie2025.Views.Controls
             InitializeComponent();
             _CRinstance = Instacne;
             _MotherClass = MotherClass;
+
+
+            if (MotherClass == "MostImportantTasksWPF")
+            {
+                searchList = new Dictionary<string, string>()
+                {
+                    {"Id","id"},
+                    {"technican","technik"},
+                    {"company_name","company"},
+                    {"location","location"}
+                };
+
+                SearchEngine_ComboBox.ItemsSource = searchList.Values;
+            }
 
             if (MotherClass == "UserManagementWPF")
             {
@@ -120,6 +135,10 @@ namespace GUI_zaliczenie2025.Views.Controls
                 }
                 else
                 {
+                    if (_MotherClass == "MostImportantTasksWPF")
+                    {
+                        SearchingForImportantTasks(queryText, SearchText);
+                    }
                     if (_MotherClass == "AdminMainPageWPF")
                     {
                         SearchingForTasks(queryText, SearchText);
@@ -168,6 +187,13 @@ namespace GUI_zaliczenie2025.Views.Controls
             warningSearchLabel.Visibility = Visibility.Hidden;
         }
 
+        private void SearchingForImportantTasks(string queryText, string SearchText)
+        {
+            _CRinstance.Main_Content_Change_Grid.Children.Clear();
+            _CRinstance.Main_Content_Change_Grid.Children.Add(new AdminMostImportantTasks_USerControl(queryText, SearchText));
+            SearchEngine_TextBox.Clear();
+            warningSearchLabel.Visibility = Visibility.Hidden;
+        }
 
 
 

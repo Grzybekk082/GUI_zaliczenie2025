@@ -31,6 +31,7 @@ namespace GUI_zaliczenie2025
             InitializeComponent();
             DataGridShortSla.ItemsSource = ActualTasksOperations.MessageBoxShowObject(choose, search);
 
+
         }
         //Metoda zwracająca wybrany z listy task i wyświetla go w kontrolce użytkownika
         public void RowDoubleClicktask(object sender, RoutedEventArgs e)
@@ -51,15 +52,15 @@ namespace GUI_zaliczenie2025
                     if (DataGridShortSla.SelectedItem != null)
                     {
                         Taskid = null;
+                        TaskUser = null;
                         var selectedItem = DataGridShortSla.SelectedItem as Task;
 
-                        string selectedValue = selectedItem.Id;
-                        string selectedTechnican = selectedItem.Technican;
-                        Taskid += selectedValue;
-                        TaskUser += selectedTechnican;
+                        Taskid = selectedItem.Id; 
+                        TaskUser = selectedItem.Technican;
 
                         GridShortSla.Children.Clear();
-                        GridShortSla.Children.Add(new TicketsShowUserControlWPF());
+                        GridShortSla.Children.Add(new TicketsShowUserControlWPF("normal"));
+
                     }
 
                 }

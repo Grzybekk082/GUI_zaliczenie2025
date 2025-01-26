@@ -4,6 +4,8 @@ using MySql.Data.MySqlClient;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using GUI_zaliczenie2025.Views.AdminViews;
+using Object = Mysqlx.Datatypes.Object;
 
 namespace GUI_zaliczenie2025
 {
@@ -20,6 +22,32 @@ namespace GUI_zaliczenie2025
 
             InitializeComponent();
             TaskId = ShortSlaPageWPF_UserControl.Taskid;
+            ActualTechnican = ShortSlaPageWPF_UserControl.TaskUser;
+            this.DataContext = ReturnSelectedTask();
+            string mySqlQuery = $"SELECT name, surname, login FROM _user";
+            this.AssignUserToTask_DataGrid.ItemsSource = MySqlQueryImplementation.AssignUSerToTaskImplementation_Show(mySqlQuery);
+
+        }
+
+        public TicketsShowUserControlWPF( string typeOfObject)
+        {
+
+
+            InitializeComponent();
+
+            if (typeOfObject == "important")
+            {
+                TaskId = AdminMostImportantTasks_USerControl.Taskid;
+                ActualTechnican = AdminMostImportantTasks_USerControl.TaskUser;
+            }
+
+            if (typeOfObject == "normal")
+            {
+                TaskId = ShortSlaPageWPF_UserControl.Taskid;
+                ActualTechnican = ShortSlaPageWPF_UserControl.TaskUser;
+            }
+
+
             this.DataContext = ReturnSelectedTask();
             string mySqlQuery = $"SELECT name, surname, login FROM _user";
             this.AssignUserToTask_DataGrid.ItemsSource = MySqlQueryImplementation.AssignUSerToTaskImplementation_Show(mySqlQuery);
@@ -51,18 +79,19 @@ namespace GUI_zaliczenie2025
         //Do poprawy zabezpieczenie sprawdzające czy użytkownik jest już przypisany do zlecenia
         private void AssignUserToTask_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            var selectedUserLogin = ((AssignUser)AssignUserToTask_DataGrid.SelectedItem).Login;
+            var selectedUserLogin = $"{((AssignUser)AssignUserToTask_DataGrid.SelectedItem).Name} {((AssignUser)AssignUserToTask_DataGrid.SelectedItem).Surname}";
             try
             {
 
-                if (ShortSlaPageWPF_UserControl.TaskUser == selectedUserLogin || selectedUserLogin == ActualTechnican)
+                if ( selectedUserLogin == ActualTechnican)
                 {
-                    ActualTechnican = null;
+                    
                     MessageBox.Show("Ten użytkownik jest już przypisany do tego zlecenia!", "Błędny wybór!",
                         MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 else
                 {
+                    ActualTechnican = null;
                     MessageBoxResult result = MessageBox.Show($"Czy przipsać zlecenie do użytkownika {selectedUserLogin}?",
                         "Przypisz zlecenie",
                         MessageBoxButton.YesNo, MessageBoxImage.Question);
