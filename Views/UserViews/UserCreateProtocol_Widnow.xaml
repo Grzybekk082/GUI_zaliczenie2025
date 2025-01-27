@@ -30,10 +30,10 @@
 
         </Border>
             <Label Content="Wykonane czynności : " Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14" FontWeight="DemiBold"></Label>
-            <TextBox Grid.Row="3"  Grid.Column="1" Background="AntiqueWhite" Padding="10,5" FontWeight="DemiBold" TextWrapping="WrapWithOverflow" VerticalScrollBarVisibility="Visible"></TextBox>
+            <TextBox x:Name="ProtocolDescription_TextBox" Grid.Row="3"  Grid.Column="1" Background="AntiqueWhite" Padding="10,5" FontWeight="DemiBold" TextWrapping="WrapWithOverflow" VerticalScrollBarVisibility="Visible"></TextBox>
 
             <Label Content="Wykorzystane zasoby : " Grid.Row="4" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14" FontWeight="DemiBold"></Label>
-        <DataGrid x:Name="UsedDevices_DataGrid" Grid.Row="5" Grid.Column="1" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False"  ColumnWidth="*" RowHeight="20" CanUserResizeRows="False" CanUserReorderColumns="False"></DataGrid>
+        <DataGrid x:Name="UsedDevices_DataGrid" Grid.Row="5" Grid.Column="1" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False"  ColumnWidth="*" RowHeight="20" CanUserResizeRows="False" CanUserReorderColumns="False" MouseDoubleClick="SelectUsedDevice_RowDoubleClick"></DataGrid>
 
             <Label Content="Zakończenie prac : " Grid.Row="6" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14" FontWeight="DemiBold"></Label>
         <Grid Grid.Row="7" Grid.Column="1">
@@ -52,7 +52,7 @@
                     Background="#FF39943C" Foreground="White" FontWeight="Bold" ></Button>
         </Grid>
         <Button Content="Utwórz protokół i zamknij zlecenie" Grid.Row="8" Grid.Column="1" Margin="5"
-                Background="#FF39943C" Foreground="White" FontWeight="Bold"></Button>
+                Background="#FF39943C" Foreground="White" FontWeight="Bold" Click="CreateProtocol_buttonClick"></Button>
         
 
         

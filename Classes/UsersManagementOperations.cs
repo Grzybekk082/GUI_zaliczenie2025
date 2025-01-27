@@ -12,7 +12,7 @@ namespace GUI_zaliczenie2025.Classes
         private static string mySqlQuery = $"SELECT id,name, surname, login, departament, permissions, tel, email FROM _user;";
         private static string mySqlQueryDefault = $"SELECT id,name, surname, login, departament, permissions, tel, email FROM _user;";
         private SelectedUser_UserControl _SelectedUser;
-        private static string loginSelected;
+        private static string TaskTechnican;
         private static string idSelected;
         private static bool isUserSelected;
         public UsersManagementOperations() { }
@@ -20,7 +20,7 @@ namespace GUI_zaliczenie2025.Classes
         public UsersManagementOperations(SelectedUser_UserControl SelectedUser)
         {
             _SelectedUser = SelectedUser;
-            loginSelected = UserManagementWPF_UserControl.TaskLogin;
+            TaskTechnican = UserManagementWPF_UserControl.TaskTechnican;
             idSelected = UserManagementWPF_UserControl.Taskid;
         }
 
@@ -95,11 +95,11 @@ namespace GUI_zaliczenie2025.Classes
             }
             if (showWitchoutUser)
             {
-                mySqlQuery = $"SELECT id,brand, model, SerialNumber, Registration_Number, category FROM resources WHERE assignment_technican != '{loginSelected}' OR assignment_technican is NULL;";
+                mySqlQuery = $"SELECT id,brand, model, SerialNumber, Registration_Number, category FROM resources WHERE assignment_technican != '{TaskTechnican}' OR assignment_technican is NULL;";
             }
             else
             {
-                mySqlQuery = $"SELECT id,brand, model, SerialNumber, Registration_Number, category FROM resources WHERE assignment_technican='{loginSelected}';";
+                mySqlQuery = $"SELECT id,brand, model, SerialNumber, Registration_Number, category FROM resources WHERE assignment_technican='{TaskTechnican}';";
             }
 
             try
@@ -158,7 +158,7 @@ namespace GUI_zaliczenie2025.Classes
                          $" company_name," +
                          $" telephone_number," +
                          $" create_date" +
-                         $" FROM reports WHERE _user= '{loginSelected}';";
+                         $" FROM reports WHERE technican= '{TaskTechnican}';";
             string command = mySqlQuery;
 
             List<Task> Tasks = MySqlQueryImplementation.TaskQueryImplementation_Show(command);
@@ -182,7 +182,7 @@ namespace GUI_zaliczenie2025.Classes
                 }
                 else
                 {
-                    string mySqlQuery = $"UPDATE reports SET _user = '{loginSelected}' WHERE id IN ({string.Join(",", SelectedIdsOfTasks)});";
+                    string mySqlQuery = $"UPDATE reports SET technican = '{TaskTechnican}' WHERE id IN ({string.Join(",", SelectedIdsOfTasks)});";
                     MySqlConnectionStringBuilder conn_string = new MySqlConnectionStringBuilder();
                     conn_string.Server = "localhost";
                     conn_string.Port = 3308;
@@ -225,7 +225,7 @@ namespace GUI_zaliczenie2025.Classes
                 }
                 else
                 {
-                    string mySqlQuery = $"UPDATE resources SET assignment_technican = '{loginSelected}' WHERE id IN ({string.Join(",", SelectedIdsOfDevieces)});";
+                    string mySqlQuery = $"UPDATE resources SET assignment_technican = '{TaskTechnican}' WHERE id IN ({string.Join(",", SelectedIdsOfDevieces)});";
                     MySqlConnectionStringBuilder conn_string = new MySqlConnectionStringBuilder();
                     conn_string.Server = "localhost";
                     conn_string.Port = 3308;

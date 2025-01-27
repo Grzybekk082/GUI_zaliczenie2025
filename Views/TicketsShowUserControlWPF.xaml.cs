@@ -127,19 +127,29 @@ namespace GUI_zaliczenie2025
 
         private void UserTakeTask_ButtonClick(object sender, RoutedEventArgs e)
         {
-            try
+            string technican = UserMainPageWPF.Technican;
+            if (technican == ActualTechnican)
             {
-                string technican = UserMainPageWPF.Technican;
-
-                string mySqlQuery = $"UPDATE reports SET technican ='{technican}' WHERE Id = '{TaskId}';";
-                MySqlQueryImplementation.GenericMethodTest_Upadate(mySqlQuery);
-                MessageBox.Show("Pomyślnie przypisano zlecenie", "Sukces", MessageBoxButton.OK,
-                    MessageBoxImage.Information);
-                this.DataContext = ReturnSelectedTask();
+                MessageBox.Show("Już zostałeś przypisany do tego zlecenia!", "Próba ponownego przypisana",
+                    MessageBoxButton.OK, MessageBoxImage.Warning);
             }
-            catch (MySqlException ex)
+            else
             {
-                MessageBox.Show($"Wystąpił błąd w przetwarzaniu prośby : {ex}", "Błąd przetwarzania!", MessageBoxButton.OK, MessageBoxImage.Error);
+                try
+                {
+
+
+                    string mySqlQuery = $"UPDATE reports SET technican ='{technican}' WHERE Id = '{TaskId}';";
+                    MySqlQueryImplementation.GenericMethodTest_Upadate(mySqlQuery);
+                    MessageBox.Show("Pomyślnie przypisano zlecenie", "Sukces", MessageBoxButton.OK,
+                        MessageBoxImage.Information);
+                    this.DataContext = ReturnSelectedTask();
+                }
+                catch (MySqlException ex)
+                {
+                    MessageBox.Show($"Wystąpił błąd w przetwarzaniu prośby : {ex}", "Błąd przetwarzania!", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+
             }
 
         }

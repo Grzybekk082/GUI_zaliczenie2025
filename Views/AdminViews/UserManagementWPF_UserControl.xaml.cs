@@ -16,7 +16,7 @@ namespace GUI_zaliczenie2025
     public partial class UserManagementWPF_UserControl : UserControl
     {
         public static string Taskid;
-        public static string TaskLogin;
+        public static string TaskTechnican;
 
         public UserManagementWPF_UserControl()
         {
@@ -37,7 +37,7 @@ namespace GUI_zaliczenie2025
         public void ShowSelectedUser_MouseDoubleClick(object sender, RoutedEventArgs e)
         {
             Taskid = null;
-            TaskLogin = null;
+            TaskTechnican = null;
 
             var hit = e.OriginalSource as DependencyObject;
 
@@ -55,9 +55,9 @@ namespace GUI_zaliczenie2025
                     {
                         var selectedItem = DataGridUserManagement.SelectedItem as User;
 
-                        var (selectedLogin, selectedValue) = (selectedItem.Login, selectedItem.Id);
+                        var (selectedLogin, selectedValue) = (($"{selectedItem.Name} {selectedItem.Surname}"), selectedItem.Id);
                         Taskid += selectedValue;
-                        TaskLogin += selectedLogin;
+                        TaskTechnican += selectedLogin;
 
                         GridUserManagement.Children.Clear();
                         GridUserManagement.Children.Add(new SelectedUser_UserControl(this));

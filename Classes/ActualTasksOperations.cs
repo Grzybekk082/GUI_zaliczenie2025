@@ -56,7 +56,7 @@ namespace GUI_zaliczenie2025.Classes
             if (forTaskAssign)
             {
 
-                mySqlQuery = $"SELECT id,title, description, location, _user, status, technican, date_of_sla, company_name, telephone_number, priorytet, create_date FROM reports WHERE _user != '{AssignToUser_Window.SelectedUserLogin}';";
+                mySqlQuery = $"SELECT id,title, description, location, _user, status, technican, date_of_sla, company_name, telephone_number, priorytet, create_date FROM reports WHERE _user != '{AssignToUser_Window.SelectedUserTechnican}';";
             }
             List<Task> Requestors = MySqlQueryImplementation.TaskQueryImplementation_Show(mySqlQuery);
 

@@ -62,7 +62,7 @@ namespace GUI_zaliczenie2025.Views
                 {
                     try
                     {
-                        string mySqlQuery = $"Update reports SET _user = NULL WHERE id = '{taskId}';";
+                        string mySqlQuery = $"Update reports SET technican = NULL WHERE id = '{taskId}';";
 
 
                         MySqlConnectionStringBuilder conn_string = new MySqlConnectionStringBuilder();

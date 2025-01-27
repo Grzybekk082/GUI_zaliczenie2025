@@ -16,7 +16,7 @@ namespace GUI_zaliczenie2025.Views
         internal static List<string> SelectedId;
         private SelectedUser_UserControl CurrentInstanceOfSelectedUser;
 
-        public static string SelectedUserLogin;
+        public static string SelectedUserTechnican;
         bool isTask;
 
 
@@ -29,7 +29,7 @@ namespace GUI_zaliczenie2025.Views
             InitializeComponent();
             this.isTask = isTask;
             CurrentInstanceOfSelectedUser = CurrentInstance;
-            SelectedUserLogin = UserManagementWPF_UserControl.TaskLogin;
+            SelectedUserTechnican = UserManagementWPF_UserControl.TaskTechnican;
             if (isTask)
             {
                 SelectedTask = new List<Task>();
