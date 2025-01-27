@@ -22,7 +22,8 @@ namespace GUI_zaliczenie2025.Views.UserViews
             CRperson = person;
             InitializeComponent();
             CurrentPersonLabel.DataContext = CRperson;
-            Main_Content_Change_Grid.Children.Add(new ShortSlaPageWPF_UserControl());
+            Main_Content_Change_Grid.Children.Add(new ShortSlaPageWPF_UserControl( true));
+
             MySqlConnection connection = DatabaseConnection.ConnectionBuilder();
 
             string mySqlQuery = $"SELECT name, surname FROM _user WHERE login = '{UserMainPageWPF.CRperson.CurrentLogin}' ;";
@@ -60,7 +61,7 @@ namespace GUI_zaliczenie2025.Views.UserViews
             //Do poprawienia - klikniecie przycisku ma podmieniać jedynie GRID mainContent zamiast tworzenia nowej instancji strony.
 
             Main_Content_Change_Grid.Children.Clear();
-            Main_Content_Change_Grid.Children.Add(new ShortSlaPageWPF_UserControl());
+            Main_Content_Change_Grid.Children.Add(new ShortSlaPageWPF_UserControl( true));
         }
 
         private void UserTasks_ButtonClick(object sender, RoutedEventArgs e)

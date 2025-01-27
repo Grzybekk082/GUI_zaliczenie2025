@@ -13,6 +13,7 @@ namespace GUI_zaliczenie2025.Views.UserViews
     public partial class UserTasks_UserControl : UserControl
     {
         public static string login;
+        public static string Technican;
         public static string Taskid;
         public UserTasks_UserControl()
         {
@@ -21,6 +22,7 @@ namespace GUI_zaliczenie2025.Views.UserViews
 
 
             login = UserMainPageWPF.CRperson.CurrentLogin;
+            Technican = UserMainPageWPF.Technican;
 
             string command = $"SELECT id,title," +
                                                     $" description," +
@@ -33,7 +35,7 @@ namespace GUI_zaliczenie2025.Views.UserViews
                                                     $" company_name," +
                                                     $" telephone_number," +
                                                     $" create_date" +
-                                                    $" FROM reports WHERE technican='{UserMainPageWPF.Technican}' AND status !='Closed';";
+                                                    $" FROM reports WHERE technican='{Technican}' AND status !='Closed';";
 
             List<Classes.Objects.Task> Tasks = MySqlQueryImplementation.TaskQueryImplementation_Show(command);
 

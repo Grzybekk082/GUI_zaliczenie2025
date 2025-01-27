@@ -16,11 +16,25 @@ namespace GUI_zaliczenie2025
         public static string TaskUser;
         public static string Choose;
         public static string Search;
+        private bool IsUserViev = false;
 
         public ShortSlaPageWPF_UserControl()
         {
             InitializeComponent();
             DataGridShortSla.ItemsSource = ActualTasksOperations.ReturnRequestsListObject();
+
+
+        }
+
+        public ShortSlaPageWPF_UserControl(bool isUSerViev)
+        {
+
+
+                InitializeComponent();
+                IsUserViev = isUSerViev;
+                 DataGridShortSla.ItemsSource = ActualTasksOperations.ReturnRequestsListObject();
+            
+
 
 
         }
@@ -33,6 +47,7 @@ namespace GUI_zaliczenie2025
 
 
         }
+
         //Metoda zwracająca wybrany z listy task i wyświetla go w kontrolce użytkownika
         public void RowDoubleClicktask(object sender, RoutedEventArgs e)
         {
@@ -59,7 +74,7 @@ namespace GUI_zaliczenie2025
                         TaskUser = selectedItem.Technican;
 
                         GridShortSla.Children.Clear();
-                        GridShortSla.Children.Add(new TicketsShowUserControlWPF("normal"));
+                        GridShortSla.Children.Add(new TicketsShowUserControlWPF("normal", IsUserViev));
 
                     }
 

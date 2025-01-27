@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GUI_zaliczenie2025.Views.UserViews"
         mc:Ignorable="d"
-        Title="UserCreateProtocol_Widnow" Height="800" Width="500">
+        Title="UserCreateProtocol_Widnow" Height="1000" Width="500">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="5"/>
@@ -17,6 +17,9 @@
             <RowDefinition Height="40"/>
             <RowDefinition Height="0.1*"/>
             <RowDefinition Height="0.1*"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="0.6*"/>
+            <RowDefinition Height="0.13*"/>
             <RowDefinition Height="5"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -30,9 +33,9 @@
 
         </Border>
             <Label Content="Wykonane czynności : " Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14" FontWeight="DemiBold"></Label>
-            <TextBox x:Name="ProtocolDescription_TextBox" Grid.Row="3"  Grid.Column="1" Background="AntiqueWhite" Padding="10,5" FontWeight="DemiBold" TextWrapping="WrapWithOverflow" VerticalScrollBarVisibility="Visible"></TextBox>
+        <TextBox x:Name="ProtocolDescription_TextBox" Grid.Row="3"  Grid.Column="1" Background="AntiqueWhite" Padding="10,5" FontWeight="DemiBold" TextWrapping="WrapWithOverflow" VerticalScrollBarVisibility="Visible" MouseLeave="ProtocolDescription_TextBox_OnLostFocus" ></TextBox>
 
-            <Label Content="Wykorzystane zasoby : " Grid.Row="4" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14" FontWeight="DemiBold"></Label>
+            <Label Content="Dostępne zasoby : " Grid.Row="4" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14" FontWeight="DemiBold"></Label>
         <DataGrid x:Name="UsedDevices_DataGrid" Grid.Row="5" Grid.Column="1" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False"  ColumnWidth="*" RowHeight="20" CanUserResizeRows="False" CanUserReorderColumns="False" MouseDoubleClick="SelectUsedDevice_RowDoubleClick"></DataGrid>
 
             <Label Content="Zakończenie prac : " Grid.Row="6" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14" FontWeight="DemiBold"></Label>
@@ -44,16 +47,27 @@
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <DatePicker Height="40" Grid.Column="0"  VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="14"/>
-            <TextBox Grid.Column="1" MaxLength="2" Text="12" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Right" Padding="10,3"></TextBox>
+            <DatePicker x:Name="ChooseDate_DataPicker" Height="40" Grid.Column="0"  VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="14"/>
+            <TextBox x:Name="Hours_TextBox" Grid.Column="1" MaxLength="2" Text="12" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Right" Padding="10,3"></TextBox>
             <Label Content=":" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,-6,0,0" FontWeight="DemiBold" FontSize="25"></Label>
-            <TextBox Grid.Column="3"  MaxLength="2" Text="00" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Left" Padding="10,3"></TextBox>
+            <TextBox x:Name="Minutes_TextBox" Grid.Column="3"  MaxLength="2" Text="00" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Left" Padding="10,3"></TextBox>
             <Button Content="Zatwierdz datę " Grid.Column="4" Margin="5"
-                    Background="#FF39943C" Foreground="White" FontWeight="Bold" ></Button>
+                    Background="#FF39943C" Foreground="White" FontWeight="Bold" Click="SaveTime_ButtonOnClick"></Button>
         </Grid>
-        <Button Content="Utwórz protokół i zamknij zlecenie" Grid.Row="8" Grid.Column="1" Margin="5"
+        <Button x:Name="CreateProtocol_Button" Content="Utwórz protokół i zamknij zlecenie" Grid.Row="8" Grid.Column="1" Margin="5"
                 Background="#FF39943C" Foreground="White" FontWeight="Bold" Click="CreateProtocol_buttonClick"></Button>
-        
+        <Label Content="Wykorzystane zasoby : " Grid.Row="9" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14" FontWeight="DemiBold"/>
+        <DataGrid x:Name="SelectedUsedDevices_DataGrid"  Grid.Column="1" Grid.Row="10" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False"  ColumnWidth="*" RowHeight="20" CanUserResizeRows="False" CanUserReorderColumns="False" MouseDoubleClick="RemoveSelectUsedDevice_RowDoubleClick"/>
+
+        <Grid Column="1" Row="11" x:Name="AssumedInformation_Grid">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Label Content="Zapisany cza : " HorizontalAlignment="Right" VerticalAlignment="Center"></Label>
+            <TextBlock x:Name="AssumedInformation_TextBlock"  Text="{Binding SavedDate}" Grid.Column="1" HorizontalAlignment="Left"  VerticalAlignment="Center"/>
+
+        </Grid>
 
         
     </Grid>

@@ -23,6 +23,7 @@ namespace GUI_zaliczenie2025
         {
 
             InitializeComponent();
+
             TaskId = ShortSlaPageWPF_UserControl.Taskid;
             ActualTechnican = ShortSlaPageWPF_UserControl.TaskUser;
             this.DataContext = ReturnSelectedTask();
@@ -31,20 +32,36 @@ namespace GUI_zaliczenie2025
 
         }
 
-        public TicketsShowUserControlWPF( string typeOfObject)
+        public TicketsShowUserControlWPF(string typeOfObject, bool isUserViev = false)
         {
-
-
             InitializeComponent();
+
+
+            if (isUserViev)
+            {
+
+                AssignToTask_Grid.Visibility = Visibility.Collapsed;
+
+            }
 
             if (typeOfObject == "important")
             {
+                TakeTask_Button.Visibility = Visibility.Collapsed;
+                if (isUserViev)
+                {
+                    TakeTask_Button.Visibility = Visibility.Visible;
+                }
                 TaskId = AdminMostImportantTasks_USerControl.Taskid;
                 ActualTechnican = AdminMostImportantTasks_USerControl.TaskUser;
             }
 
             if (typeOfObject == "normal")
             {
+                TakeTask_Button.Visibility = Visibility.Collapsed;
+                if (isUserViev)
+                {
+                    TakeTask_Button.Visibility = Visibility.Visible;
+                }
                 TaskId = ShortSlaPageWPF_UserControl.Taskid;
                 ActualTechnican = ShortSlaPageWPF_UserControl.TaskUser;
             }
@@ -55,6 +72,7 @@ namespace GUI_zaliczenie2025
             this.AssignUserToTask_DataGrid.ItemsSource = MySqlQueryImplementation.AssignUSerToTaskImplementation_Show(mySqlQuery);
 
         }
+
 
 
         internal static List<Classes.Objects.Task> ReturnSelectedTask()
