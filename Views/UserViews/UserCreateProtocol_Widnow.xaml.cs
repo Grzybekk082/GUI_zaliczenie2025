@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using GUI_zaliczenie2025.Classes;
 using GUI_zaliczenie2025.Classes.Objects;
 using Microsoft.IdentityModel.Tokens;
+using MySql.Data.MySqlClient;
 
 namespace GUI_zaliczenie2025.Views.UserViews
 {
@@ -47,15 +48,42 @@ namespace GUI_zaliczenie2025.Views.UserViews
         {
             if (ProtocolDescription_TextBox.Text.IsNullOrEmpty() || ProtocolDescription_TextBox.Text.Length < 10)
             {
-                CreateProtocol_Button.IsEnabled = false;
+
+                MessageBox.Show("Opis musi mieć przynajmniej 10 znaków", "Opis nie spełnia wymagań", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             else
             {
-                ProtocolDescription = ProtocolDescription_TextBox.Text;
-                MessageBox.Show(UsedDevices.ToString(), "Napis", MessageBoxButton.OK);
+                try
+                {
+                    string mySqlQuery = $"UPDATE reports SET" +
+                                        $" status ='Closed'," +
+                                        $"end_date = '{Date.SavedDate}'," +
+                                        $"Protocol = '{ProtocolDescription}'" +
+                                        $" WHERE ID ={UserShowSelectedTask_UserControl.TaskId};";
+                    MySqlQueryImplementation.GenericMethodTest_Upadate(mySqlQuery);
 
+                    foreach (var device in UsedDevices)
+                    {
+                        string mySqlQuery2 = $"UPDATE resources SET" +
+                                             $" assignment_technican = NULL," +
+                                             $"used_for_report='{UserShowSelectedTask_UserControl.TaskId}'" +
+                                             $" WHERE id ={device.Id};";
+                        MySqlQueryImplementation.GenericMethodTest_Upadate(mySqlQuery2);
+                    }
+
+                    MessageBox.Show("Pomyślnie utworzono protokół", "Sukces!", MessageBoxButton.OK,
+                        MessageBoxImage.Information);
 
             }
+                catch (MySqlException ex)
+                {
+                MessageBox.Show("Błąd przetwarzania prośby!", "Błąd!", MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+
+            }
+
+
+        }
 
 
 

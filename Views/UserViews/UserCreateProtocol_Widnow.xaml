@@ -33,7 +33,7 @@
 
         </Border>
             <Label Content="Wykonane czynności : " Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14" FontWeight="DemiBold"></Label>
-        <TextBox x:Name="ProtocolDescription_TextBox" Grid.Row="3"  Grid.Column="1" Background="AntiqueWhite" Padding="10,5" FontWeight="DemiBold" TextWrapping="WrapWithOverflow" VerticalScrollBarVisibility="Visible" MouseLeave="ProtocolDescription_TextBox_OnLostFocus" ></TextBox>
+        <TextBox x:Name="ProtocolDescription_TextBox" Grid.Row="3"  Grid.Column="1" Background="AntiqueWhite" Padding="10,5" FontWeight="DemiBold" TextWrapping="WrapWithOverflow" VerticalScrollBarVisibility="Visible" TextChanged="ProtocolDescription_TextBox_OnLostFocus" ></TextBox>
 
             <Label Content="Dostępne zasoby : " Grid.Row="4" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14" FontWeight="DemiBold"></Label>
         <DataGrid x:Name="UsedDevices_DataGrid" Grid.Row="5" Grid.Column="1" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False"  ColumnWidth="*" RowHeight="20" CanUserResizeRows="False" CanUserReorderColumns="False" MouseDoubleClick="SelectUsedDevice_RowDoubleClick"></DataGrid>

@@ -22,7 +22,7 @@ namespace GUI_zaliczenie2025.Views.UserViews
     /// </summary>
     public partial class UserShowSelectedTask_UserControl : UserControl
     {
-        private string TaskId;
+        public static string TaskId;
         public UserShowSelectedTask_UserControl()
         {
             InitializeComponent();
