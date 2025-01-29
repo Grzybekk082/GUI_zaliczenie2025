@@ -140,6 +140,62 @@ namespace GUI_zaliczenie2025.Classes
             return Tasks;
         }
 
+        public static (Protocol, List<Objects.Device>) ProtocolModifyQueryImplementation_Show(string reportsQuery, string deviceQuery)
+        {
+            Protocol protocolData = new Protocol();
+            List<Objects.Device> deviceData = new List<Objects.Device>();
+            MySqlConnection connection = DatabaseConnection.ConnectionBuilder();
+
+            MySqlCommand command2 = new MySqlCommand(deviceQuery, connection);
+            MySqlCommand command = new MySqlCommand(reportsQuery, connection);
+            using (connection)
+            {
+                connection.Open();
+                using (command)
+                {
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            protocolData.ProtocolId=$"{reader["ID_protocol"].ToString()}";
+                            protocolData.UserDescription = $"{reader["Protocol"].ToString()}";
+                            protocolData.EndTime = $"{reader["end_date"].ToString()}";
+
+
+
+                        }
+                        
+                    }
+
+                }
+                using (command2)
+                {
+                    using (MySqlDataReader reader = command2.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+
+                            deviceData.Add(new Classes.Objects.Device()
+                            {
+                                Id = $"{reader["id"].ToString()}",
+                                Brand = $"{reader["brand"].ToString()}",
+                                Model = $"{reader["model"].ToString()}",
+                                Serial_Number = $"{reader["SerialNumber"].ToString()}",
+                                Registration_Number = $"{reader["Registration_Number"].ToString()}",
+                                Category = $"{reader["category"].ToString()}"
+
+                            });
+
+                        }
+                        connection.Close();
+                    }
+                }
+            }
+
+
+            return (protocolData,deviceData);
+        }
+
 
 
 

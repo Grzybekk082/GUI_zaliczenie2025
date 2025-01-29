@@ -23,11 +23,17 @@ namespace GUI_zaliczenie2025.Views.UserViews
     {
         private List<Device> UsedDevices = new List<Device>();
         private List<Device> BaseListOfDevice = new List<Device>();
+
         private string ProtocolDescription=null;
         private string Login;
         private string Technican;
+        private string ProtocolId;
+
         int Hours;
         int Minutes;
+
+        private bool IsModified = false;
+
         private SavedDateTime Date=new SavedDateTime();
 
         public UserCreateProtocol_Widnow()
@@ -43,6 +49,38 @@ namespace GUI_zaliczenie2025.Views.UserViews
             AssumedInformation_Grid.Visibility = Visibility.Collapsed;
         }
 
+        public UserCreateProtocol_Widnow(Protocol userProtocol, List<Device> userDevice,bool isModified, string protocolTechnican )
+        {
+            InitializeComponent();
+            this.IsModified = isModified;
+            UsedDevices = userDevice;
+            SelectedUsedDevices_DataGrid.ItemsSource = UsedDevices;
+
+            ProtocolDescription = ((Protocol)userProtocol).UserDescription;
+            ProtocolDescription_TextBox.Text = ProtocolDescription;
+
+            string dateText = ((Protocol)userProtocol).EndTime;
+            string[] parts = dateText.Split(new char[] { ' ' });
+            string[] parts2 = parts[0].Split(new char[] { '.' });
+            string dataTextReplace = $"{parts2[2]}-{parts2[1]}-{parts2[0]} {parts[1]}";
+            Date.SavedDate = $"{dataTextReplace}";
+
+            ProtocolId = ((Protocol)userProtocol).ProtocolId;
+            Technican = protocolTechnican;
+            Login = UserTasks_UserControl.login;
+
+            string mySqlQuery = $"SELECT id,brand,model,SerialNumber,Registration_Number,category FROM resources WHERE assignment_technican='{Technican}';";
+            BaseListOfDevice = MySqlQueryImplementation.SelectedUserDevicesList_Show(mySqlQuery);
+           
+            UsedDevices_DataGrid.ItemsSource = BaseListOfDevice;
+            SelectedUsedDevices_DataGrid.ItemsSource = UsedDevices;
+            CreateProtocol_Button.IsEnabled = true;
+
+            CreateProtocol_Button.Content = "Zatwierdz zmiany";
+            AssumedInformation_TextBlock.DataContext = Date;
+            AssumedInformation_Grid.Visibility = Visibility.Visible;
+        }
+
 
         private void CreateProtocol_buttonClick(object sender, RoutedEventArgs e)
         {
@@ -53,34 +91,59 @@ namespace GUI_zaliczenie2025.Views.UserViews
             }
             else
             {
-                try
-                {
-                    string mySqlQuery = $"UPDATE reports SET" +
-                                        $" status ='Closed'," +
-                                        $"end_date = '{Date.SavedDate}'," +
-                                        $"Protocol = '{ProtocolDescription}'" +
-                                        $" WHERE ID ={UserShowSelectedTask_UserControl.TaskId};";
-                    MySqlQueryImplementation.GenericMethodTest_Upadate(mySqlQuery);
-
-                    foreach (var device in UsedDevices)
+                //try
+                //{
+                    if (IsModified)
                     {
-                        string mySqlQuery2 = $"UPDATE resources SET" +
-                                             $" assignment_technican = NULL," +
-                                             $"used_for_report='{UserShowSelectedTask_UserControl.TaskId}'" +
-                                             $" WHERE id ={device.Id};";
-                        MySqlQueryImplementation.GenericMethodTest_Upadate(mySqlQuery2);
+                        string mySqlQuery = $"UPDATE reports SET" +
+                                            $" end_date = '{Date.SavedDate}'," +
+                                            $"Protocol = '{ProtocolDescription}'" +
+                                            $" WHERE ID_protocol ='{ProtocolId}';";
+                        MySqlQueryImplementation.GenericMethodTest_Upadate(mySqlQuery);
+
+                        foreach (var device in UsedDevices)
+                        {
+                            string mySqlQuery2 = $"UPDATE resources SET" +
+                                                 $" assignment_technican = NULL," +
+                                                 $"used_for_report='{UserShowSelectedTask_UserControl.TaskId}'" +
+                                                 $" WHERE id ='{device.Id}';";
+                            MySqlQueryImplementation.GenericMethodTest_Upadate(mySqlQuery2);
+                        }
+
+                        MessageBox.Show("Pomyślnie modyfikowano protokół", "Sukces!", MessageBoxButton.OK,
+                            MessageBoxImage.Information);
+                    }
+                    else
+                    {
+                        string mySqlQuery = $"UPDATE reports SET" +
+                                            $" status ='Closed'," +
+                                            $"end_date = '{Date.SavedDate}'," +
+                                            $"Protocol = '{ProtocolDescription}'" +
+                                            $" WHERE ID ='{UserShowSelectedTask_UserControl.TaskId}';";
+                        MySqlQueryImplementation.GenericMethodTest_Upadate(mySqlQuery);
+
+                        foreach (var device in UsedDevices)
+                        {
+                            string mySqlQuery2 = $"UPDATE resources SET" +
+                                                 $" assignment_technican = NULL," +
+                                                 $"used_for_report='{UserShowSelectedTask_UserControl.TaskId}'" +
+                                                 $" WHERE id ='{device.Id}';";
+                            MySqlQueryImplementation.GenericMethodTest_Upadate(mySqlQuery2);
+                        }
+
+                        MessageBox.Show("Pomyślnie utworzono protokół", "Sukces!", MessageBoxButton.OK,
+                            MessageBoxImage.Information);
                     }
 
-                    MessageBox.Show("Pomyślnie utworzono protokół", "Sukces!", MessageBoxButton.OK,
-                        MessageBoxImage.Information);
 
-                }
-                catch (MySqlException ex)
-                {
-                    MessageBox.Show("Błąd przetwarzania prośby!", "Błąd!", MessageBoxButton.OK,
-                        MessageBoxImage.Error);
+                //}
+                //catch (MySqlException ex)
+                //{
 
-                }
+                //    MessageBox.Show("Błąd przetwarzania prośby!", "Błąd!", MessageBoxButton.OK,
+                //        MessageBoxImage.Error);
+
+                //}
 
 
             }
@@ -196,6 +259,7 @@ namespace GUI_zaliczenie2025.Views.UserViews
                         string dataTextReplace = $"{parts[2]}-{parts[1]}-{parts[0]}";
                         Date.SavedDate = $"{dataTextReplace} {Hours_TextBox.Text}:{Minutes_TextBox.Text}:00";
 
+                        
                         AssumedInformation_TextBlock.DataContext = Date;
                         AssumedInformation_Grid.Visibility = Visibility.Visible;
                         CreateProtocol_Button.IsEnabled = ( Date.SavedDate==null || string.IsNullOrEmpty(ProtocolDescription) || ProtocolDescription.Length < 10) ? false : true;

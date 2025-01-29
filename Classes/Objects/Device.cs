@@ -15,5 +15,6 @@ namespace GUI_zaliczenie2025.Classes.Objects
         public string Registration_Number { get; set; }
         public string Category { get; set; }
         public string Assignment_Technican { get; set; }
+        public string Used_For { get; set; }
     }
 }
