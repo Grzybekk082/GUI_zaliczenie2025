@@ -47,19 +47,18 @@
                     <TextBlock Text="Zamknięte Zlecenia:" Grid.Row="0" Grid.Column="0" Style="{StaticResource CustomTextBlockStyle}" FontWeight="Bold" />
                     <TextBlock Text="Urządzenia Użytkownika:" Grid.Row="0" Grid.Column="1" Style="{StaticResource CustomTextBlockStyle}" FontWeight="Bold" />
 
-                    <DataGrid x:Name="ClosedTasksDataGrid" Grid.Row="1" Grid.Column="0" IsReadOnly="True" AutoGenerateColumns="True"
-                          Margin="5" BorderBrush="#ddd" BorderThickness="1" MouseDoubleClick="EditClosedTask_OnClick" />
+                    <DataGrid x:Name="ClosedTasks_DataGrid" Grid.Row="1" Grid.Column="0"  AutoGenerateColumns="True"
+                              RowHeight="20" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False"  ColumnWidth="*"  CanUserResizeRows="False" CanUserReorderColumns="False" Margin="5" BorderBrush="#ddd" BorderThickness="1" MouseDoubleClick="EditClosedTask_OnClick" />
 
-                    <DataGrid x:Name="UserDevicesDataGrid" Grid.Row="1" Grid.Column="1" IsReadOnly="True" AutoGenerateColumns="True"
-                          Margin="5" BorderBrush="#ddd" BorderThickness="1" MouseDoubleClick="EditDevice_OnClick" />
+                    <DataGrid x:Name="UserDevices_DataGrid" Grid.Row="1" Grid.Column="1" RowHeight="20" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False"  ColumnWidth="*"  CanUserResizeRows="False" CanUserReorderColumns="False" Margin="5" BorderBrush="#ddd" BorderThickness="1" MouseDoubleClick="EditDevice_OnClick" />
 
                     <StackPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,0">
-                        <Button x:Name="EditClosedTaskButton" Content="Edytuj Zlecenie" Width="150" Height="40" Margin="5"
+                        <Button x:Name="EditClosedTask_Button" Content="Edytuj Zlecenie" Width="150" Height="40" Margin="5"
                             Background="#FF39943C" Foreground="White" FontWeight="Bold" Click="OpenEditTaskWindow_OnClick" />
                     </StackPanel>
 
                     <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,0">
-                        <Button x:Name="EditDeviceButton" Content="Edytuj Urządzenie" Width="150" Height="40" Margin="5"
+                        <Button x:Name="EditDevice_Button" Content="Edytuj Urządzenie" Width="150" Height="40" Margin="5"
                             Background="#FF39943C" Foreground="White" FontWeight="Bold" Click="OpenEditDeviceWindow_OnClick" />
                     </StackPanel>
                 </Grid>

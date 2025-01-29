@@ -74,16 +74,16 @@ namespace GUI_zaliczenie2025.Views.UserViews
                     MessageBox.Show("Pomyślnie utworzono protokół", "Sukces!", MessageBoxButton.OK,
                         MessageBoxImage.Information);
 
-            }
+                }
                 catch (MySqlException ex)
                 {
-                MessageBox.Show("Błąd przetwarzania prośby!", "Błąd!", MessageBoxButton.OK,
-                    MessageBoxImage.Error);
+                    MessageBox.Show("Błąd przetwarzania prośby!", "Błąd!", MessageBoxButton.OK,
+                        MessageBoxImage.Error);
+
+                }
+
 
             }
-
-
-        }
 
 
 
@@ -127,7 +127,7 @@ namespace GUI_zaliczenie2025.Views.UserViews
                             UsedDevices_DataGrid.ItemsSource = BaseListOfDevice;
                             UsedDevices_DataGrid.Items.Refresh();
                             SelectedUsedDevices_DataGrid.Items.Refresh();
-                            CreateProtocol_Button.IsEnabled = (UsedDevices.IsNullOrEmpty() || Date.SavedDate == null || string.IsNullOrEmpty(ProtocolDescription)) ? false : true;
+                            CreateProtocol_Button.IsEnabled = ( Date.SavedDate == null || string.IsNullOrEmpty(ProtocolDescription) || ProtocolDescription.Length < 10) ? false : true;
 
                     }
                 }
@@ -157,7 +157,7 @@ namespace GUI_zaliczenie2025.Views.UserViews
                         BaseListOfDevice.Add(SelectedUsedDevices_DataGrid.SelectedItem as Device);
                         SelectedUsedDevices_DataGrid.Items.Refresh();
                         UsedDevices_DataGrid.Items.Refresh();
-                        CreateProtocol_Button.IsEnabled = (UsedDevices.IsNullOrEmpty() || Date.SavedDate == null || string.IsNullOrEmpty(ProtocolDescription)) ? false : true;
+                        CreateProtocol_Button.IsEnabled = ( Date.SavedDate == null || string.IsNullOrEmpty(ProtocolDescription) || ProtocolDescription.Length < 10) ? false : true;
                     }
                 }
                 return;
@@ -198,7 +198,7 @@ namespace GUI_zaliczenie2025.Views.UserViews
 
                         AssumedInformation_TextBlock.DataContext = Date;
                         AssumedInformation_Grid.Visibility = Visibility.Visible;
-                        CreateProtocol_Button.IsEnabled = (UsedDevices.IsNullOrEmpty() || Date.SavedDate==null || string.IsNullOrEmpty(ProtocolDescription)) ? false : true;
+                        CreateProtocol_Button.IsEnabled = ( Date.SavedDate==null || string.IsNullOrEmpty(ProtocolDescription) || ProtocolDescription.Length < 10) ? false : true;
                     }
                 }
             }
@@ -208,7 +208,7 @@ namespace GUI_zaliczenie2025.Views.UserViews
         private void ProtocolDescription_TextBox_OnLostFocus(object sender, RoutedEventArgs e)
         {
             ProtocolDescription = ProtocolDescription_TextBox.Text;
-            CreateProtocol_Button.IsEnabled = (UsedDevices.IsNullOrEmpty() || Date.SavedDate == null || string.IsNullOrEmpty(ProtocolDescription)) ? false : true;
+            CreateProtocol_Button.IsEnabled = ( Date.SavedDate == null || string.IsNullOrEmpty(ProtocolDescription) || ProtocolDescription.Length<10) ? false : true;
         }
     }
 
