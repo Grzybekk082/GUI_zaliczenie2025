@@ -4,6 +4,9 @@ using System.Windows.Controls;
 using GUI_zaliczenie2025.Classes.Objects;
 using Microsoft.IdentityModel.Tokens;
 using Org.BouncyCastle.Utilities;
+using System.Windows.Controls.Primitives;
+using System.Windows.Input;
+using MySql.Data.MySqlClient;
 
 namespace GUI_zaliczenie2025.Views.UserViews
 {
@@ -33,9 +36,52 @@ namespace GUI_zaliczenie2025.Views.UserViews
         {
 
         }
-        private void EditDevice_OnClick(object sender, RoutedEventArgs e)
+        private void EditDevice_OnClick(object sender, MouseButtonEventArgs e)
         {
+            Device device = new Device();
+            device.Id = ((Device)UserDevices_DataGrid.SelectedItem).Id;
+            var hit = e.OriginalSource as DependencyObject;
 
+            while (hit != null)
+            {
+                if (hit is DataGridColumnHeader)
+                {
+                    e.Handled = true;
+                    return;
+                }
+
+                if (hit is TextBlock)
+                {
+                    if (UserDevices_DataGrid.SelectedItem != null)
+                    {
+                        MessageBoxResult result = MessageBox.Show("Czy zwrócić urządzenie na główną kolejkę?", "Zwracanie urządzenia", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                        if (result == MessageBoxResult.Yes)
+                        {
+                            try
+                            {
+                                string mySqlQuery = $"UPDATE resources SET assignment_technican = null WHERE id ='{device.Id}';";
+                                MySqlQueryImplementation.GenericMethodTest_Upadate(mySqlQuery);
+                                MessageBox.Show("Zwrócono urządzenie na główną kolejkę", "Sukces", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                                mySqlQuery = $"SELECT id,brand, model, SerialNumber, Registration_Number, category FROM resources WHERE assignment_technican='{Technican}';";
+                                UserDevices_DataGrid.ItemsSource = MySqlQueryImplementation.SelectedUserDevicesList_Show(mySqlQuery);
+                                UserDevices_DataGrid.Items.Refresh();
+                            }
+                            catch (MySqlException ex)
+                            {
+                                MessageBox.Show($"Błąd przetwarzania prośby : {ex}", "Sukces", MessageBoxButton.OK, MessageBoxImage.Error);
+                            }
+
+                        }
+                        else
+                        {
+                            return;
+                        }
+
+                    }
+                }
+                return;
+            }
         }
         private void OpenEditTaskWindow_OnClick(object sender, RoutedEventArgs e)
         {
@@ -66,5 +112,7 @@ namespace GUI_zaliczenie2025.Views.UserViews
 
 
         }
+
+
     }
 }
