@@ -15,7 +15,7 @@ namespace GUI_zaliczenie2025.Views
         private List<Device> SelectedDevice;
         internal static List<string> SelectedId;
         private SelectedUser_UserControl CurrentInstanceOfSelectedUser;
-
+        private bool IsUserManagement=false;
         public static string SelectedUserTechnican;
         bool isTask;
 
@@ -43,7 +43,25 @@ namespace GUI_zaliczenie2025.Views
             }
 
             SelectedId = new List<string>();
-        }
+        }       
+        
+        //public AssignToUser_Window( bool isUserManagement)
+        //{
+
+        //    InitializeComponent();
+        //    this.IsUserManagement = isUserManagement;
+
+        //    SelectedUserTechnican = UserManagementWPF_UserControl.TaskTechnican;
+
+        //        SelectedDevice = new List<Device>();
+        //        AssignTaskContent_DataGrid.ItemsSource = UsersManagementOperations.ReturnDevicesListObject(false, true);
+            
+
+        //    SelectedId = new List<string>();
+        //}
+
+
+
 
         private void SelectObject(object sender, MouseButtonEventArgs mouseButtonEventArgs)
         {

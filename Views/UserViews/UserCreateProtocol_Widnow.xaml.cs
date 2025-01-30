@@ -71,7 +71,9 @@ namespace GUI_zaliczenie2025.Views.UserViews
 
             string mySqlQuery = $"SELECT id,brand,model,SerialNumber,Registration_Number,category FROM resources WHERE assignment_technican='{Technican}';";
             BaseListOfDevice = MySqlQueryImplementation.SelectedUserDevicesList_Show(mySqlQuery);
-           
+
+            CreateWindow_Header.Text = "Modyfikuj stworzony protokół poprzez poprawę czasu, opisu bądz użytych urządzeń";
+
             UsedDevices_DataGrid.ItemsSource = BaseListOfDevice;
             SelectedUsedDevices_DataGrid.ItemsSource = UsedDevices;
             CreateProtocol_Button.IsEnabled = true;
@@ -104,14 +106,27 @@ namespace GUI_zaliczenie2025.Views.UserViews
                         foreach (var device in UsedDevices)
                         {
                             string mySqlQuery2 = $"UPDATE resources SET" +
-                                                 $" assignment_technican = NULL," +
-                                                 $"used_for_report='{UserShowSelectedTask_UserControl.TaskId}'" +
+                                                 $" assignment_technican = '{null}'," +
+                                                 $"used_for_report='{UserProtocolsAndDevices_UserControl.TaskId}'" +
                                                  $" WHERE id ='{device.Id}';";
                             MySqlQueryImplementation.GenericMethodTest_Upadate(mySqlQuery2);
                         }
 
-                        MessageBox.Show("Pomyślnie modyfikowano protokół", "Sukces!", MessageBoxButton.OK,
+                        foreach (var device in BaseListOfDevice)
+                        {
+                            string mySqlQuery2 = $"UPDATE resources SET" +
+                                                 $" assignment_technican = '{Technican}'," +
+                                                 $"used_for_report='{null}'" +
+                                                 $" WHERE id ='{device.Id}';";
+                            MySqlQueryImplementation.GenericMethodTest_Upadate(mySqlQuery2);
+                        }
+
+                    MessageBox.Show("Pomyślnie modyfikowano protokół", "Sukces!", MessageBoxButton.OK,
                             MessageBoxImage.Information);
+                    mySqlQuery = $"SELECT id,brand, model, SerialNumber, Registration_Number, category FROM resources WHERE assignment_technican='{Technican}';";
+                     
+                    UserProtocolsAndDevices_UserControl.Instance.UserDevices_DataGrid.ItemsSource = MySqlQueryImplementation.SelectedUserDevicesList_Show(mySqlQuery);
+                    UserProtocolsAndDevices_UserControl.Instance.UserDevices_DataGrid.Items.Refresh();
                     }
                     else
                     {
@@ -246,7 +261,7 @@ namespace GUI_zaliczenie2025.Views.UserViews
                 }
                 else
                 {
-                    if (Hours > 24 || Hours < 0 || Minutes > 59 || Minutes < 0)
+                    if (Hours > 23 || Hours < 0 || Minutes > 59 || Minutes < 0)
                     {
                         MessageBox.Show("Podany czas wykracza poza prawidłowy zakres!", "Błędny zakres czasu!",
                             MessageBoxButton.OK, MessageBoxImage.Warning);
@@ -259,8 +274,9 @@ namespace GUI_zaliczenie2025.Views.UserViews
                         string dataTextReplace = $"{parts[2]}-{parts[1]}-{parts[0]}";
                         Date.SavedDate = $"{dataTextReplace} {Hours_TextBox.Text}:{Minutes_TextBox.Text}:00";
 
-                        
+                        AssumedInformation_TextBlock.DataContext = null;
                         AssumedInformation_TextBlock.DataContext = Date;
+                       
                         AssumedInformation_Grid.Visibility = Visibility.Visible;
                         CreateProtocol_Button.IsEnabled = ( Date.SavedDate==null || string.IsNullOrEmpty(ProtocolDescription) || ProtocolDescription.Length < 10) ? false : true;
                     }

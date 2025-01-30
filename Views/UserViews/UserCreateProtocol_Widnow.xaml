@@ -29,7 +29,7 @@
         </Grid.ColumnDefinitions>
 
         <Border Grid.Row="1" Grid.Column="1"  BorderBrush="Gray" CornerRadius="4" BorderThickness="1" >
-            <TextBlock Text="Utwórz protokół wprowadzając opis wykonanych czynności, rozpisz czas pracy i wybierz wykorzystane zasoby " TextWrapping="Wrap" FontSize="16" TextAlignment="Center" FontWeight="DemiBold" Padding="5,13,0,20" Background="LightGray"/>
+            <TextBlock x:Name="CreateWindow_Header" Text="Utwórz protokół wprowadzając opis wykonanych czynności, rozpisz czas pracy i wybierz wykorzystane zasoby " TextWrapping="Wrap" FontSize="16" TextAlignment="Center" FontWeight="DemiBold" Padding="5,13,0,20" Background="LightGray"/>
 
         </Border>
             <Label Content="Wykonane czynności : " Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14" FontWeight="DemiBold"></Label>
