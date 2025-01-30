@@ -12,7 +12,7 @@ namespace GUI_zaliczenie2025.Views.UserViews
     /// </summary>
     public partial class UserProtocolsAndDevices_UserControl : UserControl
     {
-        private string Technican;
+        public string Technican;
         private string UsedForTaskId;
         private string ProtocolId;
         private string ProtocolTechnican;
@@ -60,8 +60,9 @@ namespace GUI_zaliczenie2025.Views.UserViews
         }
         private void OpenEditDeviceWindow_OnClick(object sender, RoutedEventArgs e)
         {
-            
 
+            AssignToUser_Window window = new AssignToUser_Window(true);
+            window.ShowDialog();
 
 
         }

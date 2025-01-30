@@ -2,6 +2,9 @@
 using GUI_zaliczenie2025.Classes.Objects;
 using System.Windows;
 using System.Windows.Input;
+using GUI_zaliczenie2025.Views.UserViews;
+using Microsoft.Data.SqlClient;
+using Microsoft.IdentityModel.Tokens;
 using Task = GUI_zaliczenie2025.Classes.Objects.Task;
 
 namespace GUI_zaliczenie2025.Views
@@ -15,7 +18,9 @@ namespace GUI_zaliczenie2025.Views
         private List<Device> SelectedDevice;
         internal static List<string> SelectedId;
         private SelectedUser_UserControl CurrentInstanceOfSelectedUser;
-        private bool IsUserManagement=false;
+        private UserProtocolsAndDevices_UserControl CurrentInstance;
+        
+            private bool IsUserManagement=false;
         public static string SelectedUserTechnican;
         bool isTask;
 
@@ -43,22 +48,24 @@ namespace GUI_zaliczenie2025.Views
             }
 
             SelectedId = new List<string>();
-        }       
-        
-        //public AssignToUser_Window( bool isUserManagement)
-        //{
+        }
 
-        //    InitializeComponent();
-        //    this.IsUserManagement = isUserManagement;
+        public AssignToUser_Window(bool isUserManagement)
+        {
+            CurrentInstance = UserProtocolsAndDevices_UserControl.Instance;
+            InitializeComponent();
+            this.IsUserManagement = isUserManagement;
 
-        //    SelectedUserTechnican = UserManagementWPF_UserControl.TaskTechnican;
+            SelectedUserTechnican = UserManagementWPF_UserControl.TaskTechnican;
 
-        //        SelectedDevice = new List<Device>();
-        //        AssignTaskContent_DataGrid.ItemsSource = UsersManagementOperations.ReturnDevicesListObject(false, true);
+            SelectedDevice = new List<Device>();
+            string mySqlQuery = $"SELECT id,brand,model,SerialNumber,Registration_Number,category FROM resources WHERE assignment_technican is null or assignment_technican != '{CurrentInstance.Technican}' and used_for_report is null or ''";
             
+            AssignTaskContent_DataGrid.ItemsSource = MySqlQueryImplementation.SelectedUserDevicesList_Show(mySqlQuery);
 
-        //    SelectedId = new List<string>();
-        //}
+
+            SelectedId = new List<string>();
+        }
 
 
 
@@ -199,20 +206,74 @@ namespace GUI_zaliczenie2025.Views
                 AssignTaskContent_DataGrid.ItemsSource = ActualTasksOperations.ReturnRequestsListObject(true);
                 AssignTaskContent_DataGrid.Items.Refresh();
 
+
             }
             else
             {
-                UsersManagementOperations.AssignDeviceToUser();
-                CurrentInstanceOfSelectedUser.DevicesComboBox.ItemsSource = UsersManagementOperations.ReturnDevicesListObject();
-                CurrentInstanceOfSelectedUser.DevicesComboBox.Items.Refresh();
-                SelectedDevice.Clear();
-                SelectedId.Clear();
 
-                SelectedTasksToAssign_DataGrid.ItemsSource = SelectedDevice;
-                SelectedTasksToAssign_DataGrid.Items.Refresh();
+                if (IsUserManagement)
 
-                AssignTaskContent_DataGrid.ItemsSource = UsersManagementOperations.ReturnDevicesListObject(false, true);
-                AssignTaskContent_DataGrid.Items.Refresh();
+                {
+                    try
+                    {
+                        if (SelectedId.IsNullOrEmpty())
+                        {
+                            MessageBox.Show("Do Listy nie dodano żadnego elementu.", "Brak wyboru",
+                                MessageBoxButton.OK, MessageBoxImage.Information);
+                        }
+                        else
+                        {
+                            string mySqlQuery =
+                                $"UPDATE resources SET assignment_technican = '{CurrentInstance.Technican}' WHERE id IN ({string.Join(", ", SelectedId)})";
+                            MySqlQueryImplementation.GenericMethodTest_Upadate(mySqlQuery);
+
+                            mySqlQuery =
+                                $"SELECT id,brand, model, SerialNumber, Registration_Number, category FROM resources WHERE assignment_technican='{CurrentInstance.Technican}';";
+                            UserProtocolsAndDevices_UserControl.Instance.UserDevices_DataGrid.ItemsSource =
+                                MySqlQueryImplementation.SelectedUserDevicesList_Show(mySqlQuery);
+                            UserProtocolsAndDevices_UserControl.Instance.UserDevices_DataGrid.Items.Refresh();
+                            SelectedDevice.Clear();
+                            SelectedId.Clear();
+
+
+                            SelectedTasksToAssign_DataGrid.ItemsSource = SelectedDevice;
+                            SelectedTasksToAssign_DataGrid.Items.Refresh();
+                            MessageBox.Show("Pomyślnie przypisano urządzenie do użytkownika", "Sukces!",
+                                MessageBoxButton.OK, MessageBoxImage.Information);
+                            mySqlQuery =
+                                $"SELECT id,brand, model, SerialNumber, Registration_Number, category FROM resources WHERE assignment_technican is null or assignment_technican ='';";
+
+                            AssignTaskContent_DataGrid.ItemsSource =
+                                MySqlQueryImplementation.SelectedUserDevicesList_Show(mySqlQuery);
+                            AssignTaskContent_DataGrid.Items.Refresh();
+
+                        }
+                    }
+                    catch (SqlException ex)
+                    {
+                        MessageBox.Show($"Błąd przetwarzania prośby : {ex}", "Błąd!",
+                            MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+
+
+                }
+                else
+                {
+                    UsersManagementOperations.AssignDeviceToUser();
+                    CurrentInstanceOfSelectedUser.DevicesComboBox.ItemsSource = UsersManagementOperations.ReturnDevicesListObject();
+                    CurrentInstanceOfSelectedUser.DevicesComboBox.Items.Refresh();
+                    SelectedDevice.Clear();
+                    SelectedId.Clear();
+
+                    SelectedTasksToAssign_DataGrid.ItemsSource = SelectedDevice;
+                    SelectedTasksToAssign_DataGrid.Items.Refresh();
+
+                    AssignTaskContent_DataGrid.ItemsSource = UsersManagementOperations.ReturnDevicesListObject(false, true);
+                    AssignTaskContent_DataGrid.Items.Refresh();
+                }
+
+
+
             }
         }
     }

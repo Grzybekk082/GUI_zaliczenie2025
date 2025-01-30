@@ -22,6 +22,7 @@ namespace GUI_zaliczenie2025.Classes
             _SelectedUser = SelectedUser;
             TaskTechnican = UserManagementWPF_UserControl.TaskTechnican;
             idSelected = UserManagementWPF_UserControl.Taskid;
+            
         }
 
         //!!!!!!!!!!!!!!!!!!!! METODY ZWRACAJĄCE DANE Z BAZY DANYCH !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
