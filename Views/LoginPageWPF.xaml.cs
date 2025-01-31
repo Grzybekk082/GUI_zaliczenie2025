@@ -13,6 +13,7 @@ namespace GUI_zaliczenie2025
     {
         string login, password, newName, newSurename, newPassword, newLogin;
         public CurrentPerson CRperson;
+        private int WrongDataCounter=0;
         public LoginPageWPF()
         {
             InitializeComponent();
@@ -51,7 +52,11 @@ namespace GUI_zaliczenie2025
             {
                 resultLabel.Foreground = Brushes.Red;
                 resultLabel.Content = $"Błędne dane logowania!\nSpróbuj ponownie.";
-
+                WrongDataCounter++;
+                if (WrongDataCounter == 3)
+                {
+                    resultLabel.Content = $"Błędne dane logowania!\nSpróbuj ponownie.";
+                }
 
 
             }
