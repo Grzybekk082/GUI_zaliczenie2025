@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using GUI_zaliczenie2025.Views.UserViews;
+using GUI_zaliczenie2025.Views;
 
 namespace GUI_zaliczenie2025
 {
@@ -17,6 +18,8 @@ namespace GUI_zaliczenie2025
         public LoginPageWPF()
         {
             InitializeComponent();
+            ChangePassword_Button.Visibility = Visibility.Collapsed;
+            ResetPassword_Label.Visibility = Visibility.Collapsed;
         }
         private void Button_LogIn_Click(object sender, RoutedEventArgs e)
         {
@@ -52,11 +55,16 @@ namespace GUI_zaliczenie2025
             {
                 resultLabel.Foreground = Brushes.Red;
                 resultLabel.Content = $"Błędne dane logowania!\nSpróbuj ponownie.";
+
                 WrongDataCounter++;
-                if (WrongDataCounter == 3)
+                if (WrongDataCounter >2)
                 {
-                    resultLabel.Content = $"Błędne dane logowania!\nSpróbuj ponownie.";
+                    ResetPassword_Label.Content = $"Nie pamiętasz hasła? Wyślij prośbę do administratora o odzyskanie hasła.";
+                    ResetPassword_Label.Visibility = Visibility.Visible;
+                    ChangePassword_Button.Visibility = Visibility.Visible;
                 }
+
+
 
 
             }
@@ -71,5 +79,15 @@ namespace GUI_zaliczenie2025
 
         }
 
+        private void ChangePassword_Button_OnClick(object sender, RoutedEventArgs e)
+        {
+            WrongDataCounter = 0;
+            ChangePassword_Window window = new ChangePassword_Window();
+            window.ShowDialog();
+            ResetPassword_Label.Visibility = Visibility.Collapsed;
+            ChangePassword_Button.Visibility = Visibility.Collapsed;
+            resultLabel.Content = "";
+
+        }
     }
 }

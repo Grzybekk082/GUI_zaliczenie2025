@@ -1,13 +1,12 @@
 ﻿using GUI_zaliczenie2025.Classes;
 using GUI_zaliczenie2025.Classes.Objects;
+using GUI_zaliczenie2025.Views.AdminViews;
+using GUI_zaliczenie2025.Views.UserViews;
 using MySql.Data.MySqlClient;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Input;
-using GUI_zaliczenie2025.Views.AdminViews;
-using Object = Mysqlx.Datatypes.Object;
-using GUI_zaliczenie2025.Views.UserViews;
-using System.Threading.Tasks;
 
 namespace GUI_zaliczenie2025
 {
@@ -99,47 +98,71 @@ namespace GUI_zaliczenie2025
         //Do poprawy zabezpieczenie sprawdzające czy użytkownik jest już przypisany do zlecenia
         private void AssignUserToTask_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            var selectedUserLogin = $"{((AssignUser)AssignUserToTask_DataGrid.SelectedItem).Name} {((AssignUser)AssignUserToTask_DataGrid.SelectedItem).Surname}";
-            try
-            {
 
-                if ( selectedUserLogin == ActualTechnican)
+
+            var hit = e.OriginalSource as DependencyObject;
+
+            while (hit != null)
+            {
+                if (hit is DataGridColumnHeader)
                 {
-                    
-                    MessageBox.Show("Ten użytkownik jest już przypisany do tego zlecenia!", "Błędny wybór!",
-                        MessageBoxButton.OK, MessageBoxImage.Error);
+                    e.Handled = true;
+                    return;
                 }
-                else
+
+                if (hit is TextBlock)
                 {
-                    ActualTechnican = null;
-                    MessageBoxResult result = MessageBox.Show($"Czy przipsać zlecenie do użytkownika {selectedUserLogin}?",
-                        "Przypisz zlecenie",
-                        MessageBoxButton.YesNo, MessageBoxImage.Question);
-                    if (result == MessageBoxResult.Yes)
+                    if (AssignUserToTask_DataGrid.SelectedItem != null)
                     {
+                        var selectedUserLogin = $"{((AssignUser)AssignUserToTask_DataGrid.SelectedItem).Name} {((AssignUser)AssignUserToTask_DataGrid.SelectedItem).Surname}";
                         try
                         {
-                            string mySqlQuery = $"UPDATE reports SET technican ='{selectedUserLogin}' WHERE Id = '{TaskId}';";
-                            MySqlQueryImplementation.AssignUSerToTaskImplementation_Upadate(mySqlQuery);
-                            this.DataContext = ReturnSelectedTask();
-                            ActualTechnican = selectedUserLogin;
+
+                            if (selectedUserLogin == ActualTechnican)
+                            {
+
+                                MessageBox.Show("Ten użytkownik jest już przypisany do tego zlecenia!", "Błędny wybór!",
+                                    MessageBoxButton.OK, MessageBoxImage.Error);
+                            }
+                            else
+                            {
+                                ActualTechnican = null;
+                                MessageBoxResult result = MessageBox.Show($"Czy przipsać zlecenie do użytkownika {selectedUserLogin}?",
+                                    "Przypisz zlecenie",
+                                    MessageBoxButton.YesNo, MessageBoxImage.Question);
+                                if (result == MessageBoxResult.Yes)
+                                {
+                                    try
+                                    {
+                                        string mySqlQuery = $"UPDATE reports SET technican ='{selectedUserLogin}' WHERE Id = '{TaskId}';";
+                                        MySqlQueryImplementation.AssignUSerToTaskImplementation_Upadate(mySqlQuery);
+                                        this.DataContext = ReturnSelectedTask();
+                                        ActualTechnican = selectedUserLogin;
+
+                                    }
+                                    catch (MySqlException ex)
+                                    {
+                                        MessageBox.Show($"Wystąpił błąd w przetwarzaniu prośby : {ex}", "Błąd przetwarzania!",
+                                            MessageBoxButton.OK, MessageBoxImage.Error);
+                                    }
+
+                                }
+                            }
+
 
                         }
                         catch (MySqlException ex)
                         {
-                            MessageBox.Show($"Wystąpił błąd w przetwarzaniu prośby : {ex}", "Błąd przetwarzania!",
-                                MessageBoxButton.OK, MessageBoxImage.Error);
+                            MessageBox.Show($"Wystąpił błąd w przetwarzaniu prośby : {ex}", "Błąd przetwarzania!", MessageBoxButton.OK, MessageBoxImage.Error);
                         }
-
                     }
                 }
+                return;
+            }
 
 
-            }
-            catch (MySqlException ex)
-            {
-                MessageBox.Show($"Wystąpił błąd w przetwarzaniu prośby : {ex}", "Błąd przetwarzania!", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+
+            
 
         }
 

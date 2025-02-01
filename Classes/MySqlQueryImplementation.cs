@@ -308,6 +308,69 @@ namespace GUI_zaliczenie2025.Classes
             return Tasks;
         }
 
+        public static List<Objects.PasswordRequest> PasswordChangeList_Show(string commandText)
+        {
+            List<Objects.PasswordRequest> Tasks = new List<Objects.PasswordRequest>();
+            MySqlConnection connection = DatabaseConnection.ConnectionBuilder();
+
+            MySqlCommand command = new MySqlCommand(commandText, connection);
+            using (connection)
+            {
+                connection.Open();
+                using (command)
+                {
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+
+                            Tasks.Add(new Classes.Objects.PasswordRequest
+                            {
+                                Id = $"{reader["id"].ToString()}",
+                                Name = $"{reader["name"].ToString()}",
+                                Surname = $"{reader["surname"].ToString()}",
+                                Login = $"{reader["login"].ToString()}",
+                                Departament = $"{reader["departament"].ToString()}",
+                                Permissions = $"{reader["permissions"].ToString()}"
+
+
+                            });
+
+                        }
+                        connection.Close();
+                    }
+                }
+            }
+
+            return Tasks;
+        }
+
+        public static string GetNewPassword_Show(string commandText)
+        {
+            string newPassword=null;
+            MySqlConnection connection = DatabaseConnection.ConnectionBuilder();
+
+            MySqlCommand command = new MySqlCommand(commandText, connection);
+            using (connection)
+            {
+                connection.Open();
+                using (command)
+                {
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+
+                            newPassword = $"{reader["new_password"].ToString()}";
+                        }
+                        connection.Close();
+                    }
+                }
+            }
+
+            return newPassword;
+        }
+
         public static List<Task> AssignUSerToTaskImplementation_Upadate(string commandText)
         {
             List<Objects.Task> Tasks = new List<Objects.Task>();

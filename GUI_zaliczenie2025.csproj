@@ -9,6 +9,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Views\AdminViews\AdministrativeRequests_UserControl.xaml.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Remove="Views\AdminViews\AdministrativeRequests_UserControl.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.2" />
     <PackageReference Include="MySql.Data" Version="9.1.0" />
     <PackageReference Include="System.Data.SqlClient" Version="4.9.0" />
