@@ -1,11 +1,8 @@
 ﻿using GUI_zaliczenie2025.Classes;
+using GUI_zaliczenie2025.Views.AdminViews;
 using Microsoft.IdentityModel.Tokens;
 using System.Windows;
 using System.Windows.Controls;
-using GUI_zaliczenie2025.Classes.Objects;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using GUI_zaliczenie2025.Views.AdminViews;
 
 namespace GUI_zaliczenie2025.Views.Controls
 {
@@ -108,10 +105,10 @@ namespace GUI_zaliczenie2025.Views.Controls
 
             string choose = SearchEngine_ComboBox.Text;
             string SearchText = SearchEngine_TextBox.Text;
-            string queryText=null;
+            string queryText = null;
             foreach (var element in searchList)
             {
-                if(choose==element.Value)
+                if (choose == element.Value)
                 {
                     queryText = element.Key;
                     break;
@@ -157,14 +154,14 @@ namespace GUI_zaliczenie2025.Views.Controls
                     {
                         SearchingForTasks(queryText, SearchText);
                     }
-                    if(_MotherClass == "UserManagementWPF")
+                    if (_MotherClass == "UserManagementWPF")
                     {
                         SearchingForUser(queryText, SearchText);
                     }
                     if (_MotherClass == "UserRequestPageWPF")
                     {
                         SearchingForRequests(queryText, SearchText);
-                    }                    
+                    }
                     if (_MotherClass == "ProtocolManagementWPF")
                     {
                         SearchingForProtocols(queryText, SearchText);

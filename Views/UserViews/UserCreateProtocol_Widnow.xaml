@@ -4,8 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GUI_zaliczenie2025.Views.UserViews"
+        Icon="C:\Users\Dawid\source\repos\Grzybekk082\GUI_zaliczenie2025\Logo_ServiceDesk.png"
         mc:Ignorable="d"
-        Title="UserCreateProtocol_Widnow" Height="1000" Width="500">
+        Title="Tworzenie protokołu" Height="1000" Width="500">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="5"/>

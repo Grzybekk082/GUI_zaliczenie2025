@@ -1,21 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using GUI_zaliczenie2025.Classes;
+using GUI_zaliczenie2025.Classes.Objects;
+using Microsoft.IdentityModel.Tokens;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using GUI_zaliczenie2025.Classes;
-using GUI_zaliczenie2025.Classes.Objects;
-using Microsoft.IdentityModel.Tokens;
-using MySql.Data.MySqlClient;
 
 namespace GUI_zaliczenie2025.Views.UserViews
 {
@@ -24,7 +13,7 @@ namespace GUI_zaliczenie2025.Views.UserViews
         private List<Device> UsedDevices = new List<Device>();
         private List<Device> BaseListOfDevice = new List<Device>();
 
-        private string ProtocolDescription=null;
+        private string ProtocolDescription = null;
         private string Login;
         private string Technican;
         private string ProtocolId;
@@ -34,7 +23,7 @@ namespace GUI_zaliczenie2025.Views.UserViews
 
         private bool IsModified = false;
 
-        private SavedDateTime Date=new SavedDateTime();
+        private SavedDateTime Date = new SavedDateTime();
 
         public UserCreateProtocol_Widnow()
         {
@@ -42,14 +31,14 @@ namespace GUI_zaliczenie2025.Views.UserViews
             Technican = UserTasks_UserControl.Technican;
             Login = UserTasks_UserControl.login;
             string mySqlQuery = $"SELECT id,brand,model,SerialNumber,Registration_Number,category FROM resources WHERE assignment_technican='{Technican}';";
-            BaseListOfDevice  = MySqlQueryImplementation.SelectedUserDevicesList_Show(mySqlQuery);
+            BaseListOfDevice = MySqlQueryImplementation.SelectedUserDevicesList_Show(mySqlQuery);
             UsedDevices_DataGrid.ItemsSource = BaseListOfDevice;
             SelectedUsedDevices_DataGrid.ItemsSource = UsedDevices;
             CreateProtocol_Button.IsEnabled = false;
             AssumedInformation_Grid.Visibility = Visibility.Collapsed;
         }
 
-        public UserCreateProtocol_Widnow(Protocol userProtocol, List<Device> userDevice,bool isModified, string protocolTechnican )
+        public UserCreateProtocol_Widnow(Protocol userProtocol, List<Device> userDevice, bool isModified, string protocolTechnican)
         {
             InitializeComponent();
             this.IsModified = isModified;
@@ -95,60 +84,60 @@ namespace GUI_zaliczenie2025.Views.UserViews
             {
                 //try
                 //{
-                    if (IsModified)
+                if (IsModified)
+                {
+                    string mySqlQuery = $"UPDATE reports SET" +
+                                        $" end_date = '{Date.SavedDate}'," +
+                                        $"Protocol = '{ProtocolDescription}'" +
+                                        $" WHERE ID_protocol ='{ProtocolId}';";
+                    MySqlQueryImplementation.GenericMethodTest_Upadate(mySqlQuery);
+
+                    foreach (var device in UsedDevices)
                     {
-                        string mySqlQuery = $"UPDATE reports SET" +
-                                            $" end_date = '{Date.SavedDate}'," +
-                                            $"Protocol = '{ProtocolDescription}'" +
-                                            $" WHERE ID_protocol ='{ProtocolId}';";
-                        MySqlQueryImplementation.GenericMethodTest_Upadate(mySqlQuery);
+                        string mySqlQuery2 = $"UPDATE resources SET" +
+                                             $" assignment_technican = '{null}'," +
+                                             $"used_for_report='{UserProtocolsAndDevices_UserControl.TaskId}'" +
+                                             $" WHERE id ='{device.Id}';";
+                        MySqlQueryImplementation.GenericMethodTest_Upadate(mySqlQuery2);
+                    }
 
-                        foreach (var device in UsedDevices)
-                        {
-                            string mySqlQuery2 = $"UPDATE resources SET" +
-                                                 $" assignment_technican = '{null}'," +
-                                                 $"used_for_report='{UserProtocolsAndDevices_UserControl.TaskId}'" +
-                                                 $" WHERE id ='{device.Id}';";
-                            MySqlQueryImplementation.GenericMethodTest_Upadate(mySqlQuery2);
-                        }
-
-                        foreach (var device in BaseListOfDevice)
-                        {
-                            string mySqlQuery2 = $"UPDATE resources SET" +
-                                                 $" assignment_technican = '{Technican}'," +
-                                                 $"used_for_report='{null}'" +
-                                                 $" WHERE id ='{device.Id}';";
-                            MySqlQueryImplementation.GenericMethodTest_Upadate(mySqlQuery2);
-                        }
+                    foreach (var device in BaseListOfDevice)
+                    {
+                        string mySqlQuery2 = $"UPDATE resources SET" +
+                                             $" assignment_technican = '{Technican}'," +
+                                             $"used_for_report='{null}'" +
+                                             $" WHERE id ='{device.Id}';";
+                        MySqlQueryImplementation.GenericMethodTest_Upadate(mySqlQuery2);
+                    }
 
                     MessageBox.Show("Pomyślnie modyfikowano protokół", "Sukces!", MessageBoxButton.OK,
                             MessageBoxImage.Information);
                     mySqlQuery = $"SELECT id,brand, model, SerialNumber, Registration_Number, category FROM resources WHERE assignment_technican='{Technican}';";
-                     
+
                     UserProtocolsAndDevices_UserControl.Instance.UserDevices_DataGrid.ItemsSource = MySqlQueryImplementation.SelectedUserDevicesList_Show(mySqlQuery);
                     UserProtocolsAndDevices_UserControl.Instance.UserDevices_DataGrid.Items.Refresh();
-                    }
-                    else
+                }
+                else
+                {
+                    string mySqlQuery = $"UPDATE reports SET" +
+                                        $" status ='Closed'," +
+                                        $"end_date = '{Date.SavedDate}'," +
+                                        $"Protocol = '{ProtocolDescription}'" +
+                                        $" WHERE ID ='{UserShowSelectedTask_UserControl.TaskId}';";
+                    MySqlQueryImplementation.GenericMethodTest_Upadate(mySqlQuery);
+
+                    foreach (var device in UsedDevices)
                     {
-                        string mySqlQuery = $"UPDATE reports SET" +
-                                            $" status ='Closed'," +
-                                            $"end_date = '{Date.SavedDate}'," +
-                                            $"Protocol = '{ProtocolDescription}'" +
-                                            $" WHERE ID ='{UserShowSelectedTask_UserControl.TaskId}';";
-                        MySqlQueryImplementation.GenericMethodTest_Upadate(mySqlQuery);
-
-                        foreach (var device in UsedDevices)
-                        {
-                            string mySqlQuery2 = $"UPDATE resources SET" +
-                                                 $" assignment_technican = NULL," +
-                                                 $"used_for_report='{UserShowSelectedTask_UserControl.TaskId}'" +
-                                                 $" WHERE id ='{device.Id}';";
-                            MySqlQueryImplementation.GenericMethodTest_Upadate(mySqlQuery2);
-                        }
-
-                        MessageBox.Show("Pomyślnie utworzono protokół", "Sukces!", MessageBoxButton.OK,
-                            MessageBoxImage.Information);
+                        string mySqlQuery2 = $"UPDATE resources SET" +
+                                             $" assignment_technican = NULL," +
+                                             $"used_for_report='{UserShowSelectedTask_UserControl.TaskId}'" +
+                                             $" WHERE id ='{device.Id}';";
+                        MySqlQueryImplementation.GenericMethodTest_Upadate(mySqlQuery2);
                     }
+
+                    MessageBox.Show("Pomyślnie utworzono protokół", "Sukces!", MessageBoxButton.OK,
+                        MessageBoxImage.Information);
+                }
 
 
                 //}
@@ -195,23 +184,23 @@ namespace GUI_zaliczenie2025.Views.UserViews
                             }
 
                         }
-                        if(isSelected)
+                        if (isSelected)
                         {
                             return;
                         }
 
-                            UsedDevices.Add(UsedDevices_DataGrid.SelectedItem as Device);
-                            BaseListOfDevice.Remove(UsedDevices_DataGrid.SelectedItem as Device);
-                            UsedDevices_DataGrid.ItemsSource = BaseListOfDevice;
-                            UsedDevices_DataGrid.Items.Refresh();
-                            SelectedUsedDevices_DataGrid.Items.Refresh();
-                            CreateProtocol_Button.IsEnabled = ( Date.SavedDate == null || string.IsNullOrEmpty(ProtocolDescription) || ProtocolDescription.Length < 10) ? false : true;
+                        UsedDevices.Add(UsedDevices_DataGrid.SelectedItem as Device);
+                        BaseListOfDevice.Remove(UsedDevices_DataGrid.SelectedItem as Device);
+                        UsedDevices_DataGrid.ItemsSource = BaseListOfDevice;
+                        UsedDevices_DataGrid.Items.Refresh();
+                        SelectedUsedDevices_DataGrid.Items.Refresh();
+                        CreateProtocol_Button.IsEnabled = (Date.SavedDate == null || string.IsNullOrEmpty(ProtocolDescription) || ProtocolDescription.Length < 10) ? false : true;
 
                     }
                 }
                 return;
             }
-            
+
         }
 
         private void RemoveSelectUsedDevice_RowDoubleClick(object sender, MouseButtonEventArgs e)
@@ -235,7 +224,7 @@ namespace GUI_zaliczenie2025.Views.UserViews
                         BaseListOfDevice.Add(SelectedUsedDevices_DataGrid.SelectedItem as Device);
                         SelectedUsedDevices_DataGrid.Items.Refresh();
                         UsedDevices_DataGrid.Items.Refresh();
-                        CreateProtocol_Button.IsEnabled = ( Date.SavedDate == null || string.IsNullOrEmpty(ProtocolDescription) || ProtocolDescription.Length < 10) ? false : true;
+                        CreateProtocol_Button.IsEnabled = (Date.SavedDate == null || string.IsNullOrEmpty(ProtocolDescription) || ProtocolDescription.Length < 10) ? false : true;
                     }
                 }
                 return;
@@ -268,7 +257,7 @@ namespace GUI_zaliczenie2025.Views.UserViews
                     }
                     else
                     {
-                        
+
                         string dateText = ChooseDate_DataPicker.Text;
                         string[] parts = dateText.Split(new char[] { '.' });
                         string dataTextReplace = $"{parts[2]}-{parts[1]}-{parts[0]}";
@@ -276,9 +265,9 @@ namespace GUI_zaliczenie2025.Views.UserViews
 
                         AssumedInformation_TextBlock.DataContext = null;
                         AssumedInformation_TextBlock.DataContext = Date;
-                       
+
                         AssumedInformation_Grid.Visibility = Visibility.Visible;
-                        CreateProtocol_Button.IsEnabled = ( Date.SavedDate==null || string.IsNullOrEmpty(ProtocolDescription) || ProtocolDescription.Length < 10) ? false : true;
+                        CreateProtocol_Button.IsEnabled = (Date.SavedDate == null || string.IsNullOrEmpty(ProtocolDescription) || ProtocolDescription.Length < 10) ? false : true;
                     }
                 }
             }
@@ -288,7 +277,7 @@ namespace GUI_zaliczenie2025.Views.UserViews
         private void ProtocolDescription_TextBox_OnLostFocus(object sender, RoutedEventArgs e)
         {
             ProtocolDescription = ProtocolDescription_TextBox.Text;
-            CreateProtocol_Button.IsEnabled = ( Date.SavedDate == null || string.IsNullOrEmpty(ProtocolDescription) || ProtocolDescription.Length<10) ? false : true;
+            CreateProtocol_Button.IsEnabled = (Date.SavedDate == null || string.IsNullOrEmpty(ProtocolDescription) || ProtocolDescription.Length < 10) ? false : true;
         }
     }
 

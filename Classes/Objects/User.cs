@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace GUI_zaliczenie2025.Classes.Objects
+﻿namespace GUI_zaliczenie2025.Classes.Objects
 {
     public class User
     {
@@ -16,7 +10,6 @@ namespace GUI_zaliczenie2025.Classes.Objects
         public string Permission { get; set; }
         public string Phone_Number { get; set; }
         public string Email { get; set; }
-        public string Tasks { get; set; }
-        public string Devices { get; set; }
+
     }
 }

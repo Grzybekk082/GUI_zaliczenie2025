@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace GUI_zaliczenie2025.Classes.Objects
+﻿namespace GUI_zaliczenie2025.Classes.Objects
 {
-   public class ClosedTaskProtocol
+    public class ClosedTaskProtocol
     {
         public string NewTask_Id { get; set; }
         public string Protocol_Description { get; set; }

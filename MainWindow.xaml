@@ -7,6 +7,7 @@
         mc:Ignorable="d"
         Title="ServiceDesk_V1" Height="450" Width="800" Background="#FFE0E0E0"
         ResizeMode="NoResize"
+        Icon="C:\Users\Dawid\source\repos\Grzybekk082\GUI_zaliczenie2025\Logo_ServiceDesk.png"
         MinHeight="500" MinWidth="500"
         >
         

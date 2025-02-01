@@ -25,6 +25,10 @@ namespace GUI_zaliczenie2025.Views
             TaskId = taskId;
             string mySqlQuery = $"SELECT ID_protocol, Protocol, end_date, Id, title, description, location, _user, status, technican, date_of_sla, priorytet, company_name, telephone_number, create_date  FROM reports where Id ='{TaskId}'";
             Protocol= MySqlQueryImplementation.ProtocolsQueryImplementation_Show(mySqlQuery);
+
+             mySqlQuery = $"SELECT id, brand, model, SerialNumber, Registration_Number, category FROM resources where used_for_report ='{TaskId}'";
+            UsedDevices_DataGrid.ItemsSource = MySqlQueryImplementation.SelectedUserDevicesList_Show(mySqlQuery);
+
             DataContext = Protocol;
             if (Protocol != null && Protocol.Any())
             {

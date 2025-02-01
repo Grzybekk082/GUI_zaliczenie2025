@@ -4,9 +4,6 @@ using GUI_zaliczenie2025.Views;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
-using System.Windows.Documents;
-using Org.BouncyCastle.Utilities;
-using System.Windows.Media;
 
 namespace GUI_zaliczenie2025
 {

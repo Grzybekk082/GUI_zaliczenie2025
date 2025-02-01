@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:GUI_zaliczenie2025.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="852" d:DesignWidth="1396">
+             d:DesignHeight="852" d:DesignWidth="1396" MinHeight="546">
     <Grid Background="#F7F7F7" Margin="10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="5" />
@@ -28,7 +28,7 @@
         <TextBlock x:Name="TextBlockTitle" Text="{Binding Title}" Grid.Row="1" Grid.Column="2" 
                Margin="12,10,0,0" FontSize="16" FontWeight="Bold" Foreground="#333" />
         <TextBlock Text="Szczegóły zlecenia"  Grid.Row="3" Grid.Column="1" 
-               Margin="12,10,0,0" FontSize="16" FontWeight="Bold" Foreground="#333" />
+               Margin="12,10,0,0" FontSize="16" FontWeight="Bold" Foreground="#333" TextWrapping="WrapWithOverflow" />
         
         
         <Grid Row="1" Column="3">
@@ -62,7 +62,7 @@
                         <ColumnDefinition Width="1*"/>
                         <ColumnDefinition Width="2*"/>
                     </Grid.ColumnDefinitions>
-                <TextBlock Text="Protokół użytkownika : " VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="14" FontWeight="Bold" Grid.Row="0" Grid.Column="0" Margin="10,0,0,0"/>
+                <TextBlock Text="Protokół użytkownika : " VerticalAlignment="Center" TextWrapping="WrapWithOverflow" HorizontalAlignment="Left" FontSize="14" FontWeight="Bold" Grid.Row="0" Grid.Column="0" Margin="10,0,0,0"/>
                 <TextBlock x:Name="CreateBy_TextBlock" Text="{Binding Technican}" Grid.Row="0" Grid.Column="1"  Margin="12,10,0,0" FontSize="14" Foreground="#555" TextWrapping="Wrap"/>
                 <TextBlock Text="Zrealizowano : " VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="14" FontWeight="Bold" Grid.Row="1" Grid.Column="0"  Margin="10,0,0,0"/>
                 <TextBlock x:Name="CreatedAt_TextBlock" Text="{Binding End_Date }" Grid.Row="1" Grid.Column="1"  Margin="12,10,0,0" FontSize="14" Foreground="#555" TextWrapping="Wrap"/>
@@ -75,7 +75,7 @@
                 </Grid.ColumnDefinitions>
                 <Border BorderBrush="#D1D1D1" BorderThickness="1" CornerRadius="0,0,4,4" Grid.Row="0" Grid.Column="0" />
                 <Border BorderBrush="#D1D1D1" BorderThickness="1" CornerRadius="0,0,4,4" Grid.Row="0" Grid.Column="1" />
-                <TextBlock Text="Szczegóły realizacji" Margin="12,10,0,0" FontSize="16" FontWeight="Bold" Foreground="#333"/>
+                <TextBlock Text="Szczegóły realizacji" TextWrapping="WrapWithOverflow" Margin="12,10,0,0" FontSize="16" FontWeight="Bold" Foreground="#333"/>
                 <Grid  Grid.Row="1" Grid.Column="1">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
@@ -100,10 +100,13 @@
                         <Button x:Name="ConfirmChanges_Button" Content="Zatwierdź" Grid.Column="2" Margin="5,5,10,5"  Background="#FF39943C" Foreground="White" FontWeight="Bold"
                                 BorderBrush="#FF39943C" BorderThickness="1" Visibility="Hidden" Click="ConfirmChanges_Button_OnClick"/>
                     </Grid>
-
                 </Grid>
             </Grid>
+            <StackPanel Grid.Row="2">
+                <Label Content="Urządzenia wykorzystane do zlecenia : " VerticalAlignment="Center" HorizontalAlignment="Center" Padding="10,15" FontSize="14" FontWeight="Bold" ></Label>
+                <DataGrid x:Name="UsedDevices_DataGrid"   IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False"  ColumnWidth="*" RowHeight="20" CanUserResizeRows="False" CanUserReorderColumns="False"/>
 
+            </StackPanel>
         </Grid>
        
         <TextBlock x:Name="TextBlockDescription" Text="{Binding Description}" Grid.Row="3" Grid.Column="2" 
@@ -124,7 +127,7 @@
                 </Grid.RowDefinitions>
                 <TextBlock Text="Lokalizacja:" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="14" FontWeight="Bold" Grid.Row="0" Margin="0,5" />
                 <TextBlock Text="Firma:" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="14" FontWeight="Bold" Grid.Row="1" Margin="0,5" />
-                <TextBlock Text="Numer telefonu:" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="14" FontWeight="Bold" Grid.Row="2" Margin="0,5" />
+                <TextBlock Text="Numer telefonu:" TextWrapping="WrapWithOverflow" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="14" FontWeight="Bold" Grid.Row="2" Margin="0,5" />
                 <TextBlock x:Name="TextBoxLocation" Text="{Binding Location}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="14" Grid.Row="0" Grid.Column="1" Margin="0,5" Foreground="#555" />
                 <TextBlock x:Name="TextBoxCompany" Text="{Binding Company}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="14" Grid.Row="1" Grid.Column="1" Margin="0,5" Foreground="#555" />
                 <TextBlock x:Name="TextBoxPhoneNumber" Text="{Binding TelNumber}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="14" Grid.Row="2" Grid.Column="1" Margin="0,5" Foreground="#555" />
@@ -145,7 +148,7 @@
                     <RowDefinition />
                 </Grid.RowDefinitions>
                 <TextBlock Text="Status:" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="14" FontWeight="Bold" Grid.Row="0" Margin="0,5" />
-                <TextBlock Text="Przypisany technik:" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="14" FontWeight="Bold" Grid.Row="1" Margin="0,5" />
+                <TextBlock Text="Przypisany technik:"  VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="14" FontWeight="Bold" Grid.Row="1" Margin="0,5" />
                 <TextBlock Text="Data utworzenia:" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="14" FontWeight="Bold" Grid.Row="2" Margin="0,5" />
                 <TextBlock Text="SLA:" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="14" FontWeight="Bold" Grid.Row="3" Margin="0,5" />
                 <TextBlock Text="Priorytet:" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="14" FontWeight="Bold" Grid.Row="4" Margin="0,5" />

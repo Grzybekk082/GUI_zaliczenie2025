@@ -1,12 +1,10 @@
 ﻿using GUI_zaliczenie2025.Classes;
+using GUI_zaliczenie2025.Classes.Objects;
+using MySql.Data.MySqlClient;
 using System.Windows;
 using System.Windows.Controls;
-using GUI_zaliczenie2025.Classes.Objects;
-using Microsoft.IdentityModel.Tokens;
-using Org.BouncyCastle.Utilities;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
-using MySql.Data.MySqlClient;
 
 namespace GUI_zaliczenie2025.Views.UserViews
 {

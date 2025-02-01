@@ -2,7 +2,6 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
-using System.Windows.Media;
 using Task = GUI_zaliczenie2025.Classes.Objects.Task;
 
 namespace GUI_zaliczenie2025
@@ -30,10 +29,10 @@ namespace GUI_zaliczenie2025
         {
 
 
-                InitializeComponent();
-                IsUserViev = isUSerViev;
-                 DataGridShortSla.ItemsSource = ActualTasksOperations.ReturnRequestsListObject();
-            
+            InitializeComponent();
+            IsUserViev = isUSerViev;
+            DataGridShortSla.ItemsSource = ActualTasksOperations.ReturnRequestsListObject();
+
 
 
 
@@ -70,7 +69,7 @@ namespace GUI_zaliczenie2025
                         TaskUser = null;
                         var selectedItem = DataGridShortSla.SelectedItem as Task;
 
-                        Taskid = selectedItem.Id; 
+                        Taskid = selectedItem.Id;
                         TaskUser = selectedItem.Technican;
 
                         GridShortSla.Children.Clear();

@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace GUI_zaliczenie2025.Classes.Objects
+﻿namespace GUI_zaliczenie2025.Classes.Objects
 {
-   public class PasswordRequest
+    public class PasswordRequest
     {
         public string Id { get; set; }
         public string Name { get; set; }

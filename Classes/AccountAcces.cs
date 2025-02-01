@@ -1,6 +1,5 @@
 ﻿using GUI_zaliczenie2025.Classes.Objects;
 using MySql.Data.MySqlClient;
-using System.IO;
 using System.Windows;
 
 namespace GUI_zaliczenie2025.Classes
@@ -19,7 +18,7 @@ namespace GUI_zaliczenie2025.Classes
             bool isLoginOccupied = false;
             string inputLogin = loginInput.ToLower();
 
-                
+
             User user = null;
             string mySqlQuery = $"SELECT id FROM _user WHERE login='{inputLogin}';";
             MySqlConnection con = DatabaseConnection.ConnectionBuilder();
@@ -50,7 +49,7 @@ namespace GUI_zaliczenie2025.Classes
         //zalogowany TOTLE
 
 
-         static internal (bool, bool) LogIn2(string login, string password)
+        static internal (bool, bool) LogIn2(string login, string password)
         {
             User person = null;
             string inputLogin = login,
@@ -74,8 +73,8 @@ namespace GUI_zaliczenie2025.Classes
                                 {
                                     Permission = reader["permissions"].ToString()
                                 };
-                                
-                                isCorect = true; 
+
+                                isCorect = true;
 
                                 if (person.Permission == "admin")
                                 {

@@ -1,19 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using GUI_zaliczenie2025.Classes;
+using GUI_zaliczenie2025.Classes.Objects;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using GUI_zaliczenie2025.Classes;
-using GUI_zaliczenie2025.Classes.Objects;
 
 namespace GUI_zaliczenie2025.Views.AdminViews
 {
@@ -52,7 +42,7 @@ namespace GUI_zaliczenie2025.Views.AdminViews
                         string userName = selectedItem.Name;
                         string userSurname = selectedItem.Surname;
                         string mySqlQuery = $"SELECT new_password FROM _user WHERE id = '{userId}'";
-                        string newPassword= MySqlQueryImplementation.GetNewPassword_Show(mySqlQuery);
+                        string newPassword = MySqlQueryImplementation.GetNewPassword_Show(mySqlQuery);
                         MessageBoxResult result = MessageBox.Show($"Potwierdzić zmianę hasła dla użytkownika {userName} {userSurname}? Opcja 'NIE' automatycznie usunie prośbę z listy.", "Nowe hasło", MessageBoxButton.YesNo, MessageBoxImage.Question);
                         if (result == MessageBoxResult.Yes)
                         {
@@ -62,7 +52,7 @@ namespace GUI_zaliczenie2025.Views.AdminViews
                             PasswordsList_DataGrid.ItemsSource = MySqlQueryImplementation.PasswordChangeList_Show(mySqlQuery);
                             PasswordsList_DataGrid.Items.Refresh();
                             MessageBox.Show($"Zmieniono hasło dla użytkownika {userName} {userSurname}", "Sukces!", MessageBoxButton.OK, MessageBoxImage.Information);
-                            
+
                         }
                         if (result == MessageBoxResult.No)
                         {
@@ -72,11 +62,8 @@ namespace GUI_zaliczenie2025.Views.AdminViews
                             PasswordsList_DataGrid.ItemsSource = MySqlQueryImplementation.PasswordChangeList_Show(mySqlQuery);
                             PasswordsList_DataGrid.Items.Refresh();
                             MessageBox.Show($"Prośba użytkownika {userName} {userSurname} została usunięta", "Usunięto prośbę", MessageBoxButton.OK, MessageBoxImage.Information);
-                            
+
                         }
-
-
-
 
                     }
 

@@ -23,9 +23,7 @@ namespace GUI_zaliczenie2025
             this.DataContext = ReturnSelectedTask();
             _adminMainPage = adminMainPage;
             ConfirmButton.IsEnabled = false;
-
         }
-
 
         internal static List<Person> ReturnSelectedTask()
         {
@@ -67,10 +65,6 @@ namespace GUI_zaliczenie2025
             }
             return SelectedTask;
         }
-
-
-
-
 
 
         public void DeleteUserRequestButton_Click(object sender, RoutedEventArgs e)

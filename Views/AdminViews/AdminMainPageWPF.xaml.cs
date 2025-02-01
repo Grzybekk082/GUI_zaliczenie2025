@@ -1,10 +1,9 @@
 ﻿using GUI_zaliczenie2025.Classes;
+using GUI_zaliczenie2025.Views;
 using GUI_zaliczenie2025.Views.AdminViews;
-using Microsoft.IdentityModel.Tokens;
+using GUI_zaliczenie2025.Views.Controls;
 using System.Windows;
 using System.Windows.Controls;
-using GUI_zaliczenie2025.Views.Controls;
-using GUI_zaliczenie2025.Views;
 
 
 namespace GUI_zaliczenie2025
@@ -28,7 +27,7 @@ namespace GUI_zaliczenie2025
             argE = null;
             CurrentPersonLabel.DataContext = CRperson;
             SearchEngineControl_Grid.Children.Clear();
-            SearchEngineControl_Grid.Children.Add(new SearchEngine_UserControl( this, "AdminMainPageWPF"));
+            SearchEngineControl_Grid.Children.Add(new SearchEngine_UserControl(this, "AdminMainPageWPF"));
             Main_Content_Change_Grid.Children.Clear();
             Main_Content_Change_Grid.Children.Add(new ShortSlaPageWPF_UserControl());
             SearchEngineControl_Grid.Children.Add(new SearchEngine_UserControl(this, "AdminMainPageWPF"));
@@ -94,11 +93,11 @@ namespace GUI_zaliczenie2025
         {
             Administration_Window window = new Administration_Window();
             window.ShowDialog();
-        }        
+        }
         private void ShowProtocols_ButtonOnclick(object sender, RoutedEventArgs e)
         {
             Main_Content_Change_Grid.Children.Clear();
-            Main_Content_Change_Grid.Children.Add(new ProtocolManagement_UserControl()); 
+            Main_Content_Change_Grid.Children.Add(new ProtocolManagement_UserControl());
             SearchEngineControl_Grid.Children.Add(new SearchEngine_UserControl(this, "ProtocolManagementWPF"));
             Main_Admin_24h_Button.Visibility = Visibility.Hidden;
             Main_Admin_SLA_Button.Visibility = Visibility.Hidden;

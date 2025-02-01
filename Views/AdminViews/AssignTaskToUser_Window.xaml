@@ -4,8 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GUI_zaliczenie2025.Views"
+        Icon="C:\Users\Dawid\source\repos\Grzybekk082\GUI_zaliczenie2025\Logo_ServiceDesk.png"
         mc:Ignorable="d"
-        Title="AssignTaskToUser_Window" Height="450" Width="800" MinWidth="800" MinHeight="300">
+        Title="Dodaj urządzenie" Height="450" Width="800" MinWidth="800" MinHeight="300">
     <Grid x:Name="MainContent_Grid">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="3.5*" MinWidth="600"/>

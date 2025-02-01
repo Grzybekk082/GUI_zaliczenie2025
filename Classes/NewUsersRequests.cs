@@ -1,6 +1,5 @@
 ﻿using GUI_zaliczenie2025.Classes.Objects;
 using MySql.Data.MySqlClient;
-using System.IO;
 
 
 
@@ -10,10 +9,6 @@ namespace GUI_zaliczenie2025.Classes
     internal class NewUsersRequests : AccountAcces
     {
         static string name, surename, password, login, phoneNumber;
-
-
-
-
 
         internal NewUsersRequests() { }
         internal NewUsersRequests(string newName, string newSurename, string newPassword, string newLogin, string newPhoneNumber)

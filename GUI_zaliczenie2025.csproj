@@ -9,6 +9,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Classes\DataAndFilesManagement.cs" />
+    <Compile Remove="Classes\Objects\DeviceForReport.cs" />
+    <Compile Remove="Classes\Objects\UserSearchList.cs" />
     <Compile Remove="Views\AdminViews\AdministrativeRequests_UserControl.xaml.cs" />
   </ItemGroup>
 
