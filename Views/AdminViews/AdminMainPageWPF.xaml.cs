@@ -85,6 +85,9 @@ namespace GUI_zaliczenie2025
             Main_Content_Change_Grid.Children.Add(new UserManagementWPF_UserControl());
             SearchEngineControl_Grid.Children.Add(new SearchEngine_UserControl(this, "UserManagementWPF"));
 
+            Main_Admin_24h_Button.Visibility = Visibility.Hidden;
+            Main_Admin_SLA_Button.Visibility = Visibility.Hidden;
+
         }
 
         private void AdministrativeRequests_ButtonClick(object sender, RoutedEventArgs e)
@@ -95,7 +98,10 @@ namespace GUI_zaliczenie2025
         private void ShowProtocols_ButtonOnclick(object sender, RoutedEventArgs e)
         {
             Main_Content_Change_Grid.Children.Clear();
-            Main_Content_Change_Grid.Children.Add(new ProtocolManagement_UserControl());
+            Main_Content_Change_Grid.Children.Add(new ProtocolManagement_UserControl()); 
+            SearchEngineControl_Grid.Children.Add(new SearchEngine_UserControl(this, "ProtocolManagementWPF"));
+            Main_Admin_24h_Button.Visibility = Visibility.Hidden;
+            Main_Admin_SLA_Button.Visibility = Visibility.Hidden;
         }
 
         private void MostImportantTasks_ButtonClick(object sender, RoutedEventArgs e)
@@ -104,6 +110,9 @@ namespace GUI_zaliczenie2025
             Main_Content_Change_Grid.Children.Clear();
             Main_Content_Change_Grid.Children.Add(new AdminMostImportantTasks_USerControl());
             SearchEngineControl_Grid.Children.Add(new SearchEngine_UserControl(this, "MostImportantTasksWPF"));
+
+            Main_Admin_24h_Button.Visibility = Visibility.Hidden;
+            Main_Admin_SLA_Button.Visibility = Visibility.Hidden;
         }
 
 

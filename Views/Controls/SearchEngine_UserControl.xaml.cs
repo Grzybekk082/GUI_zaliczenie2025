@@ -82,6 +82,20 @@ namespace GUI_zaliczenie2025.Views.Controls
                 SearchEngine_ComboBox.ItemsSource = searchList.Values;
             }
 
+            if (MotherClass == "ProtocolManagementWPF")
+            {
+                searchList = new Dictionary<string, string>()
+                {
+                    {"Id","id"},
+                    {"technican","technik"},
+                    {"company_name","company"},
+                    {"location","location"},
+                    {"priorytet","priorytet"},
+                };
+
+                SearchEngine_ComboBox.ItemsSource = searchList.Values;
+            }
+
         }
 
 
@@ -150,6 +164,10 @@ namespace GUI_zaliczenie2025.Views.Controls
                     if (_MotherClass == "UserRequestPageWPF")
                     {
                         SearchingForRequests(queryText, SearchText);
+                    }                    
+                    if (_MotherClass == "ProtocolManagementWPF")
+                    {
+                        SearchingForProtocols(queryText, SearchText);
                     }
                     //_CRinstance.Main_Content_Change_Grid.Children.Clear();
                     //_CRinstance.Main_Content_Change_Grid.Children.Add(new ShortSlaPageWPF_UserControl(queryText, SearchText));
@@ -191,6 +209,14 @@ namespace GUI_zaliczenie2025.Views.Controls
         {
             _CRinstance.Main_Content_Change_Grid.Children.Clear();
             _CRinstance.Main_Content_Change_Grid.Children.Add(new AdminMostImportantTasks_USerControl(queryText, SearchText));
+            SearchEngine_TextBox.Clear();
+            warningSearchLabel.Visibility = Visibility.Hidden;
+        }
+
+        private void SearchingForProtocols(string queryText, string SearchText)
+        {
+            _CRinstance.Main_Content_Change_Grid.Children.Clear();
+            _CRinstance.Main_Content_Change_Grid.Children.Add(new ProtocolManagement_UserControl(queryText, SearchText));
             SearchEngine_TextBox.Clear();
             warningSearchLabel.Visibility = Visibility.Hidden;
         }
