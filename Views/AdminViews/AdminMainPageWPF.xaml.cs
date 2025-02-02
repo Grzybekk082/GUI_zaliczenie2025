@@ -16,6 +16,7 @@ namespace GUI_zaliczenie2025
     {
         private bool isTextInt = true;
         public object send;
+        private int AdminRequestCounter;
         public RoutedEventArgs argE;
         private CurrentPerson CRperson;
         public AdminMainPageWPF() { }
@@ -31,6 +32,14 @@ namespace GUI_zaliczenie2025
             Main_Content_Change_Grid.Children.Clear();
             Main_Content_Change_Grid.Children.Add(new ShortSlaPageWPF_UserControl());
             SearchEngineControl_Grid.Children.Add(new SearchEngine_UserControl(this, "AdminMainPageWPF"));
+
+            string mySqlQuery = "SELECT id, name, surname, login, departament, permissions FROM _user WHERE new_password IS NOT NULL";
+            AdminRequestCounter = MySqlQueryImplementation.PasswordChangeList_Show(mySqlQuery).Count;
+            if (AdminRequestCounter > 0)
+            {
+                AdminRequestCounter_TextBlock.Text = AdminRequestCounter.ToString();
+                AdminRequestCounter_Border.Visibility = Visibility.Visible;
+            }
             // do poprawki ma generować tabele
             //ListVievUserRequests.ItemsSource = NewUsersRequests.ReturnRequestsListObject();
 
@@ -91,7 +100,7 @@ namespace GUI_zaliczenie2025
 
         private void AdministrativeRequests_ButtonClick(object sender, RoutedEventArgs e)
         {
-            Administration_Window window = new Administration_Window();
+            Administration_Window window = new Administration_Window(this);
             window.ShowDialog();
         }
         private void ShowProtocols_ButtonOnclick(object sender, RoutedEventArgs e)

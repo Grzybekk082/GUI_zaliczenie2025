@@ -124,6 +124,10 @@
             <Button Content="Zarządzaj użytkownikami" Grid.Column="4" Background="#FFB5B5B5" Margin="1,40,0,1" Padding="10,0,10,0" Click="UserManagement_ButtonOnClick"/>
             <Button Content="Zarządzaj prośbami"  Grid.Column="5" Background="#FFB5B5B5" Margin="1,40,0,1" Padding="10,0,10,0" Click="UserRequestsButtonOnclick"/>
             <StackPanel Grid.Column="11" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,15,30,0">
+                <Border x:Name="AdminRequestCounter_Border" Visibility="Collapsed" BorderBrush="#FFD00000" Background="#FFD00000" BorderThickness="1" Margin="0,0,10,0"  CornerRadius="30" VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <TextBlock x:Name="AdminRequestCounter_TextBlock"  FontSize="18"  Padding="7,0,9,0" TextAlignment="Center" Foreground="AliceBlue"  VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                </Border>
+
                 <Button Content="Prośby administracyjne" HorizontalAlignment="Right" VerticalAlignment="top" Background="#FFB5B5B5" Margin="1,0,20,1"  Padding="20,5,20,5" Click="AdministrativeRequests_ButtonClick"/>
                 <Label x:Name="CurrentPersonLabel" Content="{Binding CurrentLogin}" Foreground="AliceBlue" Padding="15,5,70,0" FontWeight="SemiBold" FontSize="16"/>
                 <Button Content="Wyloguj" HorizontalAlignment="Right" VerticalAlignment="top" Background="#FFB5B5B5" Margin="1,0,0,1"  Padding="20,5,20,5" Click="LogOut_ButtonClick"/>
