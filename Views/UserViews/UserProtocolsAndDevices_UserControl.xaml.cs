@@ -37,7 +37,7 @@ namespace GUI_zaliczenie2025.Views.UserViews
         private void EditDevice_OnClick(object sender, MouseButtonEventArgs e)
         {
             Device device = new Device();
-            device.Id = ((Device)UserDevices_DataGrid.SelectedItem).Id;
+
             var hit = e.OriginalSource as DependencyObject;
 
             while (hit != null)
@@ -57,6 +57,7 @@ namespace GUI_zaliczenie2025.Views.UserViews
                         {
                             try
                             {
+                                device.Id = ((Device)UserDevices_DataGrid.SelectedItem).Id;///Do przejrzenia
                                 string mySqlQuery = $"UPDATE resources SET assignment_technican = null WHERE id ='{device.Id}';";
                                 MySqlQueryImplementation.GenericMethodTest_Upadate(mySqlQuery);
                                 MessageBox.Show("Zwrócono urządzenie na główną kolejkę", "Sukces", MessageBoxButton.OK, MessageBoxImage.Information);
