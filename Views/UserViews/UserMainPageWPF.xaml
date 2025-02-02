@@ -87,7 +87,7 @@
             <Rectangle Name="Main_Content_Rectangle" Grid.Column="0" Grid.ColumnSpan="2"  Panel.ZIndex="-1" Grid.Row="1" Grid.RowSpan="2" Fill="#FFCCCCCC"/>
 
             <Border BorderThickness="2" BorderBrush="#FF5A5959" Grid.ColumnSpan="2">
-                <Label Content="Strona główna ADMIN" Grid.Row="0" Grid.Column="0"  FontSize="30"   HorizontalAlignment="Center" VerticalAlignment="top" Foreground="#FFD4D4D4" />
+                <Label Content="Strona główna " Grid.Row="0" Grid.Column="0"  FontSize="30"   HorizontalAlignment="Center" VerticalAlignment="top" Foreground="#FFD4D4D4" />
             </Border>
 
             <Rectangle Name="Right_Side_Bar" Grid.Column="4" Panel.ZIndex="1" Grid.Row="0" Grid.RowSpan="3" Fill="#FF797979"/>

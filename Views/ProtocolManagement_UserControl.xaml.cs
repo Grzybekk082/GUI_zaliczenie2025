@@ -22,7 +22,7 @@ namespace GUI_zaliczenie2025.Views
         {
             InitializeComponent();
             string mySqlQuery = $"SELECT ID_protocol, Protocol, end_date, Id, title, description, location, _user, status, technican, date_of_sla, priorytet, company_name, telephone_number, create_date  FROM reports WHERE {choose}  like '%{SearchText}%' AND (status ='Closed' OR status ='Resolved');";
-            ProtocolManagment_DataGrid.ItemsSource = MySqlQueryImplementation.TaskQueryImplementation_Show(mySqlQuery);
+            ProtocolManagment_DataGrid.ItemsSource = MySqlQueryImplementation.ProtocolsQueryImplementation_Show(mySqlQuery);
         }
 
         private void OpenNewTask_OnClick(object sender, MouseButtonEventArgs e)

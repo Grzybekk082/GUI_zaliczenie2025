@@ -83,7 +83,7 @@ namespace GUI_zaliczenie2025.Views.Controls
             {
                 searchList = new Dictionary<string, string>()
                 {
-                    {"Id","id"},
+                    {"ID_protocol","id"},
                     {"technican","technik"},
                     {"company_name","company"},
                     {"location","location"},
@@ -127,7 +127,7 @@ namespace GUI_zaliczenie2025.Views.Controls
             }
             else
             {
-                if (queryText == "Id" || queryText == "id")
+                if (_MotherClass == "AdminMainPageWPF" && (queryText == "Id" || queryText == "id" ) )
                 {
                     if (IsInputIntReturns.isInt)
                     {
@@ -212,6 +212,10 @@ namespace GUI_zaliczenie2025.Views.Controls
 
         private void SearchingForProtocols(string queryText, string SearchText)
         {
+            if (queryText == "ID_protocol")
+            {
+                SearchText = $"NT_{SearchText}";
+            }
             _CRinstance.Main_Content_Change_Grid.Children.Clear();
             _CRinstance.Main_Content_Change_Grid.Children.Add(new ProtocolManagement_UserControl(queryText, SearchText));
             SearchEngine_TextBox.Clear();
