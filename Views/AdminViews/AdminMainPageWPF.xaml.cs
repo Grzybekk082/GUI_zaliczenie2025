@@ -4,6 +4,7 @@ using GUI_zaliczenie2025.Views.AdminViews;
 using GUI_zaliczenie2025.Views.Controls;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 
 namespace GUI_zaliczenie2025
@@ -32,6 +33,9 @@ namespace GUI_zaliczenie2025
             Main_Content_Change_Grid.Children.Clear();
             Main_Content_Change_Grid.Children.Add(new ShortSlaPageWPF_UserControl());
             SearchEngineControl_Grid.Children.Add(new SearchEngine_UserControl(this, "AdminMainPageWPF"));
+
+            Main_Admin_SLA_Button.Background=Brushes.DimGray;
+            MainPage_Button.Background= Brushes.DimGray;
 
             string mySqlQuery = "SELECT id, name, surname, login, departament, permissions FROM _user WHERE new_password IS NOT NULL";
             AdminRequestCounter = MySqlQueryImplementation.PasswordChangeList_Show(mySqlQuery).Count;
@@ -65,6 +69,11 @@ namespace GUI_zaliczenie2025
             /////
             Main_Admin_24h_Button.Visibility = Visibility.Hidden;
             Main_Admin_SLA_Button.Visibility = Visibility.Hidden;
+
+            MainPage_Button.Background = (Brush)new BrushConverter().ConvertFromString("#FFB5B5B5");
+            UserManagement_Button.Background = (Brush)new BrushConverter().ConvertFromString("#FFB5B5B5");
+            ShowProtocols_Button.Background = (Brush)new BrushConverter().ConvertFromString("#FFB5B5B5");
+            UserRequests_Button.Background = Brushes.DimGray;
         }
         private void AdminMainPageButtonOnclick(object sender, RoutedEventArgs e)
         {
@@ -76,7 +85,16 @@ namespace GUI_zaliczenie2025
             SearchEngineControl_Grid.Children.Add(new SearchEngine_UserControl(this, "AdminMainPageWPF"));
             Main_Content_Change_Grid.Children.Add(new ShortSlaPageWPF_UserControl());
             SearchEngineControl_Grid.Children.Add(new SearchEngine_UserControl(this, "AdminMainPageWPF"));
+
+            Main_Admin_SLA_Button.Background = Brushes.DimGray;
+            MainPage_Button.Background = Brushes.DimGray;
+            Main_Admin_24h_Button.Background = (Brush)new BrushConverter().ConvertFromString("#FFB5B5B5");
+
+            UserManagement_Button.Background = (Brush)new BrushConverter().ConvertFromString("#FFB5B5B5");
+            UserRequests_Button.Background = (Brush)new BrushConverter().ConvertFromString("#FFB5B5B5");
+            ShowProtocols_Button.Background = (Brush)new BrushConverter().ConvertFromString("#FFB5B5B5");
         }
+
 
         private void ChangeToSla_ButtonOnClick(object sender, RoutedEventArgs e)
         {
@@ -84,6 +102,9 @@ namespace GUI_zaliczenie2025
             Main_Content_Change_Grid.Children.Clear();
             Main_Content_Change_Grid.Children.Add(new ShortSlaPageWPF_UserControl());
             SearchEngineControl_Grid.Children.Add(new SearchEngine_UserControl(this, "AdminMainPageWPF"));
+
+            Main_Admin_24h_Button.Background = (Brush)new BrushConverter().ConvertFromString("#FFB5B5B5");
+            Main_Admin_SLA_Button.Background = Brushes.DimGray;
         }
 
         private void UserManagement_ButtonOnClick(object sender, RoutedEventArgs e)
@@ -95,6 +116,11 @@ namespace GUI_zaliczenie2025
 
             Main_Admin_24h_Button.Visibility = Visibility.Hidden;
             Main_Admin_SLA_Button.Visibility = Visibility.Hidden;
+
+            MainPage_Button.Background = (Brush)new BrushConverter().ConvertFromString("#FFB5B5B5");
+            UserRequests_Button.Background = (Brush)new BrushConverter().ConvertFromString("#FFB5B5B5");
+            ShowProtocols_Button.Background = (Brush)new BrushConverter().ConvertFromString("#FFB5B5B5");
+            UserManagement_Button.Background = Brushes.DimGray;
 
         }
 
@@ -110,6 +136,12 @@ namespace GUI_zaliczenie2025
             SearchEngineControl_Grid.Children.Add(new SearchEngine_UserControl(this, "ProtocolManagementWPF"));
             Main_Admin_24h_Button.Visibility = Visibility.Hidden;
             Main_Admin_SLA_Button.Visibility = Visibility.Hidden;
+
+            MainPage_Button.Background = (Brush)new BrushConverter().ConvertFromString("#FFB5B5B5");
+            UserRequests_Button.Background = (Brush)new BrushConverter().ConvertFromString("#FFB5B5B5");
+            UserManagement_Button.Background = (Brush)new BrushConverter().ConvertFromString("#FFB5B5B5");
+            ShowProtocols_Button.Background = Brushes.DimGray;
+
         }
 
         private void MostImportantTasks_ButtonClick(object sender, RoutedEventArgs e)
@@ -119,8 +151,9 @@ namespace GUI_zaliczenie2025
             Main_Content_Change_Grid.Children.Add(new AdminMostImportantTasks_USerControl());
             SearchEngineControl_Grid.Children.Add(new SearchEngine_UserControl(this, "MostImportantTasksWPF"));
 
-            Main_Admin_24h_Button.Visibility = Visibility.Hidden;
-            Main_Admin_SLA_Button.Visibility = Visibility.Hidden;
+
+            Main_Admin_SLA_Button.Background = (Brush)new BrushConverter().ConvertFromString("#FFB5B5B5");
+            Main_Admin_24h_Button.Background = Brushes.DimGray;
         }
 
 

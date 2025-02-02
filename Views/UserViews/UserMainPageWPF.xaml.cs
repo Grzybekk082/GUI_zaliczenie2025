@@ -2,6 +2,7 @@
 using MySql.Data.MySqlClient;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace GUI_zaliczenie2025.Views.UserViews
 {
@@ -23,6 +24,9 @@ namespace GUI_zaliczenie2025.Views.UserViews
             InitializeComponent();
             CurrentPersonLabel.DataContext = CRperson;
             Main_Content_Change_Grid.Children.Add(new ShortSlaPageWPF_UserControl( true));
+            ProtocolsAndDevices_Button.Background = (Brush)new BrushConverter().ConvertFromString("#FFB5B5B5");
+            UserTasks_Button.Background = (Brush)new BrushConverter().ConvertFromString("#FFB5B5B5");
+            UserMainPage_Button.Background = Brushes.DimGray;
 
             MySqlConnection connection = DatabaseConnection.ConnectionBuilder();
 
@@ -62,6 +66,10 @@ namespace GUI_zaliczenie2025.Views.UserViews
 
             Main_Content_Change_Grid.Children.Clear();
             Main_Content_Change_Grid.Children.Add(new ShortSlaPageWPF_UserControl( true));
+
+            ProtocolsAndDevices_Button.Background = (Brush)new BrushConverter().ConvertFromString("#FFB5B5B5");
+            UserTasks_Button.Background = (Brush)new BrushConverter().ConvertFromString("#FFB5B5B5");
+            UserMainPage_Button.Background = Brushes.DimGray;
         }
 
         private void UserTasks_ButtonClick(object sender, RoutedEventArgs e)
@@ -69,6 +77,10 @@ namespace GUI_zaliczenie2025.Views.UserViews
             //Do poprawienia - klikniecie przycisku ma podmieniać jedynie GRID mainContent zamiast tworzenia nowej instancji strony.
             Main_Content_Change_Grid.Children.Clear();
             Main_Content_Change_Grid.Children.Add(new UserTasks_UserControl());
+
+            ProtocolsAndDevices_Button.Background = (Brush)new BrushConverter().ConvertFromString("#FFB5B5B5");
+            UserMainPage_Button.Background = (Brush)new BrushConverter().ConvertFromString("#FFB5B5B5");
+            UserTasks_Button.Background = Brushes.DimGray;
         }
 
         private void UserProtocolsAndDevices_ButtonClick(object sender, RoutedEventArgs e)
@@ -76,6 +88,12 @@ namespace GUI_zaliczenie2025.Views.UserViews
             //Do poprawienia - klikniecie przycisku ma podmieniać jedynie GRID mainContent zamiast tworzenia nowej instancji strony.
             Main_Content_Change_Grid.Children.Clear();
             Main_Content_Change_Grid.Children.Add(new UserProtocolsAndDevices_UserControl());
+
+            UserTasks_Button.Background = (Brush)new BrushConverter().ConvertFromString("#FFB5B5B5");
+            UserMainPage_Button.Background = (Brush)new BrushConverter().ConvertFromString("#FFB5B5B5");
+            ProtocolsAndDevices_Button.Background = Brushes.DimGray;
+
+
         }
     }
 }

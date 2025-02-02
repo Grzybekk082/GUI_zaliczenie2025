@@ -77,7 +77,7 @@
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
                 <Button x:Name="Main_Admin_SLA_Button" Content="Wszytskie zlecenia"  Grid.Column="0"  Background="#FFB5B5B5"   Margin="1,20,0,1" Padding="10,0,10,0"  BorderThickness="0" Click="ChangeToSla_ButtonOnClick" HorizontalAlignment="Left" Width="348"/>
-                <Button x:Name="Main_Admin_24h_Button" Content="Najważniejsze zlecenia" Grid.Column="1"  Background="#FFB5B5B5"   Margin="1,20,0,1" Padding="10,0,10,0" BorderThickness="0" Click="MostImportantTasks_ButtonClick" />
+                <Button x:Name="Main_Admin_24h_Button" Content="Najważniejsze zlecenia" Grid.Column="1"  Background="#FFB5B5B5"   Margin="1,20,0,1" Padding="10,0,10,0" BorderThickness="0" Click="MostImportantTasks_ButtonClick"  />
 
             </Grid>
 
@@ -119,10 +119,10 @@
                     <ColumnDefinition Width="10*"/>
                     <ColumnDefinition Width="10"/>
                 </Grid.ColumnDefinitions>
-            <Button Content="Strona główna" Grid.Column="1" Background="#FFB5B5B5" Margin="1,40,0,1"  Padding="10,0,10,0" Click="AdminMainPageButtonOnclick"/>
-            <Button Content="Zarządzaj protokołąmi"  Grid.Column="3" Background="#FFB5B5B5"  Margin="1,40,0,1" Padding="10,0,10,0" Click="ShowProtocols_ButtonOnclick"/>
-            <Button Content="Zarządzaj użytkownikami" Grid.Column="4" Background="#FFB5B5B5" Margin="1,40,0,1" Padding="10,0,10,0" Click="UserManagement_ButtonOnClick"/>
-            <Button Content="Zarządzaj prośbami"  Grid.Column="5" Background="#FFB5B5B5" Margin="1,40,0,1" Padding="10,0,10,0" Click="UserRequestsButtonOnclick"/>
+            <Button x:Name="MainPage_Button" Content="Strona główna" Grid.Column="1" Background="#FFB5B5B5" Margin="1,40,0,1"  Padding="10,0,10,0" Click="AdminMainPageButtonOnclick"/>
+            <Button x:Name="ShowProtocols_Button" Content="Zarządzaj protokołąmi"  Grid.Column="3" Background="#FFB5B5B5"  Margin="1,40,0,1" Padding="10,0,10,0" Click="ShowProtocols_ButtonOnclick"/>
+            <Button x:Name="UserManagement_Button" Content="Zarządzaj użytkownikami" Grid.Column="4" Background="#FFB5B5B5" Margin="1,40,0,1" Padding="10,0,10,0" Click="UserManagement_ButtonOnClick"/>
+            <Button x:Name="UserRequests_Button" Content="Zarządzaj prośbami"  Grid.Column="5" Background="#FFB5B5B5" Margin="1,40,0,1" Padding="10,0,10,0" Click="UserRequestsButtonOnclick"/>
             <StackPanel Grid.Column="11" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,15,30,0">
                 <Border x:Name="AdminRequestCounter_Border" Visibility="Collapsed" BorderBrush="#FFD00000" Background="#FFD00000" BorderThickness="1" Margin="0,0,10,0"  CornerRadius="30" VerticalAlignment="Center" HorizontalAlignment="Center">
                     <TextBlock x:Name="AdminRequestCounter_TextBlock"  FontSize="18"  Padding="7,0,9,0" TextAlignment="Center" Foreground="AliceBlue"  VerticalAlignment="Center" HorizontalAlignment="Center"/>
