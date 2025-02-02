@@ -4,7 +4,6 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GUI_zaliczenie2025"
-        Icon="C:\Users\Dawid\source\repos\Grzybekk082\GUI_zaliczenie2025\Logo_ServiceDesk.png"
         mc:Ignorable="d"
         Title="Zarządzanie prośbami" Height="370" Width="500" ResizeMode="NoResize">
 

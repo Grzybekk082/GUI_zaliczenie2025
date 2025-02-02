@@ -16,6 +16,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Views\AdminViews\Logo_ServiceDesk.png" />
+    <None Remove="Views\Logo_ServiceDesk.png" />
+    <None Remove="Views\UserViews\Logo_ServiceDesk.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Page Remove="Views\AdminViews\AdministrativeRequests_UserControl.xaml" />
   </ItemGroup>
 
