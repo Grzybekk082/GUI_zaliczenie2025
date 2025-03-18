@@ -1,11 +1,9 @@
 ﻿using GUI_zaliczenie2025.Classes;
-using Mysqlx;
-using Mysqlx.Notice;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+
 
 namespace GUI_zaliczenie2025
 {
@@ -21,13 +19,10 @@ namespace GUI_zaliczenie2025
             InitializeComponent();
             string logoPath = $"{ProgramSupport.ActualyPathReturn()}\\Logo_ServiceDesk.png";
             MyLogo.Source = new BitmapImage(new Uri(logoPath));
-
-
         }
 
         private void Button_Send_Request_Click(object sender, RoutedEventArgs e)
         {
-
             newName = textBoxName.Text;
             newSurename = textBoxSurename.Text;
             newPassword = textBoxPassword.Password;
@@ -83,7 +78,6 @@ namespace GUI_zaliczenie2025
 
             }
 
-
             warningLabel.Foreground = Brushes.Black;
             NewUsersRequests nu = new NewUsersRequests(newName, newSurename, newPassword, newLogin, newPhoneNumber);
             warningLabel.Content = "Prośba o utworzenie konta została wysłana do administratora.";
@@ -92,34 +86,9 @@ namespace GUI_zaliczenie2025
             textBoxName.Text = String.Empty;
             textBoxSurename.Text = String.Empty;
             textBoxPhoneNumber.Text = String.Empty;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         }
 
-
-
-
-
         //AccountAcces ac = new AccountAcces(newName, newSurename, newPassword, newLogin);
-
-
-
-
 
         private void Button_Go_back_Click(object sender, RoutedEventArgs e)
         {
@@ -128,14 +97,3 @@ namespace GUI_zaliczenie2025
         }
     }
 }
-
-
-
-
-
-
-
-
-//        //AccountAcces ac = new AccountAcces(newName, newSurename, newPassword, newLogin);
-//    }
-//}
