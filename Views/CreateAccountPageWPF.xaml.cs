@@ -1,6 +1,9 @@
 ﻿using GUI_zaliczenie2025.Classes;
+using Mysqlx;
+using Mysqlx.Notice;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
@@ -12,6 +15,7 @@ namespace GUI_zaliczenie2025
     public partial class CreateAccountPageWPF : UserControl
     {
         string newName, newSurename, newLogin, newPassword, newPhoneNumber;
+        bool isUpper, isLenght;
         public CreateAccountPageWPF()
         {
             InitializeComponent();
@@ -30,78 +34,92 @@ namespace GUI_zaliczenie2025
             newPhoneNumber = textBoxPhoneNumber.Text;
 
             newLogin = $"{newName}.{newSurename}";
-            ;
+
             if (String.IsNullOrEmpty(newName) || String.IsNullOrEmpty(newSurename) || String.IsNullOrEmpty(newLogin) || String.IsNullOrEmpty(newSurename) || String.IsNullOrEmpty(newPhoneNumber))
             {
                 warningLabel.Foreground = Brushes.IndianRed;
                 warningLabel.Content = "Wszystkie pola muszą być wypełnione";
+                return;
             }
-            else
+
+            newName = char.ToUpper(newName[0]) + newName.Substring(1).ToLower();
+            newSurename = char.ToUpper(newSurename[0]) + newSurename.Substring(1).ToLower();
+
+            if (AccountAcces.IsLoginFree(newLogin))
             {
-                newName = char.ToUpper(newName[0]) + newName.Substring(1).ToLower();
-                newSurename = char.ToUpper(newSurename[0]) + newSurename.Substring(1).ToLower();
+                warningLabel.Content = "Podany login jest zajęty przez istniejącego użytkownika!";
 
-
-                if (AccountAcces.IsLoginFree(newLogin))
-                {
-                    warningLabel.Content = "Podany login jest zajęty przez istniejącego użytkownika!";
-
-                    textBoxPassword.Clear();
-                }
-                else
-                {
-                    if (NewUsersRequests.IsRequestLoginFree(newLogin))
-                    {
-                        warningLabel.Content = "Prośba z podanym loginem już istnieje.";
-                    }
-                    else
-                    {
-                        (bool isUpper, bool isLenght) = AccountAcces.isPasswordReady(newPassword);
-                        if (!isUpper)
-                        {
-                            warningLabel.Foreground = Brushes.IndianRed;
-                            warningLabel.Content = "Hasło musi zawierać przynajmniej jedną dużą literą";
-                        }
-                        else
-                        {
-                            if (!isLenght)
-                            {
-                                warningLabel.Foreground = Brushes.IndianRed;
-                                warningLabel.Content = "Hasło musi składać się przynajmniej z 8 znaków";
-                            }
-                            else
-                            {
-                                if (newPhoneNumber.Length == 9 && int.TryParse(newPhoneNumber, out int phoneNumber) && phoneNumber > 0)
-                                {
-                                    warningLabel.Foreground = Brushes.Black;
-                                    NewUsersRequests nu = new NewUsersRequests(newName, newSurename, newPassword, newLogin, newPhoneNumber);
-                                    warningLabel.Content = "Prośba o utworzenie konta została wysłana do administratora.";
-                                    Thread.Sleep(3000);
-                                    textBoxPassword.Password = String.Empty;
-                                    textBoxName.Text = String.Empty;
-                                    textBoxSurename.Text = String.Empty;
-                                    textBoxPhoneNumber.Text = String.Empty;
-                                }
-                                else
-                                {
-                                    warningLabel.Foreground = Brushes.IndianRed;
-                                    warningLabel.Content = "Numer telefonu musi być liczbą całkowitą oraz zawierać 9 znaków";
-
-                                }
-                            }
-
-                        }
-                    }
-
-
-
-
-
-                    //AccountAcces ac = new AccountAcces(newName, newSurename, newPassword, newLogin);
-                }
+                textBoxPassword.Clear();
+                return;
             }
+
+            if (NewUsersRequests.IsRequestLoginFree(newLogin))
+            {
+                warningLabel.Content = "Prośba z podanym loginem już istnieje.";
+                return;
+            }
+            (bool isUpper, bool isLenght) = AccountAcces.isPasswordReady(newPassword);
+
+            if (!isUpper)
+            {
+                warningLabel.Foreground = Brushes.IndianRed;
+                warningLabel.Content = "Hasło musi zawierać przynajmniej jedną dużą literą";
+                return;
+            }
+
+            if (!isLenght)
+            {
+                warningLabel.Foreground = Brushes.IndianRed;
+                warningLabel.Content = "Hasło musi składać się przynajmniej z 8 znaków";
+                return;
+            }
+
+            if (!(newPhoneNumber.Length == 9 && int.TryParse(newPhoneNumber, out int phoneNumber) && phoneNumber > 0))
+            {
+
+                warningLabel.Foreground = Brushes.IndianRed;
+                warningLabel.Content = "Numer telefonu musi być liczbą całkowitą oraz zawierać 9 znaków";
+                return;
+
+            }
+
+
+            warningLabel.Foreground = Brushes.Black;
+            NewUsersRequests nu = new NewUsersRequests(newName, newSurename, newPassword, newLogin, newPhoneNumber);
+            warningLabel.Content = "Prośba o utworzenie konta została wysłana do administratora.";
+            Thread.Sleep(3000);
+            textBoxPassword.Password = String.Empty;
+            textBoxName.Text = String.Empty;
+            textBoxSurename.Text = String.Empty;
+            textBoxPhoneNumber.Text = String.Empty;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         }
+
+
+
+
+
+        //AccountAcces ac = new AccountAcces(newName, newSurename, newPassword, newLogin);
+
+
+
+
 
         private void Button_Go_back_Click(object sender, RoutedEventArgs e)
         {
@@ -110,3 +128,14 @@ namespace GUI_zaliczenie2025
         }
     }
 }
+
+
+
+
+
+
+
+
+//        //AccountAcces ac = new AccountAcces(newName, newSurename, newPassword, newLogin);
+//    }
+//}

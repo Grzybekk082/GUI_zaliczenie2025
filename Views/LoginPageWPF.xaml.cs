@@ -12,7 +12,10 @@ namespace GUI_zaliczenie2025
     /// </summary>
     public partial class LoginPageWPF : UserControl
     {
-        string login, password, newName, newSurename, newPassword, newLogin;
+        private string _login, _password;
+        public string Login { get => _login; set => _login=value; }
+        public string Password { get => _password; set => _password = value; }
+
         public CurrentPerson CRperson;
         private int WrongDataCounter=0;
         public LoginPageWPF()
@@ -24,13 +27,15 @@ namespace GUI_zaliczenie2025
         private void Button_LogIn_Click(object sender, RoutedEventArgs e)
         {
 
-            login = textBoxLogin.Text;
-            password = textBoxPassword.Text;
 
-            (bool isCorect, bool isAdmin) = AccountAcces.LogIn2(login, password);
+
+            Login = textBoxLogin.Text;
+            Password = textBoxPassword.Text;
+
+            (bool isCorect, bool isAdmin) = AccountAcces.LogIn2(Login, Password);
             if (isCorect)
             {
-                CRperson = new CurrentPerson() { CurrentLogin = login };
+                CRperson = new CurrentPerson() { CurrentLogin = Login };
                 if (isAdmin)
                 {
                     Window window = Window.GetWindow(this);
@@ -51,7 +56,7 @@ namespace GUI_zaliczenie2025
                 }
 
             }
-            if (login == "" || password == "" || !isCorect)
+            if (Login == "" || Password == "" || !isCorect)
             {
                 resultLabel.Foreground = Brushes.Red;
                 resultLabel.Content = $"Błędne dane logowania!\nSpróbuj ponownie.";
