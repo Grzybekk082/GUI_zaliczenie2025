@@ -90,6 +90,7 @@ namespace GUI_zaliczenie2025.Classes
             conn_string.UserID = "root";
             conn_string.Password = "2137";
             conn_string.Database = "servicedeskv2";
+            mySqlQuery = $"SELECT id,brand, model, SerialNumber, Registration_Number, category FROM resources WHERE assignment_technican='{TaskTechnican}';";
             if (showAll)
             {
                 mySqlQuery = $"SELECT id,brand, model, SerialNumber, Registration_Number, category FROM resources;";
@@ -98,10 +99,10 @@ namespace GUI_zaliczenie2025.Classes
             {
                 mySqlQuery = $"SELECT id,brand, model, SerialNumber, Registration_Number, category FROM resources WHERE assignment_technican != '{TaskTechnican}' OR assignment_technican is NULL;";
             }
-            else
-            {
-                mySqlQuery = $"SELECT id,brand, model, SerialNumber, Registration_Number, category FROM resources WHERE assignment_technican='{TaskTechnican}';";
-            }
+            //else
+            //{
+            //    mySqlQuery = $"SELECT id,brand, model, SerialNumber, Registration_Number, category FROM resources WHERE assignment_technican='{TaskTechnican}';";
+            //}
 
             try
             {
