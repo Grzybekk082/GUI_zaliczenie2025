@@ -101,12 +101,11 @@ namespace GUI_zaliczenie2025
                             window.Close();
                             _adminMainPage.Main_Content_Change_Grid.Children.Clear();
                             _adminMainPage.UserRequestsButtonOnclick(_adminMainPage.send, _adminMainPage.argE);
+                            return;
                         }
-                        else
-                        {
-                            MessageBox.Show("Nie znaleziono prośby do usunięcia.", "Błąd", MessageBoxButton.OK,
-                                MessageBoxImage.Warning);
-                        }
+
+                        MessageBox.Show("Nie znaleziono prośby do usunięcia.", "Błąd", MessageBoxButton.OK,
+                                         MessageBoxImage.Warning);
 
                     }
                 }
@@ -163,58 +162,57 @@ namespace GUI_zaliczenie2025
                            new MySqlCommand($"SELECT Imie, Nazwisko, Login, Haslo, Nr_tel FROM user_requests WHERE id='{taskId}';", con))
                     using (var reader = selectCommand.ExecuteReader())
                     {
-                        if (reader.Read())
+                        if (!reader.Read())
                         {
-                            var name = reader["Imie"].ToString();
-                            var surename = reader["Nazwisko"].ToString();
-                            var login = reader["Login"].ToString().ToLower();
-                            var pass = reader["Haslo"].ToString();
-                            var tell = reader["Nr_tel"].ToString();
 
-                            reader.Close();
-                            using (var insertCommand =
-                                   new MySqlCommand(
-                                       $"INSERT INTO _user (name, surname, login, password, permissions, departament, tel) VALUES (@name, @surename, @login, @pass, @permission, @departament, @tell );", con))
-                            {
-                                insertCommand.Parameters.AddWithValue("@name", name);
-                                insertCommand.Parameters.AddWithValue("@surename", surename);
-                                insertCommand.Parameters.AddWithValue("@login", login);
-                                insertCommand.Parameters.AddWithValue("@pass", pass);
-                                insertCommand.Parameters.AddWithValue("@tell", tell);
-                                insertCommand.Parameters.AddWithValue("@permission", userPermission);
-                                insertCommand.Parameters.AddWithValue("@departament", userDepartament);
-
-                                var rowsAffected = insertCommand.ExecuteNonQuery();
-                                if (rowsAffected > 0)
-                                {
-                                    MessageBox.Show("Użytkownik został pomyślnie dodany do bazy danych.", "Sukces",
-                                        MessageBoxButton.OK, MessageBoxImage.Information);
-
-
-
-                                    using (var deleteCommand =
-                                           new MySqlCommand($"DELETE FROM user_requests WHERE id='{taskId}';", con))
-                                    {
-                                        deleteCommand.ExecuteNonQuery();
-                                    }
-
-                                    Window window = this;
-                                    window.Close();
-                                    _adminMainPage.Main_Content_Change_Grid.Children.Clear();
-                                    _adminMainPage.UserRequestsButtonOnclick(_adminMainPage.send, _adminMainPage.argE);
-                                }
-                                else
-                                {
-                                    MessageBox.Show("Nie udało się dodać użytkownika do bazy danych.", "Błąd",
-                                        MessageBoxButton.OK, MessageBoxImage.Error);
-                                }
-                            }
-                        }
-                        else
-                        {
                             MessageBox.Show("Nie znaleziono prośby o podanym ID.", "Błąd", MessageBoxButton.OK,
-                                MessageBoxImage.Error);
+                                             MessageBoxImage.Error);
+                            return;
                         }
+
+                        var name = reader["Imie"].ToString();
+                        var surename = reader["Nazwisko"].ToString();
+                        var login = reader["Login"].ToString().ToLower();
+                        var pass = reader["Haslo"].ToString();
+                        var tell = reader["Nr_tel"].ToString();
+
+                        reader.Close();
+                        using (var insertCommand = new MySqlCommand($"INSERT INTO _user (name, surname, login, password, permissions, departament, tel) VALUES (@name, @surename, @login, @pass, @permission, @departament, @tell );", con))
+                        {
+                            insertCommand.Parameters.AddWithValue("@name", name);
+                            insertCommand.Parameters.AddWithValue("@surename", surename);
+                            insertCommand.Parameters.AddWithValue("@login", login);
+                            insertCommand.Parameters.AddWithValue("@pass", pass);
+                            insertCommand.Parameters.AddWithValue("@tell", tell);
+                            insertCommand.Parameters.AddWithValue("@permission", userPermission);
+                            insertCommand.Parameters.AddWithValue("@departament", userDepartament);
+
+                            var rowsAffected = insertCommand.ExecuteNonQuery();
+                            if (rowsAffected <= 0)
+                            {
+                                MessageBox.Show("Nie udało się dodać użytkownika do bazy danych.", "Błąd",
+                                                 MessageBoxButton.OK, MessageBoxImage.Error);
+                                return;
+                            }
+                            MessageBox.Show("Użytkownik został pomyślnie dodany do bazy danych.", "Sukces",
+                                             MessageBoxButton.OK, MessageBoxImage.Information);
+
+
+
+                            using (var deleteCommand =
+                                   new MySqlCommand($"DELETE FROM user_requests WHERE id='{taskId}';", con))
+                            {
+                                deleteCommand.ExecuteNonQuery();
+                            }
+
+                            Window window = this;
+                            window.Close();
+                            _adminMainPage.Main_Content_Change_Grid.Children.Clear();
+                            _adminMainPage.UserRequestsButtonOnclick(_adminMainPage.send, _adminMainPage.argE);
+
+                        }
+
+
                     }
                 }
             }

@@ -56,25 +56,26 @@ namespace GUI_zaliczenie2025
                     return;
                 }
 
-                if (hit is TextBlock)
+                if (hit is not TextBlock)
                 {
-                    if (DataGridUserRequests.SelectedItem != null)
-                    {
-                        Taskid = null;
-                        var selectedItem = DataGridUserRequests.SelectedItem as Person;
-
-                        string selectedValue = selectedItem.Id;
-                        Taskid += selectedValue;
-
-                        //GridShortSla.Children.Clear();
-                        //GridShortSla.Children.Add(new NewUserRequests_UserControl());
-                        var newUserRequestConfirm_Window = new NewUserRequestConfirm_Window(_adminMainPage); ////
-                        newUserRequestConfirm_Window.ShowDialog();
-                        newUserRequestConfirm_Window.ResizeMode = ResizeMode.NoResize;
-                    }
-
+                    return;
                 }
-                return;
+                if (DataGridUserRequests.SelectedItem != null)
+                {
+                    Taskid = null;
+                    var selectedItem = DataGridUserRequests.SelectedItem as Person;
+
+                    string selectedValue = selectedItem.Id;
+                    Taskid += selectedValue;
+
+                    //GridShortSla.Children.Clear();
+                    //GridShortSla.Children.Add(new NewUserRequests_UserControl());
+                    var newUserRequestConfirm_Window = new NewUserRequestConfirm_Window(_adminMainPage); ////
+                    newUserRequestConfirm_Window.ShowDialog();
+                    newUserRequestConfirm_Window.ResizeMode = ResizeMode.NoResize;
+                }
+
+
             }
         }
     }

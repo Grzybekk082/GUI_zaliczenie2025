@@ -46,23 +46,24 @@ namespace GUI_zaliczenie2025
                     return;
                 }
 
-                if (hit is TextBlock)
+                if (hit is not TextBlock)
                 {
-                    if (DataGridUserManagement.SelectedItem != null)
-                    {
-                        var selectedItem = DataGridUserManagement.SelectedItem as User;
-
-                        var (selectedLogin, selectedValue) = (($"{selectedItem.Name} {selectedItem.Surname}"), selectedItem.Id);
-                        Taskid += selectedValue;
-                        TaskTechnican += selectedLogin;
-
-                        GridUserManagement.Children.Clear();
-                        GridUserManagement.Children.Add(new SelectedUser_UserControl(this));
-                    }
-
-
+                    return;
                 }
-                return;
+                if (DataGridUserManagement.SelectedItem != null)
+                {
+                    var selectedItem = DataGridUserManagement.SelectedItem as User;
+
+                    var (selectedLogin, selectedValue) = (($"{selectedItem.Name} {selectedItem.Surname}"), selectedItem.Id);
+                    Taskid += selectedValue;
+                    TaskTechnican += selectedLogin;
+
+                    GridUserManagement.Children.Clear();
+                    GridUserManagement.Children.Add(new SelectedUser_UserControl(this));
+                }
+
+
+
             }
 
         }

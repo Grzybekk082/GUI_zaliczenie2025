@@ -124,58 +124,55 @@ namespace GUI_zaliczenie2025.Views.Controls
                 ComboBox comboBox = SearchEngine_ComboBox;
 
                 comboBox.Items.Clear();
+                return;
+            }
+            if (_MotherClass == "AdminMainPageWPF" && (queryText == "Id" || queryText == "id"))
+            {
+                if (!IsInputIntReturns.isInt)
+                {
+                    SearchEngine_TextBox.Clear();
+                    warningSearchLabel.Visibility = Visibility.Visible;
+                    warningSearchLabel.Content = IsInputIntReturns.warningText;
+                    return;
+                }
+
+                _CRinstance.Main_Content_Change_Grid.Children.Clear();
+                _CRinstance.Main_Content_Change_Grid.Children.Add(new ShortSlaPageWPF_UserControl(queryText, SearchText));
+                SearchEngine_TextBox.Clear();
+
+                warningSearchLabel.Visibility = Visibility.Hidden;
             }
             else
             {
-                if (_MotherClass == "AdminMainPageWPF" && (queryText == "Id" || queryText == "id" ) )
+                if (_MotherClass == "MostImportantTasksWPF")
                 {
-                    if (IsInputIntReturns.isInt)
-                    {
-                        _CRinstance.Main_Content_Change_Grid.Children.Clear();
-                        _CRinstance.Main_Content_Change_Grid.Children.Add(new ShortSlaPageWPF_UserControl(queryText, SearchText));
-                        SearchEngine_TextBox.Clear();
-
-                        warningSearchLabel.Visibility = Visibility.Hidden;
-                    }
-                    else
-                    {
-                        SearchEngine_TextBox.Clear();
-                        warningSearchLabel.Visibility = Visibility.Visible;
-                        warningSearchLabel.Content = IsInputIntReturns.warningText;
-                    }
+                    SearchingForImportantTasks(queryText, SearchText);
                 }
-                else
+                if (_MotherClass == "AdminMainPageWPF")
                 {
-                    if (_MotherClass == "MostImportantTasksWPF")
-                    {
-                        SearchingForImportantTasks(queryText, SearchText);
-                    }
-                    if (_MotherClass == "AdminMainPageWPF")
-                    {
-                        SearchingForTasks(queryText, SearchText);
-                    }
-                    if (_MotherClass == "UserManagementWPF")
-                    {
-                        SearchingForUser(queryText, SearchText);
-                    }
-                    if (_MotherClass == "UserRequestPageWPF")
-                    {
-                        SearchingForRequests(queryText, SearchText);
-                    }
-                    if (_MotherClass == "ProtocolManagementWPF")
-                    {
-                        SearchingForProtocols(queryText, SearchText);
-                    }
-                    //_CRinstance.Main_Content_Change_Grid.Children.Clear();
-                    //_CRinstance.Main_Content_Change_Grid.Children.Add(new ShortSlaPageWPF_UserControl(queryText, SearchText));
-                    //SearchEngine_TextBox.Clear();
-                    //warningSearchLabel.Visibility = Visibility.Hidden;
+                    SearchingForTasks(queryText, SearchText);
                 }
-
-
-                ///////////////////////////////////////////////
-                /// do dokończenia działanie wyszukiwarki 
+                if (_MotherClass == "UserManagementWPF")
+                {
+                    SearchingForUser(queryText, SearchText);
+                }
+                if (_MotherClass == "UserRequestPageWPF")
+                {
+                    SearchingForRequests(queryText, SearchText);
+                }
+                if (_MotherClass == "ProtocolManagementWPF")
+                {
+                    SearchingForProtocols(queryText, SearchText);
+                }
+                //_CRinstance.Main_Content_Change_Grid.Children.Clear();
+                //_CRinstance.Main_Content_Change_Grid.Children.Add(new ShortSlaPageWPF_UserControl(queryText, SearchText));
+                //SearchEngine_TextBox.Clear();
+                //warningSearchLabel.Visibility = Visibility.Hidden;
             }
+
+
+            ///////////////////////////////////////////////
+            /// do dokończenia działanie wyszukiwarki 
 
         }
 

@@ -30,20 +30,20 @@ namespace GUI_zaliczenie2025.Views
             UsedDevices_DataGrid.ItemsSource = MySqlQueryImplementation.SelectedUserDevicesList_Show(mySqlQuery);
 
             DataContext = Protocol;
-            if (Protocol != null && Protocol.Any())
-            {
-                var enumerator = Protocol.GetEnumerator();
-
-                if (enumerator.MoveNext())
-                {
-                    ProtocolDescription = enumerator.Current.Protocol_Description;
-                    
-                }
-            }
-            else
+            if (!(Protocol != null && Protocol.Any()))
             {
                 Console.WriteLine("Kolekcja jest pusta lub null.");
+                return;
             }
+
+            var enumerator = Protocol.GetEnumerator();
+
+            if (enumerator.MoveNext())
+            {
+                ProtocolDescription = enumerator.Current.Protocol_Description;
+
+            }
+
         }
 
         private void ChangeProtocolDescription(object sender, System.Windows.RoutedEventArgs e)
@@ -78,52 +78,46 @@ namespace GUI_zaliczenie2025.Views
             {
                 MessageBox.Show("Nie wprowadzono zmian.", "Plik bez zmian", MessageBoxButton.OK,
                     MessageBoxImage.Information);
+                return;
             }
-            else
+            if (ProtocolDescriptionChanges.IsNullOrEmpty())
             {
-                if (ProtocolDescriptionChanges.IsNullOrEmpty())
-                {
-                    MessageBox.Show("Protokół nie może być pusty!", "Próba zapisu pustego dokumentu!", MessageBoxButton.OK,
-                        MessageBoxImage.Information);
-                }
-                else
-                {
-                    char[] splitChars = ProtocolDescriptionChanges.ToCharArray();
-                    if (splitChars.Length >= 65534)
-                    {
-                        MessageBox.Show("Przekroczono liczbę dozwolonych znaków opisu protokołu!", "Za długi tekst!", MessageBoxButton.OK,
-                            MessageBoxImage.Information);
-                    }
-                    else
-                    {
-                        try
-                        {
+                MessageBox.Show("Protokół nie może być pusty!", "Próba zapisu pustego dokumentu!", MessageBoxButton.OK,
+                    MessageBoxImage.Information);
+                return;
+            }
+            char[] splitChars = ProtocolDescriptionChanges.ToCharArray();
+            if (splitChars.Length >= 65534)
+            {
+                MessageBox.Show("Przekroczono liczbę dozwolonych znaków opisu protokołu!", "Za długi tekst!", MessageBoxButton.OK,
+                    MessageBoxImage.Information);
+                return;
+            }
+            try
+            {
 
-                            string mySqlQuery = $"UPDATE reports SET Protocol ='{ProtocolDescriptionChanges}' WHERE Id = '{TaskId}'";
+                string mySqlQuery = $"UPDATE reports SET Protocol ='{ProtocolDescriptionChanges}' WHERE Id = '{TaskId}'";
 
-                            MySqlQueryImplementation.GenericMethodTest_Upadate(mySqlQuery);
-                            string mySqlQuery2 = $"SELECT ID_protocol, Protocol, end_date, Id, title, description, location, _user, status, technican, date_of_sla, priorytet, company_name, telephone_number, create_date  FROM reports where Id ='{TaskId}'";
+                MySqlQueryImplementation.GenericMethodTest_Upadate(mySqlQuery);
+                string mySqlQuery2 = $"SELECT ID_protocol, Protocol, end_date, Id, title, description, location, _user, status, technican, date_of_sla, priorytet, company_name, telephone_number, create_date  FROM reports where Id ='{TaskId}'";
 
-                            ProtocolDescription_TextBlock.DataContext = MySqlQueryImplementation.ProtocolsQueryImplementation_Show(mySqlQuery2);
-                            MessageBox.Show("Zmiany zostały zapisane.", "Zmiany zapisane", MessageBoxButton.OK,
-                                MessageBoxImage.Information);
-                            ProtocolDescription = ProtocolDescriptionChanges;
-                            ChangeProtocolDescription_Button.Visibility = Visibility.Visible;
-                            CancelChanges_Button.Visibility = Visibility.Hidden;
-                            ConfirmChanges_Button.Visibility = Visibility.Hidden;
-                            ProtocolDescription_Grid.Children.Clear();
-                            ProtocolDescription_Grid.Children.Add(ProtocolDescription_TextBlock);
-
-                        }
-                        catch (MySqlException ex)
-                        {
-                            MessageBox.Show("Błąd przetwarzania prośby! " + ex, "Błąd przetwarzania!", MessageBoxButton.OK,
-                                MessageBoxImage.Error);
-                        }
-                    }
-                }
+                ProtocolDescription_TextBlock.DataContext = MySqlQueryImplementation.ProtocolsQueryImplementation_Show(mySqlQuery2);
+                MessageBox.Show("Zmiany zostały zapisane.", "Zmiany zapisane", MessageBoxButton.OK,
+                    MessageBoxImage.Information);
+                ProtocolDescription = ProtocolDescriptionChanges;
+                ChangeProtocolDescription_Button.Visibility = Visibility.Visible;
+                CancelChanges_Button.Visibility = Visibility.Hidden;
+                ConfirmChanges_Button.Visibility = Visibility.Hidden;
+                ProtocolDescription_Grid.Children.Clear();
+                ProtocolDescription_Grid.Children.Add(ProtocolDescription_TextBlock);
 
             }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show("Błąd przetwarzania prośby! " + ex, "Błąd przetwarzania!", MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+            }
+
 
         }
 

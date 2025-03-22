@@ -50,49 +50,53 @@ namespace GUI_zaliczenie2025.Views
             Task task = (Task)TasksComboBox.SelectedItem;
 
 
-            if (task != null)
+            if (task == null)
             {
-                string taskId = task.Id;
-                MessageBoxResult result = MessageBox.Show("Zwrócić zlecenie na główną kolejkę?",
-                    "Zwróć zlecenie",
-                    MessageBoxButton.YesNo,
-                    MessageBoxImage.Question,
-                    defaultResult: MessageBoxResult.No);
-                if (result == MessageBoxResult.Yes)
+                return;
+            }
+
+            string taskId = task.Id;
+            MessageBoxResult result = MessageBox.Show("Zwrócić zlecenie na główną kolejkę?",
+                "Zwróć zlecenie",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Question,
+                defaultResult: MessageBoxResult.No);
+
+            if (result != MessageBoxResult.Yes)
+            {
+                return;
+            }
+            try
+            {
+                string mySqlQuery = $"Update reports SET technican = NULL WHERE id = '{taskId}';";
+
+
+                MySqlConnectionStringBuilder conn_string = new MySqlConnectionStringBuilder();
+                conn_string.Server = "localhost";
+                conn_string.Port = 3308;
+                conn_string.UserID = "root";
+                conn_string.Password = "2137";
+                conn_string.Database = "servicedeskv2";
+
+
+                using (MySqlConnection con = new MySqlConnection(conn_string.ToString()))
                 {
-                    try
+                    con.Open();
+
+                    using (MySqlCommand command = new MySqlCommand(mySqlQuery, con))
                     {
-                        string mySqlQuery = $"Update reports SET technican = NULL WHERE id = '{taskId}';";
-
-
-                        MySqlConnectionStringBuilder conn_string = new MySqlConnectionStringBuilder();
-                        conn_string.Server = "localhost";
-                        conn_string.Port = 3308;
-                        conn_string.UserID = "root";
-                        conn_string.Password = "2137";
-                        conn_string.Database = "servicedeskv2";
-
-
-                        using (MySqlConnection con = new MySqlConnection(conn_string.ToString()))
-                        {
-                            con.Open();
-
-                            using (MySqlCommand command = new MySqlCommand(mySqlQuery, con))
-                            {
-                                command.ExecuteNonQuery();
-                            }
-                        }
-                        MessageBox.Show("Zlecenie zostało zwrócone na główną kolejkę", "Zlecenie zwrócone", MessageBoxButton.OK, MessageBoxImage.Information);
-                        TasksComboBox.ItemsSource = UsersManagementOperations.ReturnTasksListObject();
-                        TasksComboBox.Items.Refresh();
-                    }
-                    catch (MySqlException ex)
-                    {
-                        MessageBox.Show($"Wystąpił błąd w przetwarzaniu prośby : {ex}", "Błąd przetwarzania!", MessageBoxButton.OK, MessageBoxImage.Error);
+                        command.ExecuteNonQuery();
                     }
                 }
-
+                MessageBox.Show("Zlecenie zostało zwrócone na główną kolejkę", "Zlecenie zwrócone", MessageBoxButton.OK, MessageBoxImage.Information);
+                TasksComboBox.ItemsSource = UsersManagementOperations.ReturnTasksListObject();
+                TasksComboBox.Items.Refresh();
             }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show($"Wystąpił błąd w przetwarzaniu prośby : {ex}", "Błąd przetwarzania!", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
         }
 
         private void UserDeviceOperation_OnClick(object sender, MouseButtonEventArgs e)
@@ -101,48 +105,51 @@ namespace GUI_zaliczenie2025.Views
             Device device = (Device)DevicesComboBox.SelectedItem;
 
 
-            if (device != null)
+            if (device == null)
             {
-                string deviceId = device.Id;
-                MessageBoxResult result = MessageBox.Show("Zwrócić zlecenie na główną kolejkę?",
-                    "Zwróć zlecenie",
-                    MessageBoxButton.YesNo,
-                    MessageBoxImage.Question,
-                    defaultResult: MessageBoxResult.No);
-                if (result == MessageBoxResult.Yes)
+                return;
+            }
+
+            string deviceId = device.Id;
+            MessageBoxResult result = MessageBox.Show("Zwrócić zlecenie na główną kolejkę?",
+                "Zwróć zlecenie",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Question,
+                defaultResult: MessageBoxResult.No);
+
+            if (result != MessageBoxResult.Yes)
+            {
+                return;
+            }
+            try
+            {
+                string mySqlQuery = $"Update resources SET assignment_technican = NULL WHERE id = '{deviceId}';";
+
+
+                MySqlConnectionStringBuilder conn_string = new MySqlConnectionStringBuilder();
+                conn_string.Server = "localhost";
+                conn_string.Port = 3308;
+                conn_string.UserID = "root";
+                conn_string.Password = "2137";
+                conn_string.Database = "servicedeskv2";
+
+
+                using (MySqlConnection con = new MySqlConnection(conn_string.ToString()))
                 {
-                    try
+                    con.Open();
+
+                    using (MySqlCommand command = new MySqlCommand(mySqlQuery, con))
                     {
-                        string mySqlQuery = $"Update resources SET assignment_technican = NULL WHERE id = '{deviceId}';";
-
-
-                        MySqlConnectionStringBuilder conn_string = new MySqlConnectionStringBuilder();
-                        conn_string.Server = "localhost";
-                        conn_string.Port = 3308;
-                        conn_string.UserID = "root";
-                        conn_string.Password = "2137";
-                        conn_string.Database = "servicedeskv2";
-
-
-                        using (MySqlConnection con = new MySqlConnection(conn_string.ToString()))
-                        {
-                            con.Open();
-
-                            using (MySqlCommand command = new MySqlCommand(mySqlQuery, con))
-                            {
-                                command.ExecuteNonQuery();
-                            }
-                        }
-                        MessageBox.Show("Urządzenie zostało zwrócone na główną kolejkę", "Urządzenie zwrócone", MessageBoxButton.OK, MessageBoxImage.Information);
-                        DevicesComboBox.ItemsSource = UsersManagementOperations.ReturnDevicesListObject(false, false);
-                        DevicesComboBox.Items.Refresh();
-                    }
-                    catch (MySqlException ex)
-                    {
-                        MessageBox.Show($"Wystąpił błąd w przetwarzaniu prośby : {ex}", "Błąd przetwarzania!", MessageBoxButton.OK, MessageBoxImage.Error);
+                        command.ExecuteNonQuery();
                     }
                 }
-
+                MessageBox.Show("Urządzenie zostało zwrócone na główną kolejkę", "Urządzenie zwrócone", MessageBoxButton.OK, MessageBoxImage.Information);
+                DevicesComboBox.ItemsSource = UsersManagementOperations.ReturnDevicesListObject(false, false);
+                DevicesComboBox.Items.Refresh();
+            }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show($"Wystąpił błąd w przetwarzaniu prośby : {ex}", "Błąd przetwarzania!", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
         }

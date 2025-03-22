@@ -75,82 +75,78 @@ namespace GUI_zaliczenie2025.Views.UserViews
 
         private void CreateProtocol_buttonClick(object sender, RoutedEventArgs e)
         {
+            string mySqlQuery;
             if (ProtocolDescription_TextBox.Text.IsNullOrEmpty() || ProtocolDescription_TextBox.Text.Length < 10)
             {
 
                 MessageBox.Show("Opis musi mieć przynajmniej 10 znaków", "Opis nie spełnia wymagań", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
             }
-            else
+
+            if (!IsModified)
             {
-                //try
-                //{
-                if (IsModified)
+
+                 mySqlQuery = $"UPDATE reports SET" +
+                    $" status ='Closed'," +
+                    $"end_date = '{Date.SavedDate}'," +
+                    $"Protocol = '{ProtocolDescription}'" +
+                    $" WHERE ID ='{UserShowSelectedTask_UserControl.TaskId}';";
+                MySqlQueryImplementation.GenericMethodTest_Upadate(mySqlQuery);
+
+                foreach (var device in UsedDevices)
                 {
-                    string mySqlQuery = $"UPDATE reports SET" +
-                                        $" end_date = '{Date.SavedDate}'," +
-                                        $"Protocol = '{ProtocolDescription}'" +
-                                        $" WHERE ID_protocol ='{ProtocolId}';";
-                    MySqlQueryImplementation.GenericMethodTest_Upadate(mySqlQuery);
-
-                    foreach (var device in UsedDevices)
-                    {
-                        string mySqlQuery2 = $"UPDATE resources SET" +
-                                             $" assignment_technican = '{null}'," +
-                                             $"used_for_report='{UserProtocolsAndDevices_UserControl.TaskId}'" +
-                                             $" WHERE id ='{device.Id}';";
-                        MySqlQueryImplementation.GenericMethodTest_Upadate(mySqlQuery2);
-                    }
-
-                    foreach (var device in BaseListOfDevice)
-                    {
-                        string mySqlQuery2 = $"UPDATE resources SET" +
-                                             $" assignment_technican = '{Technican}'," +
-                                             $"used_for_report='{null}'" +
-                                             $" WHERE id ='{device.Id}';";
-                        MySqlQueryImplementation.GenericMethodTest_Upadate(mySqlQuery2);
-                    }
-
-                    MessageBox.Show("Pomyślnie modyfikowano protokół", "Sukces!", MessageBoxButton.OK,
-                            MessageBoxImage.Information);
-                    mySqlQuery = $"SELECT id,brand, model, SerialNumber, Registration_Number, category FROM resources WHERE assignment_technican='{Technican}';";
-
-                    UserProtocolsAndDevices_UserControl.Instance.UserDevices_DataGrid.ItemsSource = MySqlQueryImplementation.SelectedUserDevicesList_Show(mySqlQuery);
-                    UserProtocolsAndDevices_UserControl.Instance.UserDevices_DataGrid.Items.Refresh();
-                }
-                else
-                {
-                    string mySqlQuery = $"UPDATE reports SET" +
-                                        $" status ='Closed'," +
-                                        $"end_date = '{Date.SavedDate}'," +
-                                        $"Protocol = '{ProtocolDescription}'" +
-                                        $" WHERE ID ='{UserShowSelectedTask_UserControl.TaskId}';";
-                    MySqlQueryImplementation.GenericMethodTest_Upadate(mySqlQuery);
-
-                    foreach (var device in UsedDevices)
-                    {
-                        string mySqlQuery2 = $"UPDATE resources SET" +
-                                             $" assignment_technican = NULL," +
-                                             $"used_for_report='{UserShowSelectedTask_UserControl.TaskId}'" +
-                                             $" WHERE id ='{device.Id}';";
-                        MySqlQueryImplementation.GenericMethodTest_Upadate(mySqlQuery2);
-                    }
-
-                    MessageBox.Show("Pomyślnie utworzono protokół", "Sukces!", MessageBoxButton.OK,
-                        MessageBoxImage.Information);
+                    string mySqlQuery2 = $"UPDATE resources SET" +
+                                         $" assignment_technican = NULL," +
+                                         $"used_for_report='{UserShowSelectedTask_UserControl.TaskId}'" +
+                                         $" WHERE id ='{device.Id}';";
+                    MySqlQueryImplementation.GenericMethodTest_Upadate(mySqlQuery2);
                 }
 
-
-                //}
-                //catch (MySqlException ex)
-                //{
-
-                //    MessageBox.Show("Błąd przetwarzania prośby!", "Błąd!", MessageBoxButton.OK,
-                //        MessageBoxImage.Error);
-
-                //}
-
-
+                MessageBox.Show("Pomyślnie utworzono protokół", "Sukces!", MessageBoxButton.OK,
+                    MessageBoxImage.Information);
             }
+             mySqlQuery = $"UPDATE reports SET" +
+                                $" end_date = '{Date.SavedDate}'," +
+                                $"Protocol = '{ProtocolDescription}'" +
+                                $" WHERE ID_protocol ='{ProtocolId}';";
+            MySqlQueryImplementation.GenericMethodTest_Upadate(mySqlQuery);
+
+            foreach (var device in UsedDevices)
+            {
+                string mySqlQuery2 = $"UPDATE resources SET" +
+                                     $" assignment_technican = '{null}'," +
+                                     $"used_for_report='{UserProtocolsAndDevices_UserControl.TaskId}'" +
+                                     $" WHERE id ='{device.Id}';";
+                MySqlQueryImplementation.GenericMethodTest_Upadate(mySqlQuery2);
+            }
+
+            foreach (var device in BaseListOfDevice)
+            {
+                string mySqlQuery2 = $"UPDATE resources SET" +
+                                     $" assignment_technican = '{Technican}'," +
+                                     $"used_for_report='{null}'" +
+                                     $" WHERE id ='{device.Id}';";
+                MySqlQueryImplementation.GenericMethodTest_Upadate(mySqlQuery2);
+            }
+
+            MessageBox.Show("Pomyślnie modyfikowano protokół", "Sukces!", MessageBoxButton.OK,
+                    MessageBoxImage.Information);
+            mySqlQuery = $"SELECT id,brand, model, SerialNumber, Registration_Number, category FROM resources WHERE assignment_technican='{Technican}';";
+
+            UserProtocolsAndDevices_UserControl.Instance.UserDevices_DataGrid.ItemsSource = MySqlQueryImplementation.SelectedUserDevicesList_Show(mySqlQuery);
+            UserProtocolsAndDevices_UserControl.Instance.UserDevices_DataGrid.Items.Refresh();
+
+
+            //}
+            //catch (MySqlException ex)
+            //{
+
+            //    MessageBox.Show("Błąd przetwarzania prośby!", "Błąd!", MessageBoxButton.OK,
+            //        MessageBoxImage.Error);
+
+            //}
+
+
 
 
 
@@ -172,33 +168,36 @@ namespace GUI_zaliczenie2025.Views.UserViews
 
                 if (hit is TextBlock)
                 {
-                    if (UsedDevices_DataGrid.SelectedItem != null)
-                    {
-                        foreach (var device in UsedDevices)
-                        {
-                            if (device == UsedDevices_DataGrid.SelectedItem as Device)
-                            {
-                                MessageBox.Show("To urządzenie zostało już wybrane", "Błąd przypisania",
-                                    MessageBoxButton.OK, MessageBoxImage.Warning);
-                                isSelected = true;
-                            }
-
-                        }
-                        if (isSelected)
-                        {
-                            return;
-                        }
-
-                        UsedDevices.Add(UsedDevices_DataGrid.SelectedItem as Device);
-                        BaseListOfDevice.Remove(UsedDevices_DataGrid.SelectedItem as Device);
-                        UsedDevices_DataGrid.ItemsSource = BaseListOfDevice;
-                        UsedDevices_DataGrid.Items.Refresh();
-                        SelectedUsedDevices_DataGrid.Items.Refresh();
-                        CreateProtocol_Button.IsEnabled = (Date.SavedDate == null || string.IsNullOrEmpty(ProtocolDescription) || ProtocolDescription.Length < 10) ? false : true;
-
-                    }
+                    return;
                 }
-                return;
+
+                if (UsedDevices_DataGrid.SelectedItem == null)
+                {
+                    return;
+                }
+
+                foreach (var device in UsedDevices)
+                {
+                    if (device == UsedDevices_DataGrid.SelectedItem as Device)
+                    {
+                        MessageBox.Show("To urządzenie zostało już wybrane", "Błąd przypisania",
+                            MessageBoxButton.OK, MessageBoxImage.Warning);
+                        isSelected = true;
+                    }
+
+                }
+                if (isSelected)
+                {
+                    return;
+                }
+
+                UsedDevices.Add(UsedDevices_DataGrid.SelectedItem as Device);
+                BaseListOfDevice.Remove(UsedDevices_DataGrid.SelectedItem as Device);
+                UsedDevices_DataGrid.ItemsSource = BaseListOfDevice;
+                UsedDevices_DataGrid.Items.Refresh();
+                SelectedUsedDevices_DataGrid.Items.Refresh();
+                CreateProtocol_Button.IsEnabled = (Date.SavedDate == null || string.IsNullOrEmpty(ProtocolDescription) || ProtocolDescription.Length < 10) ? false : true;
+
             }
 
         }
@@ -216,18 +215,18 @@ namespace GUI_zaliczenie2025.Views.UserViews
                     return;
                 }
 
-                if (hit is TextBlock)
+                if (hit is not TextBlock)
                 {
-                    if (SelectedUsedDevices_DataGrid.SelectedItem != null)
-                    {
-                        UsedDevices.Remove(SelectedUsedDevices_DataGrid.SelectedItem as Device);
-                        BaseListOfDevice.Add(SelectedUsedDevices_DataGrid.SelectedItem as Device);
-                        SelectedUsedDevices_DataGrid.Items.Refresh();
-                        UsedDevices_DataGrid.Items.Refresh();
-                        CreateProtocol_Button.IsEnabled = (Date.SavedDate == null || string.IsNullOrEmpty(ProtocolDescription) || ProtocolDescription.Length < 10) ? false : true;
-                    }
+                    return;
                 }
-                return;
+                if (SelectedUsedDevices_DataGrid.SelectedItem != null)
+                {
+                    UsedDevices.Remove(SelectedUsedDevices_DataGrid.SelectedItem as Device);
+                    BaseListOfDevice.Add(SelectedUsedDevices_DataGrid.SelectedItem as Device);
+                    SelectedUsedDevices_DataGrid.Items.Refresh();
+                    UsedDevices_DataGrid.Items.Refresh();
+                    CreateProtocol_Button.IsEnabled = (Date.SavedDate == null || string.IsNullOrEmpty(ProtocolDescription) || ProtocolDescription.Length < 10) ? false : true;
+                }
             }
 
         }
@@ -239,38 +238,33 @@ namespace GUI_zaliczenie2025.Views.UserViews
             {
                 MessageBox.Show("Nie wybrano daty wykonania zlecenia!", "Brak daty!", MessageBoxButton.OK,
                     MessageBoxImage.Warning);
+                return;
             }
-            else
+            if (!int.TryParse(Hours_TextBox.Text, out Hours) ||
+            !int.TryParse(Minutes_TextBox.Text, out Minutes))
             {
-                if (!int.TryParse(Hours_TextBox.Text, out Hours) ||
-                    !int.TryParse(Minutes_TextBox.Text, out Minutes))
-                {
-                    MessageBox.Show("Podany czas musi być liczbą w realnym przedziale godzinowym!", "Błędny format!",
-                        MessageBoxButton.OK, MessageBoxImage.Warning);
-                }
-                else
-                {
-                    if (Hours > 23 || Hours < 0 || Minutes > 59 || Minutes < 0)
-                    {
-                        MessageBox.Show("Podany czas wykracza poza prawidłowy zakres!", "Błędny zakres czasu!",
-                            MessageBoxButton.OK, MessageBoxImage.Warning);
-                    }
-                    else
-                    {
-
-                        string dateText = ChooseDate_DataPicker.Text;
-                        string[] parts = dateText.Split(new char[] { '.' });
-                        string dataTextReplace = $"{parts[2]}-{parts[1]}-{parts[0]}";
-                        Date.SavedDate = $"{dataTextReplace} {Hours_TextBox.Text}:{Minutes_TextBox.Text}:00";
-
-                        AssumedInformation_TextBlock.DataContext = null;
-                        AssumedInformation_TextBlock.DataContext = Date;
-
-                        AssumedInformation_Grid.Visibility = Visibility.Visible;
-                        CreateProtocol_Button.IsEnabled = (Date.SavedDate == null || string.IsNullOrEmpty(ProtocolDescription) || ProtocolDescription.Length < 10) ? false : true;
-                    }
-                }
+                MessageBox.Show("Podany czas musi być liczbą w realnym przedziale godzinowym!", "Błędny format!",
+                    MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
             }
+            if (Hours > 23 || Hours < 0 || Minutes > 59 || Minutes < 0)
+            {
+                MessageBox.Show("Podany czas wykracza poza prawidłowy zakres!", "Błędny zakres czasu!",
+                    MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            string dateText = ChooseDate_DataPicker.Text;
+            string[] parts = dateText.Split(new char[] { '.' });
+            string dataTextReplace = $"{parts[2]}-{parts[1]}-{parts[0]}";
+            Date.SavedDate = $"{dataTextReplace} {Hours_TextBox.Text}:{Minutes_TextBox.Text}:00";
+
+            AssumedInformation_TextBlock.DataContext = null;
+            AssumedInformation_TextBlock.DataContext = Date;
+
+            AssumedInformation_Grid.Visibility = Visibility.Visible;
+            CreateProtocol_Button.IsEnabled = (Date.SavedDate == null || string.IsNullOrEmpty(ProtocolDescription) || ProtocolDescription.Length < 10) ? false : true;
+
 
         }
 

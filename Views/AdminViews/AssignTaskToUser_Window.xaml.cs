@@ -75,11 +75,11 @@ namespace GUI_zaliczenie2025.Views
             if (isTask)
             {
                 SelectTaskToList(sender, mouseButtonEventArgs);
+                return;
             }
-            else
-            {
-                SelectDeviceToList(sender, mouseButtonEventArgs);
-            }
+            
+            SelectDeviceToList(sender, mouseButtonEventArgs);
+            
         }
 
         //Metoda przypisująca zadanie do użytkownika
@@ -100,19 +100,17 @@ namespace GUI_zaliczenie2025.Views
             if (isOcupated)
             {
                 MessageBox.Show("Task is already selected.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
             }
-            else
+            SelectedTask.Add(AssignTaskContent_DataGrid.SelectedItem as Task);
+
+            if (SelectedTask != null)
             {
-                SelectedTask.Add(AssignTaskContent_DataGrid.SelectedItem as Task);
+                SelectedId.Add(Selected.Id);
 
-                if (SelectedTask != null)
-                {
-                    SelectedId.Add(Selected.Id);
-
-                }
-                SelectedTasksToAssign_DataGrid.ItemsSource = SelectedTask;
-                SelectedTasksToAssign_DataGrid.Items.Refresh();
             }
+            SelectedTasksToAssign_DataGrid.ItemsSource = SelectedTask;
+            SelectedTasksToAssign_DataGrid.Items.Refresh();
         }
 
         //Metoda przypisująca urządzenie do użytkownika
@@ -133,19 +131,18 @@ namespace GUI_zaliczenie2025.Views
             if (isOcupated)
             {
                 MessageBox.Show("Task is already selected.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
             }
-            else
+            SelectedDevice.Add(AssignTaskContent_DataGrid.SelectedItem as Device);
+
+            if (SelectedDevice != null)
             {
-                SelectedDevice.Add(AssignTaskContent_DataGrid.SelectedItem as Device);
+                SelectedId.Add(Selected.Id);
 
-                if (SelectedDevice != null)
-                {
-                    SelectedId.Add(Selected.Id);
-
-                }
-                SelectedTasksToAssign_DataGrid.ItemsSource = SelectedDevice;
-                SelectedTasksToAssign_DataGrid.Items.Refresh();
             }
+            SelectedTasksToAssign_DataGrid.ItemsSource = SelectedDevice;
+            SelectedTasksToAssign_DataGrid.Items.Refresh();
+
         }
         //Metoda rozpoznająca czy usuwa z listy zadanie czy urządzenie
         private void RemoveObject(object sender, MouseButtonEventArgs mouseButtonEventArgs)
@@ -153,11 +150,11 @@ namespace GUI_zaliczenie2025.Views
             if (isTask)
             {
                 RemoveTaskFromList(sender, mouseButtonEventArgs);
+                return;
             }
-            else
-            {
-                RemoveDeviceFromList(sender, mouseButtonEventArgs);
-            }
+
+            RemoveDeviceFromList(sender, mouseButtonEventArgs);
+            
         }
         //Metoda usuwająca zadanie z listy
         private void RemoveTaskFromList(object sender, MouseButtonEventArgs mouseButtonEventArgs)
@@ -205,76 +202,68 @@ namespace GUI_zaliczenie2025.Views
 
                 AssignTaskContent_DataGrid.ItemsSource = ActualTasksOperations.ReturnRequestsListObject(true);
                 AssignTaskContent_DataGrid.Items.Refresh();
-
-
+                return;
             }
-            else
+
+            if (IsUserManagement)
             {
-
-                if (IsUserManagement)
-
+                try
                 {
-                    try
+                    if (SelectedId.IsNullOrEmpty())
                     {
-                        if (SelectedId.IsNullOrEmpty())
-                        {
-                            MessageBox.Show("Do Listy nie dodano żadnego elementu.", "Brak wyboru",
-                                MessageBoxButton.OK, MessageBoxImage.Information);
-                        }
-                        else
-                        {
-                            string mySqlQuery =
-                                $"UPDATE resources SET assignment_technican = '{CurrentInstance.Technican}' WHERE id IN ({string.Join(", ", SelectedId)})";
-                            MySqlQueryImplementation.GenericMethodTest_Upadate(mySqlQuery);
-
-                            mySqlQuery =
-                                $"SELECT id,brand, model, SerialNumber, Registration_Number, category FROM resources WHERE assignment_technican='{CurrentInstance.Technican}';";
-                            UserProtocolsAndDevices_UserControl.Instance.UserDevices_DataGrid.ItemsSource =
-                                MySqlQueryImplementation.SelectedUserDevicesList_Show(mySqlQuery);
-                            UserProtocolsAndDevices_UserControl.Instance.UserDevices_DataGrid.Items.Refresh();
-                            SelectedDevice.Clear();
-                            SelectedId.Clear();
-
-
-                            SelectedTasksToAssign_DataGrid.ItemsSource = SelectedDevice;
-                            SelectedTasksToAssign_DataGrid.Items.Refresh();
-                            MessageBox.Show("Pomyślnie przypisano urządzenie do użytkownika", "Sukces!",
-                                MessageBoxButton.OK, MessageBoxImage.Information);
-                            mySqlQuery =
-                                $"SELECT id,brand, model, SerialNumber, Registration_Number, category FROM resources WHERE assignment_technican is null or assignment_technican ='';";
-
-                            AssignTaskContent_DataGrid.ItemsSource =
-                                MySqlQueryImplementation.SelectedUserDevicesList_Show(mySqlQuery);
-                            AssignTaskContent_DataGrid.Items.Refresh();
-
-                        }
-                    }
-                    catch (SqlException ex)
-                    {
-                        MessageBox.Show($"Błąd przetwarzania prośby : {ex}", "Błąd!",
-                            MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show("Do Listy nie dodano żadnego elementu.", "Brak wyboru",
+                            MessageBoxButton.OK, MessageBoxImage.Information);
+                        return;
                     }
 
+                    string mySqlQuery = $"UPDATE resources SET assignment_technican = '{CurrentInstance.Technican}' WHERE id IN ({string.Join(", ", SelectedId)})";
+                    MySqlQueryImplementation.GenericMethodTest_Upadate(mySqlQuery);
 
-                }
-                else
-                {
-                    UsersManagementOperations.AssignDeviceToUser();
-                    CurrentInstanceOfSelectedUser.DevicesComboBox.ItemsSource = UsersManagementOperations.ReturnDevicesListObject();
-                    CurrentInstanceOfSelectedUser.DevicesComboBox.Items.Refresh();
+                    mySqlQuery =
+                        $"SELECT id,brand, model, SerialNumber, Registration_Number, category FROM resources WHERE assignment_technican='{CurrentInstance.Technican}';";
+                    UserProtocolsAndDevices_UserControl.Instance.UserDevices_DataGrid.ItemsSource =
+                        MySqlQueryImplementation.SelectedUserDevicesList_Show(mySqlQuery);
+                    UserProtocolsAndDevices_UserControl.Instance.UserDevices_DataGrid.Items.Refresh();
                     SelectedDevice.Clear();
                     SelectedId.Clear();
 
+
                     SelectedTasksToAssign_DataGrid.ItemsSource = SelectedDevice;
                     SelectedTasksToAssign_DataGrid.Items.Refresh();
+                    MessageBox.Show("Pomyślnie przypisano urządzenie do użytkownika", "Sukces!",
+                        MessageBoxButton.OK, MessageBoxImage.Information);
+                    mySqlQuery =
+                        $"SELECT id,brand, model, SerialNumber, Registration_Number, category FROM resources WHERE assignment_technican is null or assignment_technican ='';";
 
-                    AssignTaskContent_DataGrid.ItemsSource = UsersManagementOperations.ReturnDevicesListObject(false, true);
+                    AssignTaskContent_DataGrid.ItemsSource =
+                        MySqlQueryImplementation.SelectedUserDevicesList_Show(mySqlQuery);
                     AssignTaskContent_DataGrid.Items.Refresh();
+
+                }
+                catch (SqlException ex)
+                {
+                    MessageBox.Show($"Błąd przetwarzania prośby : {ex}", "Błąd!",
+                        MessageBoxButton.OK, MessageBoxImage.Error);
                 }
 
-
-
+                return;
             }
+            UsersManagementOperations.AssignDeviceToUser();
+            CurrentInstanceOfSelectedUser.DevicesComboBox.ItemsSource = UsersManagementOperations.ReturnDevicesListObject();
+            CurrentInstanceOfSelectedUser.DevicesComboBox.Items.Refresh();
+            SelectedDevice.Clear();
+            SelectedId.Clear();
+
+            SelectedTasksToAssign_DataGrid.ItemsSource = SelectedDevice;
+            SelectedTasksToAssign_DataGrid.Items.Refresh();
+
+            AssignTaskContent_DataGrid.ItemsSource = UsersManagementOperations.ReturnDevicesListObject(false, true);
+            AssignTaskContent_DataGrid.Items.Refresh();
+
+
+
+
+
         }
     }
 }

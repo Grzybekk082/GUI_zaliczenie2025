@@ -42,24 +42,24 @@ namespace GUI_zaliczenie2025.Views.AdminViews
                     return;
                 }
 
-                if (hit is TextBlock)
+                if (hit is not TextBlock)
                 {
-                    if (MostImportantTasks_DataGrid.SelectedItem != null)
-                    {
-                        Taskid = null;
-                        TaskUser = null;
-                        var selectedItem = MostImportantTasks_DataGrid.SelectedItem as Task;
+                    return;
+                }
+                if (MostImportantTasks_DataGrid.SelectedItem != null)
+                {
+                    Taskid = null;
+                    TaskUser = null;
+                    var selectedItem = MostImportantTasks_DataGrid.SelectedItem as Task;
 
-                        Taskid = selectedItem.Id;
-                        TaskUser = selectedItem.Technican;
+                    Taskid = selectedItem.Id;
+                    TaskUser = selectedItem.Technican;
 
-                        AdminMostImportantTask_Grid.Children.Clear();
-                        AdminMostImportantTask_Grid.Children.Add(new TicketsShowUserControlWPF("important"));
-
-                    }
+                    AdminMostImportantTask_Grid.Children.Clear();
+                    AdminMostImportantTask_Grid.Children.Add(new TicketsShowUserControlWPF("important"));
 
                 }
-                return;
+
             }
 
         }

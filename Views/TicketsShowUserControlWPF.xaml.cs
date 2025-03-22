@@ -110,54 +110,57 @@ namespace GUI_zaliczenie2025
                     return;
                 }
 
-                if (hit is TextBlock)
+                if (hit is not TextBlock)
                 {
-                    if (AssignUserToTask_DataGrid.SelectedItem != null)
+                    return;
+                }
+
+                if (AssignUserToTask_DataGrid.SelectedItem == null)
+                {
+                    return;
+                }
+
+                var selectedUserLogin = $"{((AssignUser)AssignUserToTask_DataGrid.SelectedItem).Name} {((AssignUser)AssignUserToTask_DataGrid.SelectedItem).Surname}";
+
+                try
+                {
+
+                    if (selectedUserLogin == ActualTechnican)
                     {
-                        var selectedUserLogin = $"{((AssignUser)AssignUserToTask_DataGrid.SelectedItem).Name} {((AssignUser)AssignUserToTask_DataGrid.SelectedItem).Surname}";
+                        MessageBox.Show("Ten użytkownik jest już przypisany do tego zlecenia!", "Błędny wybór!",
+                            MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
+                    }
+
+                    ActualTechnican = null;
+                    MessageBoxResult result = MessageBox.Show($"Czy przipsać zlecenie do użytkownika {selectedUserLogin}?",
+                        "Przypisz zlecenie",
+                        MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+                    if (result == MessageBoxResult.Yes)
+                    {
                         try
                         {
-
-                            if (selectedUserLogin == ActualTechnican)
-                            {
-
-                                MessageBox.Show("Ten użytkownik jest już przypisany do tego zlecenia!", "Błędny wybór!",
-                                    MessageBoxButton.OK, MessageBoxImage.Error);
-                            }
-                            else
-                            {
-                                ActualTechnican = null;
-                                MessageBoxResult result = MessageBox.Show($"Czy przipsać zlecenie do użytkownika {selectedUserLogin}?",
-                                    "Przypisz zlecenie",
-                                    MessageBoxButton.YesNo, MessageBoxImage.Question);
-                                if (result == MessageBoxResult.Yes)
-                                {
-                                    try
-                                    {
-                                        string mySqlQuery = $"UPDATE reports SET technican ='{selectedUserLogin}' WHERE Id = '{TaskId}';";
-                                        MySqlQueryImplementation.AssignUSerToTaskImplementation_Upadate(mySqlQuery);
-                                        this.DataContext = ReturnSelectedTask();
-                                        ActualTechnican = selectedUserLogin;
-
-                                    }
-                                    catch (MySqlException ex)
-                                    {
-                                        MessageBox.Show($"Wystąpił błąd w przetwarzaniu prośby : {ex}", "Błąd przetwarzania!",
-                                            MessageBoxButton.OK, MessageBoxImage.Error);
-                                    }
-
-                                }
-                            }
-
+                            string mySqlQuery = $"UPDATE reports SET technican ='{selectedUserLogin}' WHERE Id = '{TaskId}';";
+                            MySqlQueryImplementation.AssignUSerToTaskImplementation_Upadate(mySqlQuery);
+                            this.DataContext = ReturnSelectedTask();
+                            ActualTechnican = selectedUserLogin;
 
                         }
                         catch (MySqlException ex)
                         {
-                            MessageBox.Show($"Wystąpił błąd w przetwarzaniu prośby : {ex}", "Błąd przetwarzania!", MessageBoxButton.OK, MessageBoxImage.Error);
+                            MessageBox.Show($"Wystąpił błąd w przetwarzaniu prośby : {ex}", "Błąd przetwarzania!",
+                                MessageBoxButton.OK, MessageBoxImage.Error);
                         }
+
                     }
+
+
                 }
-                return;
+                catch (MySqlException ex)
+                {
+                    MessageBox.Show($"Wystąpił błąd w przetwarzaniu prośby : {ex}", "Błąd przetwarzania!", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
 
 
@@ -173,24 +176,22 @@ namespace GUI_zaliczenie2025
             {
                 MessageBox.Show("Już zostałeś przypisany do tego zlecenia!", "Próba ponownego przypisana",
                     MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
             }
-            else
+
+            try
             {
-                try
-                {
 
 
-                    string mySqlQuery = $"UPDATE reports SET technican ='{technican}' WHERE Id = '{TaskId}';";
-                    MySqlQueryImplementation.GenericMethodTest_Upadate(mySqlQuery);
-                    MessageBox.Show("Pomyślnie przypisano zlecenie", "Sukces", MessageBoxButton.OK,
-                        MessageBoxImage.Information);
-                    this.DataContext = ReturnSelectedTask();
-                }
-                catch (MySqlException ex)
-                {
-                    MessageBox.Show($"Wystąpił błąd w przetwarzaniu prośby : {ex}", "Błąd przetwarzania!", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-
+                string mySqlQuery = $"UPDATE reports SET technican ='{technican}' WHERE Id = '{TaskId}';";
+                MySqlQueryImplementation.GenericMethodTest_Upadate(mySqlQuery);
+                MessageBox.Show("Pomyślnie przypisano zlecenie", "Sukces", MessageBoxButton.OK,
+                    MessageBoxImage.Information);
+                this.DataContext = ReturnSelectedTask();
+            }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show($"Wystąpił błąd w przetwarzaniu prośby : {ex}", "Błąd przetwarzania!", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
         }
